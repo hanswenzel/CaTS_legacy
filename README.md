@@ -1,10 +1,10 @@
 # CaTS
-Example that demonstrates how to use opticks from within Geant4 for the creation and propagation of optical photons. This requires the opticks environment to be set up properly. (for instructions how to install opticks see e.g. https://cdcvs.fnal.gov/redmine/projects/g4gpu/wiki/Installation_on_the_LQ_cluster . At the moment we use the following external packages and versions thereof:  
+Example that demonstrates how to use opticks from within Geant4 for the creation and propagation of optical photons. This requires the opticks environment to be set up properly.  At the moment we use the following external packages and versions thereof:  
 
 - nvidia Optix 6.5
 - nvidia cuda 11.0
-- nvidia driver 450.80.02
-- geant4 10.6.p03  (with minor patch in G4Cerenkov)
+- nvidia driver 460.27.04
+- geant4 10.7.p01 
 - boost 1.71.0
 - xercesc 3.2.2
 - openmesh 6.3
