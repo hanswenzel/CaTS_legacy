@@ -36,8 +36,6 @@ cmake -DCMAKE_BUILD_TYPE=Debug \
   ../CaTS
 
 
-cmake -DCMAKE_BUILD_TYPE=Debug   -DCMAKE_PREFIX_PATH="${LOCAL_BASE}/opticks/externals;${LOCAL_BASE}/opticks"   -DOPTICKS_PREFIX=${LOCAL_BASE}/opticks   -DCMAKE_MODULE_PATH=${OPTICKS_HOME}/cmake/Modules   -DCMAKE_INSTALL_PREFIX=../CaTS-install   -DWITH_GEANT4_UIVIS=off  -DWITH_ROOT=off -DWITH_G4OPTICKS=off ../CaTS
-
 
 
 make install
