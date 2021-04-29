@@ -1,5 +1,12 @@
-# CaTS
-Example that demonstrates how to use opticks from within Geant4 for the creation and propagation of optical photons. This requires the opticks environment to be set up properly.  At the moment we use the following external packages and versions thereof:  
+# CaTS: Calorimeter and Tracker Simulation
+
+CaTS is a flexible and extend-able framework (based on geant4 and ROOT)
+for the simulation of calorimeter and tracking detectors. 
+It also serves as an Example that demonstrates how to use opticks
+from within Geant4 for the creation and propagation of optical photons.
+https://bitbucket.org/simoncblyth/opticks.git.
+This requires the opticks environment to be set up properly.  At the moment we
+use the following external packages and versions thereof:  
 
 - nvidia Optix 6.5
 - nvidia cuda 11.0
