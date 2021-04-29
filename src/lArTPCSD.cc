@@ -103,9 +103,14 @@ G4bool lArTPCSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
             //
             //Fast_Intensity = aMaterialPropertiesTable->GetProperty(kFASTCOMPONENT);
             //Slow_Intensity = aMaterialPropertiesTable->GetProperty(kSLOWCOMPONENT);
-            YieldRatio = aMaterialPropertiesTable->GetConstProperty(kYIELDRATIO); // slowerRatio,
-            FastTimeConstant = aMaterialPropertiesTable->GetConstProperty(kFASTTIMECONSTANT); // TimeConstant,
-            SlowTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSLOWTIMECONSTANT); //slowerTimeConstant,
+            //YieldRatio = aMaterialPropertiesTable->GetConstProperty(kYIELDRATIO); // slowerRatio,
+            //FastTimeConstant = aMaterialPropertiesTable->GetConstProperty(kFASTTIMECONSTANT); // TimeConstant,
+            //SlowTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSLOWTIMECONSTANT); //slowerTimeConstant,
+
+            YieldRatio = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD1)/ aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD2); // slowerRatio,
+            FastTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONTIMECONSTANT1); // TimeConstant,
+            SlowTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONTIMECONSTANT1); //slowerTimeConstant,
+	    
             ScintillationType = Slow;
             //          if (!aMaterialPropertiesTable) return false;
             // 
