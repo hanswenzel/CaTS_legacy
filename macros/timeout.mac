@@ -14,7 +14,7 @@
 /process/inactivate OpAbsorption
 /process/inactivate OpRayleigh
 /process/inactivate OpBoundary
-/process/inactivate OpMieHG
+#/process/inactivate OpMieHG
 /process/optical/rayleigh/verbose 0
 /process/optical/absorption/verbose 0
 /process/optical/boundary/verbose 0

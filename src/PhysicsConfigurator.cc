@@ -95,12 +95,21 @@ G4VModularPhysicsList* PhysicsConfigurator::Construct(G4String physName) {
         G4cout << phys->GetPhysicsTableDirectory() << G4endl;
     }
     G4OpticalPhysics* opticalPhysics = (G4OpticalPhysics*) phys->GetPhysics("Optical");
-    opticalPhysics->Configure(kCerenkov, true);
-    opticalPhysics->Configure(kWLS, true);
-    opticalPhysics->Configure(kScintillation, true);
-    opticalPhysics->Configure(kRayleigh, true);
-    opticalPhysics->Configure(kBoundary, true);
-    opticalPhysics->Configure(kAbsorption, true);
+    G4OpticalParameters::Instance()-> SetProcessActivation("Cerenkov", true);
+    G4OpticalParameters::Instance()-> SetProcessActivation("Scintillation", true);
+    G4OpticalParameters::Instance()-> SetProcessActivation("OpAbsorption", true);
+    G4OpticalParameters::Instance()-> SetProcessActivation("OpRayleigh", true);
+    G4OpticalParameters::Instance()-> SetProcessActivation("OpMieHG", false);
+    G4OpticalParameters::Instance()-> SetProcessActivation("OpWLS", false);
+    G4OpticalParameters::Instance()-> SetProcessActivation("OpWLS2", false);
+	      
+			 
+    //opticalPhysics->Configure(kCerenkov, true);
+    //opticalPhysics->Configure(kWLS, true);
+    //opticalPhysics->Configure(kScintillation, true);
+    //opticalPhysics->Configure(kRayleigh, true);
+    //opticalPhysics->Configure(kBoundary, true);
+    //opticalPhysics->Configure(kAbsorption, true);
     G4OpticalParameters::Instance()->SetCerenkovStackPhotons(false);
     G4OpticalParameters::Instance()->SetScintStackPhotons(false);
     G4OpticalParameters::Instance()->SetScintTrackSecondariesFirst(true); // only relevant if we actually stack and trace the optical photons
