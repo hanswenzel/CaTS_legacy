@@ -32,13 +32,12 @@
             |     |         CaTS is a flexible and extend-able framework 
            /       \        for the simulation of calorimeter and tracking detectors. 
            \       /        https://github.com/hanswenzel/CaTS
-            \__  _/
-              ( (
-               ) )
-              (_(
+            \__  _/         CaTS also serves as an Example that demonstrates how to 
+              ( (           use opticks from within Geant4 for the creation and propagation 
+               ) )          of optical photons. 
+              (_(           (see https://bitbucket.org/simoncblyth/opticks.git). 
 -------------------------------------------------------------------------*/
 // Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html
-
 
 // Geant 4 includes:
 #include "G4HCofThisEvent.hh"

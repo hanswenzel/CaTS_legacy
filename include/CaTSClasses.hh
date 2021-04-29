@@ -22,11 +22,23 @@
 // * use  in  resulting  scientific  publications,  and indicate your *
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
-//
-/// \file persistency/P01/include/ExP01Classes.hh
-/// \brief Declaration of the classes for generating dictionaries
-//
-//
+// 
+/* ------------------------------------------------------------------------
+            |\___/|       
+            )     (    
+           =\     /=
+             )===(
+            /     \         CaTS: Calorimeter and Tracker Simulation
+            |     |         CaTS is a flexible and extend-able framework 
+           /       \        for the simulation of calorimeter and tracking detectors. 
+           \       /        https://github.com/hanswenzel/CaTS
+            \__  _/         CaTS also serves as an Example that demonstrates how to 
+              ( (           use opticks from within Geant4 for the creation and propagation 
+               ) )          of optical photons. 
+              (_(           (see https://bitbucket.org/simoncblyth/opticks.git). 
+-------------------------------------------------------------------------*/
+// Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html
+
 #include "G4VHit.hh"
 #include "lArTPCHit.hh"
 #include "PhotonHit.hh"

@@ -1,16 +1,44 @@
-// -----------------------------------------------------
-//  _    _        _____         _   
-// | |  / \   _ _|_   _|__  ___| |_ 
-// | | / _ \ | '__|| |/ _ \/ __| __|
-// | |/ ___ \| |   | |  __/\__ \ |_ 
-// |_/_/   \_\_|   |_|\___||___/\__|
-//                                  
-// lArTest: A Geant4 application to study and profile  
-//          simulation of physics processes relevant 
-//          to liquid Ar TPCs
 //
-// Author: Hans Wenzel, Fermilab
-// -----------------------------------------------------
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+// 
+/* ------------------------------------------------------------------------
+            |\___/|       
+            )     (    
+           =\     /=
+             )===(
+            /     \         CaTS: Calorimeter and Tracker Simulation
+            |     |         CaTS is a flexible and extend-able framework 
+           /       \        for the simulation of calorimeter and tracking detectors. 
+           \       /        https://github.com/hanswenzel/CaTS
+            \__  _/         CaTS also serves as an Example that demonstrates how to 
+              ( (           use opticks from within Geant4 for the creation and propagation 
+               ) )          of optical photons. (see https://bitbucket.org/simoncblyth/opticks.git). 
+              (_(           (see https://bitbucket.org/simoncblyth/opticks.git). 
+-------------------------------------------------------------------------*/
+// Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html
+
 // Geant4 headers
 #include "G4HCofThisEvent.hh"
 #include "G4Step.hh"
@@ -31,10 +59,14 @@
 #include "G4Opticks.hh"
 #include "TrackInfo.hh"
 #include "OpticksGenstep.h"
+#include "OpticksFlags.hh"
+#include "G4OpticksHit.hh"
 #endif
+
 // project headers
 #include "lArTPCSD.hh"
 #include "ConfigurationManager.hh"
+#include "PhotonSD.hh"
 using namespace std;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -255,6 +287,25 @@ G4bool lArTPCSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
                     MeanNumberOfPhotons1,
                     MeanNumberOfPhotons2
                     );
+        }
+                G4Opticks* g4ok = G4Opticks::Get();
+        G4RunManager* rm = G4RunManager::GetRunManager();
+        const G4Event*event = rm->GetCurrentEvent();
+        G4int eventid = event->GetEventID();
+        G4OpticksHit hit;
+        unsigned num_photons = g4ok->getNumPhotons();
+        if (num_photons > ConfigurationManager::getInstance()->getMaxPhotons()) {
+            g4ok->propagateOpticalPhotons(eventid);
+            G4HCtable* hctable = G4SDManager::GetSDMpointer()->GetHCtable();
+            for (G4int  i = 0; i < hctable->entries(); ++i) {
+                std::string sdn= hctable->GetSDname(i);
+                std::size_t found = sdn.find("Photondetector");
+                if (found != std::string::npos) {
+                    PhotonSD* aSD = (PhotonSD*) G4SDManager::GetSDMpointer()->FindSensitiveDetector(sdn);
+                    aSD->AddOpticksHits();
+                }
+            }
+            g4ok->reset();
         }
     }
 #endif 
