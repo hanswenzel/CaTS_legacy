@@ -53,6 +53,12 @@ export OPTICKS_EMBEDDED_COMMANDLINE_EXTRA="--rngmax 10 --rtx 1"
 time ./CaTS -gdml G4Opticks_50000.gdml -pl 'FTFP_BERT+OPTICAL'  -macro timeout.mac
 
 
+if you don't specify the macro file interactive mode is assumed:
+
+./CaTS -gdml G4Opticks_50000.gdml -pl 'FTFP_BERT+OPTICAL'
+```
+![alt text](https://github.com/hanswenzel/CaTS/blob/master/images/display.png)
+```bash
 to look at the hit collection and make a few histograms:
 
 ./readHits  NewHits_Run0.root histos.root
@@ -74,5 +80,6 @@ Attaching file histos.root as _file0...
 root [1] TBrowser b
 (TBrowser &) Name: Browser Title: ROOT Object Browser
 ```
+
 ![alt text](https://github.com/hanswenzel/CaTS/blob/master/images/position.png)
 
