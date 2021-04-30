@@ -1,4 +1,4 @@
-![alt text](https://github.com/hanswenzel/CaTS/tree/master/images/CaTS.png)
+![alt text](https://github.com/hanswenzel/CaTS/blob/master/images/CaTS.png)
 # CaTS: Calorimeter and Tracker Simulation
 
 CaTS is a flexible and extend-able framework (based on geant4 and ROOT)
@@ -74,6 +74,6 @@ Attaching file histos.root as _file0...
 root [1] TBrowser b
 (TBrowser &) Name: Browser Title: ROOT Object Browser
 
-![alt text](https://github.com/hanswenzel/CaTS/tree/master/images/position.png)
+![alt text](https://github.com/hanswenzel/CaTS/blob/master/images/position.png)
 
 ```
