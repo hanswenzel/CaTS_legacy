@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <df root="/data2/wenzel/gputest1_10.7.ref03/CaTS" name="0">
+    <df root="/data2/wenzel/gputest1_10.7.ref04/CaTS" name="0">
       <df name="gdml">
       </df>
       <df name="grid">
@@ -86,7 +86,7 @@
       <in>readHits.cc</in>
     </df>
   </logicalFolder>
-  <projectmakefile>/data2/wenzel/gputest1_10.7.ref03/CaTS-build/Makefile</projectmakefile>
+  <projectmakefile>/data2/wenzel/gputest1_10.7.ref04/CaTS/Makefile</projectmakefile>
   <confs>
     <conf name="Default" type="0">
       <toolsSet>
@@ -125,7 +125,7 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
         </runcommandpicklist>
         <runcommand>"${OUTPUT_PATH}"</runcommand>
-        <rundir>/data2/wenzel/gputest1_10.7.ref03/CaTS-build</rundir>
+        <rundir>/data2/wenzel/gputest1_10.7.ref04/CaTS-build</rundir>
         <buildfirst>false</buildfirst>
         <terminal-type>0</terminal-type>
         <remove-instrumentation>0</remove-instrumentation>

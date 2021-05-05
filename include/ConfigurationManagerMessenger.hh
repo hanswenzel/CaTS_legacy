@@ -47,6 +47,7 @@ class ConfigurationManager;
 class G4UIdirectory;
 class G4UIcmdWithABool;
 class G4UIcmdWithAString;
+class G4UIcmdWithAnInteger;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 class ConfigurationManagerMessenger : public G4UImessenger {
@@ -65,6 +66,7 @@ private:
 #endif
 #ifdef WITH_G4OPTICKS
     G4UIcmdWithABool* enable_opticksCmd;
+    G4UIcmdWithAnInteger* MaxPhotonsCmd; 
 #endif  
     G4UIcmdWithABool* enable_verboseCmd;
 };

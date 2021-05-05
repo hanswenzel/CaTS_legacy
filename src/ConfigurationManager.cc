@@ -54,7 +54,7 @@ ConfigurationManager::ConfigurationManager() {
 
 #ifdef WITH_ROOT
     HistoFileName = "histograms.root";
-    doAnalysis = true; // by default do analysis
+    doAnalysis = false; // by default don't do analysis
     FileName = "hits";    
     writeHits = true; // by default we write hits
 #endif

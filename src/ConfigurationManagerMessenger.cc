@@ -43,6 +43,7 @@
 #include "G4UIdirectory.hh"
 #include "G4UIcmdWithABool.hh"
 #include "G4UIcmdWithAString.hh"
+#include "G4UIcmdWithAnInteger.hh"
 // project headers
 #include "ConfigurationManagerMessenger.hh"
 #include "ConfigurationManager.hh"
@@ -74,9 +75,9 @@ ConfigurationManagerMessenger::ConfigurationManagerMessenger(ConfigurationManage
     HistoFileNameCmd->AvailableForStates(G4State_Idle);
     //
     doAnalysisCmd = new G4UIcmdWithABool("/CaTS/doAnalysis", this);
-    doAnalysisCmd->SetGuidance("Set flag for writing hits");
-    doAnalysisCmd->SetParameterName("doAnalysis", true);
-    doAnalysisCmd->SetDefaultValue(true);
+    doAnalysisCmd->SetGuidance("Set flag for making some analysis histograms");
+    doAnalysisCmd->SetParameterName("doAnalysis", false);
+    doAnalysisCmd->SetDefaultValue(false);
     doAnalysisCmd->AvailableForStates(G4State_Idle);
 #endif   
 
@@ -87,6 +88,12 @@ ConfigurationManagerMessenger::ConfigurationManagerMessenger(ConfigurationManage
     enable_opticksCmd->SetParameterName("enable_opticks", true);
     enable_opticksCmd->SetDefaultValue(true);
     enable_opticksCmd->AvailableForStates(G4State_Idle);
+    //
+    MaxPhotonsCmd = new G4UIcmdWithAnInteger("/CaTS/MaxPhotons", this);
+    MaxPhotonsCmd->SetGuidance("Maximum number of Photons to collect before calling Opticks");
+    MaxPhotonsCmd->SetParameterName("MaxPhotons", 1000000);
+    MaxPhotonsCmd->SetDefaultValue(1000000);
+    MaxPhotonsCmd->AvailableForStates(G4State_Idle);
 #endif
     //
     enable_verboseCmd = new G4UIcmdWithABool("/CaTS/enable_verbose", this);
@@ -105,10 +112,10 @@ ConfigurationManagerMessenger::~ConfigurationManagerMessenger() {
     delete doAnalysisCmd;
     delete FileNameCmd;
     delete HistoFileNameCmd;
-
 #endif
 #ifdef WITH_G4OPTICKS
     delete enable_opticksCmd;
+    delete MaxPhotonsCmd;
 #endif
     delete enable_verboseCmd;
 }
@@ -124,6 +131,7 @@ void ConfigurationManagerMessenger::SetNewValue(G4UIcommand* command, G4String n
 #endif
 #ifdef WITH_G4OPTICKS
     if (command == enable_opticksCmd) mgr->setEnable_opticks(enable_opticksCmd->GetNewBoolValue(newValue));
+    if (command == MaxPhotonsCmd) mgr->setEnable_opticks(MaxPhotonsCmd->GetNewIntValue(newValue));
 #endif
     if (command == enable_verboseCmd) mgr->setEnable_verbose(enable_verboseCmd->GetNewBoolValue(newValue));
 }

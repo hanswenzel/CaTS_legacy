@@ -41,6 +41,10 @@
 
 #include "StackingAction.hh"
 #include "StackingActionMessenger.hh"
+
+#include "ConfigurationManager.hh"
+
+//
 #include "G4ParticleDefinition.hh"
 #include "G4ParticleTypes.hh"
 #include "G4Track.hh"
@@ -112,14 +116,18 @@ G4ClassificationOfNewTrack StackingAction::ClassifyNewTrack(const G4Track * aTra
     //#ifdef G4ANALYSIS_USE
     //   FillHistos(aTrack);
     //#endif
-    if (aTrack->GetDefinition()->GetParticleName() == "neutron") {
-        auto analysisManager = G4AnalysisManager::Instance();
-        analysisManager->FillH1(0, aTrack->GetKineticEnergy());
+    #ifdef WITH_ROOT
+    if (ConfigurationManager::getInstance()->isdoAnalysis()) {
+        if (aTrack->GetDefinition()->GetParticleName() == "neutron") {
+            auto analysisManager = G4AnalysisManager::Instance();
+            analysisManager->FillH1(0, aTrack->GetKineticEnergy());
+        }
+        if (aTrack->GetDefinition()->GetParticleName() == "proton") {
+            auto analysisManager = G4AnalysisManager::Instance();
+            analysisManager->FillH1(1, aTrack->GetKineticEnergy());
+        }
     }
-    if (aTrack->GetDefinition()->GetParticleName() == "proton") {
-        auto analysisManager = G4AnalysisManager::Instance();
-        analysisManager->FillH1(1, aTrack->GetKineticEnergy());
-    }
+    #endif
     return classification;
 }
 //#ifdef G4ANALYSIS_USE

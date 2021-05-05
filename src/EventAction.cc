@@ -104,7 +104,7 @@ void EventAction::BeginOfEventAction(const G4Event* anEvent) {
 
 void EventAction::EndOfEventAction(const G4Event* event) {
     bool verbose = ConfigurationManager::getInstance()->isEnable_verbose();
-    if (verbose)    G4cout << "end of Event:   " << event->GetEventID() << G4endl;
+    if (verbose) G4cout << "end of Event:   " << event->GetEventID() << G4endl;
     G4HCofThisEvent* HCE = event->GetHCofThisEvent();
     assert(HCE);
 #ifdef WITH_ROOT
@@ -207,7 +207,9 @@ void EventAction::EndOfEventAction(const G4Event* event) {
                 G4cout << "SD type: " << Classname << " unknown" << G4endl;
             }
         }
-        RootIO::GetInstance()->Write(CaTSEvt);
+        if (ConfigurationManager::getInstance()->isWriteHits()) {
+            RootIO::GetInstance()->Write(CaTSEvt);
+        }
         CaTSEvt->Reset();
         delete CaTSEvt;
         // RunAction::getInstance()->getIOTimer()->stop();

@@ -102,9 +102,6 @@
             <property name="FASTCOMPONENT" ref="FASTCOMPONENT0x4b710b0"/>
             <property name="SLOWCOMPONENT" ref="SLOWCOMPONENT0x4b72290"/>
             <property name="REEMISSIONPROB" ref="REEMISSIONPROB0x4b73470"/>
-	                YieldRatio = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD1)/ aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD2); // slowerRatio,
-            FastTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONTIMECONSTANT1); // TimeConstant,
-            SlowTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONTIMECONSTANT1);
             <property name="SCINTILLATIONYIELD1" ref="SY"/>
 	    <property name="SCINTILLATIONYIELD2" ref="SY"/>
             <property name="RESOLUTIONSCALE" ref="RS"/>

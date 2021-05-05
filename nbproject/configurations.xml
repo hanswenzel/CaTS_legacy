@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <df root="/data2/wenzel/gputest1_10.7.ref03/CaTS" name="0">
+    <df root="/data2/wenzel/gputest1_10.7.ref04/CaTS" name="0">
+      <df name="scripts">
+        <in>bench.C</in>
+        <in>plote.C</in>
+        <in>plote_hp.C</in>
+      </df>
       <df name="src">
         <in>ActionInitialization.cc</in>
         <in>CalorimeterHit.cc</in>
@@ -46,16 +51,16 @@
                    displayName="Important Files"
                    projectFiles="false"
                    kind="IMPORTANT_FILES_FOLDER">
-      <itemPath>/data2/wenzel/gputest1_10.7.ref03/CaTS/CMakeLists.txt</itemPath>
-      <itemPath>/data2/wenzel/gputest1_10.7.ref03/CaTS-build/Makefile</itemPath>
-      <itemPath>/data2/wenzel/gputest1_10.7.ref03/CaTS/nbproject/private/launcher.properties</itemPath>
+      <itemPath>/data2/wenzel/gputest1_10.7.ref04/CaTS/CMakeLists.txt</itemPath>
+      <itemPath>/data2/wenzel/gputest1_10.7.ref04/CaTS/Makefile</itemPath>
+      <itemPath>/data2/wenzel/gputest1_10.7.ref04/CaTS/nbproject/private/launcher.properties</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
   <sourceRootList>
-    <Elem>/data2/wenzel/gputest1_10.7.ref03/CaTS</Elem>
+    <Elem>/data2/wenzel/gputest1_10.7.ref04/CaTS</Elem>
   </sourceRootList>
-  <projectmakefile>/data2/wenzel/gputest1_10.7.ref03/CaTS-build/Makefile</projectmakefile>
+  <projectmakefile>/data2/wenzel/gputest1_10.7.ref04/CaTS/Makefile</projectmakefile>
   <confs>
     <conf name="Default" type="0">
       <toolsSet>
@@ -66,63 +71,42 @@
       <flagsDictionary>
         <element flagsID="0" commonFlags="-fPIC -fPIC -std=gnu++14"/>
         <element flagsID="1" commonFlags="-fPIC -std=gnu++14"/>
+        <element flagsID="2" commonFlags="-std=c++14"/>
       </flagsDictionary>
       <codeAssistance>
       </codeAssistance>
       <makefileType>
         <makeTool>
-          <buildCommandWorkingDir>/data2/wenzel/gputest1_10.7.ref03/CaTS-build</buildCommandWorkingDir>
+          <buildCommandWorkingDir>/data2/wenzel/gputest1_10.7.ref04/CaTS-build</buildCommandWorkingDir>
           <buildCommand>${MAKE} -f Makefile -j 8 install</buildCommand>
           <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
           <executablePath></executablePath>
-          <ccTool>
-            <incDir>
-              <pElem>include</pElem>
-              <pElem>../../root_install/include</pElem>
-              <pElem>/home/wenzel/geant4-10-07-ref-03-install/include/Geant4</pElem>
-              <pElem>/usr/include/x86_64-linux-gnu/qt5</pElem>
-              <pElem>/usr/include/x86_64-linux-gnu/qt5/QtCore</pElem>
-              <pElem>/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++</pElem>
-              <pElem>/usr/include/x86_64-linux-gnu/qt5/QtGui</pElem>
-              <pElem>/usr/include/x86_64-linux-gnu/qt5/QtWidgets</pElem>
-              <pElem>/usr/include/x86_64-linux-gnu/qt5/QtOpenGL</pElem>
-              <pElem>/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport</pElem>
-            </incDir>
-            <preprocessorList>
-              <Elem>BOOST_ALL_NO_LIB</Elem>
-              <Elem>BOOST_CHRONO_DYN_LINK</Elem>
-              <Elem>BOOST_TIMER_DYN_LINK</Elem>
-              <Elem>G4INTY_USE_QT</Elem>
-              <Elem>G4INTY_USE_XT</Elem>
-              <Elem>G4LIB_BUILD_DLL</Elem>
-              <Elem>G4UI_USE_QT</Elem>
-              <Elem>G4UI_USE_TCSH</Elem>
-              <Elem>G4VIS_USE_OPENGL</Elem>
-              <Elem>G4VIS_USE_OPENGLQT</Elem>
-              <Elem>G4VIS_USE_OPENGLX</Elem>
-              <Elem>QT_CORE_LIB</Elem>
-              <Elem>QT_GUI_LIB</Elem>
-              <Elem>QT_OPENGL_LIB</Elem>
-              <Elem>QT_PRINTSUPPORT_LIB</Elem>
-              <Elem>QT_WIDGETS_LIB</Elem>
-            </preprocessorList>
-          </ccTool>
         </makeTool>
         <preBuild>
-          <preBuildCommandWorkingDir>/data2/wenzel/gputest1_10.7.ref03/CaTS-build</preBuildCommandWorkingDir>
-          <preBuildCommand>${CMAKE} /usr/local/bin/cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=${IDE_CC} -DCMAKE_CXX_COMPILER=${IDE_CXX} -DCMAKE_C_FLAGS_DEBUG="-g3 -gdwarf-2" -DCMAKE_CXX_FLAGS_DEBUG="-g3 -gdwarf-2" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Debug   -DCMAKE_PREFIX_PATH="/data2/wenzel/gputest1_10.7.ref03/local/opticks/externals;$/data2/wenzel/gputest1_10.7.ref03/local/opticks"   -DOPTICKS_PREFIX=/data2/wenzel/gputest1_10.7.ref03/local/opticks   -DCMAKE_MODULE_PATH=/data2/wenzel/gputest1_10.7.ref03/opticks/cmake/Modules   -DCMAKE_INSTALL_PREFIX=../CaTS-install   ../CaTS</preBuildCommand>
+          <preBuildCommandWorkingDir>../CaTS-build</preBuildCommandWorkingDir>
+          <preBuildCommand>/usr/local/bin/cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=${IDE_CC} -DCMAKE_CXX_COMPILER=${IDE_CXX} -DCMAKE_C_FLAGS_DEBUG="-g3 -gdwarf-2" -DCMAKE_CXX_FLAGS_DEBUG="-g3 -gdwarf-2" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Debug   -DCMAKE_PREFIX_PATH="/data2/wenzel/gputest1_10.7.ref04/local/opticks/externals;$/data2/wenzel/gputest1_10.7.ref04/local/opticks"   -DOPTICKS_PREFIX=/data2/wenzel/gputest1_10.7.ref04/local/opticks   -DCMAKE_MODULE_PATH=/data2/wenzel/gputest1_10.7.ref04/opticks/cmake/Modules   -DCMAKE_INSTALL_PREFIX=../CaTS-install   ../CaTS</preBuildCommand>
         </preBuild>
       </makefileType>
       <item path="../CaTS-build/CaTSClasses.cxx" ex="false" tool="1" flavor2="11">
         <ccTool flags="0">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/CaTS.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/CaTS.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
           <incDir>
+            <pElem>include</pElem>
+            <pElem>../../root_install/include</pElem>
+            <pElem>../geant4-10-07-ref-04-install/include/Geant4</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtCore</pElem>
+            <pElem>/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtGui</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtWidgets</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtOpenGL</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport</pElem>
             <pElem>../local/opticks/include/G4OK</pElem>
             <pElem>../local/opticks/include/CFG4</pElem>
             <pElem>../local/opticks/include/ExtG4</pElem>
@@ -146,10 +130,21 @@
             <pElem>../CaTS-build</pElem>
           </incDir>
           <preprocessorList>
+            <Elem>BOOST_ALL_NO_LIB</Elem>
+            <Elem>BOOST_CHRONO_DYN_LINK</Elem>
             <Elem>BOOST_FILESYSTEM_DYN_LINK</Elem>
             <Elem>BOOST_PROGRAM_OPTIONS_DYN_LINK</Elem>
             <Elem>BOOST_REGEX_DYN_LINK</Elem>
             <Elem>BOOST_SYSTEM_DYN_LINK</Elem>
+            <Elem>BOOST_TIMER_DYN_LINK</Elem>
+            <Elem>G4INTY_USE_QT</Elem>
+            <Elem>G4INTY_USE_XT</Elem>
+            <Elem>G4LIB_BUILD_DLL</Elem>
+            <Elem>G4UI_USE_QT</Elem>
+            <Elem>G4UI_USE_TCSH</Elem>
+            <Elem>G4VIS_USE_OPENGL</Elem>
+            <Elem>G4VIS_USE_OPENGLQT</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
             <Elem>OPTICKS_BRAP</Elem>
             <Elem>OPTICKS_CFG4</Elem>
             <Elem>OPTICKS_CUDARAP</Elem>
@@ -164,219 +159,273 @@
             <Elem>OPTICKS_SYSRAP</Elem>
             <Elem>OPTICKS_THRAP</Elem>
             <Elem>OPTICKS_X4</Elem>
+            <Elem>QT_CORE_LIB</Elem>
+            <Elem>QT_GUI_LIB</Elem>
+            <Elem>QT_OPENGL_LIB</Elem>
+            <Elem>QT_PRINTSUPPORT_LIB</Elem>
+            <Elem>QT_WIDGETS_LIB</Elem>
             <Elem>WITH_BOOST_ASIO</Elem>
             <Elem>WITH_G4OPTICKS</Elem>
             <Elem>WITH_ROOT</Elem>
           </preprocessorList>
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/readHits.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/readHits.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
           <incDir>
+            <pElem>include</pElem>
+            <pElem>../../root_install/include</pElem>
+            <pElem>../geant4-10-07-ref-04-install/include/Geant4</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtCore</pElem>
+            <pElem>/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtGui</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtWidgets</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtOpenGL</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport</pElem>
             <pElem>../CaTS-build</pElem>
           </incDir>
+          <preprocessorList>
+            <Elem>BOOST_ALL_NO_LIB</Elem>
+            <Elem>BOOST_CHRONO_DYN_LINK</Elem>
+            <Elem>BOOST_TIMER_DYN_LINK</Elem>
+            <Elem>G4INTY_USE_QT</Elem>
+            <Elem>G4INTY_USE_XT</Elem>
+            <Elem>G4LIB_BUILD_DLL</Elem>
+            <Elem>G4UI_USE_QT</Elem>
+            <Elem>G4UI_USE_TCSH</Elem>
+            <Elem>G4VIS_USE_OPENGL</Elem>
+            <Elem>G4VIS_USE_OPENGLQT</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
+            <Elem>QT_CORE_LIB</Elem>
+            <Elem>QT_GUI_LIB</Elem>
+            <Elem>QT_OPENGL_LIB</Elem>
+            <Elem>QT_PRINTSUPPORT_LIB</Elem>
+            <Elem>QT_WIDGETS_LIB</Elem>
+          </preprocessorList>
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/ActionInitialization.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/scripts/bench.C"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="2">
+        </ccTool>
+      </item>
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/scripts/plote.C"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="2">
+        </ccTool>
+      </item>
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/scripts/plote_hp.C"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="2">
+        </ccTool>
+      </item>
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/ActionInitialization.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/CalorimeterHit.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/CalorimeterHit.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/CalorimeterSD.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/CalorimeterSD.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/ColorReader.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/ColorReader.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/ConfigurationManager.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/ConfigurationManager.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/ConfigurationManagerMessenger.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/ConfigurationManagerMessenger.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/Ctx.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/Ctx.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/DRCalorimeterHit.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/DRCalorimeterHit.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/DRCalorimeterSD.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/DRCalorimeterSD.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/DetectorConstruction.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/DetectorConstruction.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/Event.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/Event.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/EventAction.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/EventAction.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/InteractionHit.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/InteractionHit.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/InteractionSD.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/InteractionSD.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/PhotonHit.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/PhotonHit.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/PhotonSD.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/PhotonSD.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/PhysicsConfigurator.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/PhysicsConfigurator.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/PrimaryGeneratorAction.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/PrimaryGeneratorAction.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/RadiatorSD.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/RadiatorSD.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/RootIO.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/RootIO.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/RunAction.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/RunAction.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/StackingAction.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/StackingAction.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/StackingActionMessenger.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/StackingActionMessenger.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/SteppingAction.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/SteppingAction.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/TrackerHit.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/TrackerHit.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/TrackerSD.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/TrackerSD.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/TrackingAction.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/TrackingAction.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/lArTPCHit.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/lArTPCHit.cc"
             ex="false"
             tool="1"
             flavor2="11">
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="/data2/wenzel/gputest1_10.7.ref03/CaTS/src/lArTPCSD.cc"
+      <item path="/data2/wenzel/gputest1_10.7.ref04/CaTS/src/lArTPCSD.cc"
             ex="false"
             tool="1"
             flavor2="11">
@@ -386,6 +435,16 @@
       <folder path="0/src">
         <ccTool>
           <incDir>
+            <pElem>include</pElem>
+            <pElem>../../root_install/include</pElem>
+            <pElem>../geant4-10-07-ref-04-install/include/Geant4</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtCore</pElem>
+            <pElem>/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtGui</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtWidgets</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtOpenGL</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport</pElem>
             <pElem>../local/opticks/include/G4OK</pElem>
             <pElem>../local/opticks/include/CFG4</pElem>
             <pElem>../local/opticks/include/ExtG4</pElem>
@@ -409,10 +468,21 @@
             <pElem>../CaTS-build</pElem>
           </incDir>
           <preprocessorList>
+            <Elem>BOOST_ALL_NO_LIB</Elem>
+            <Elem>BOOST_CHRONO_DYN_LINK</Elem>
             <Elem>BOOST_FILESYSTEM_DYN_LINK</Elem>
             <Elem>BOOST_PROGRAM_OPTIONS_DYN_LINK</Elem>
             <Elem>BOOST_REGEX_DYN_LINK</Elem>
             <Elem>BOOST_SYSTEM_DYN_LINK</Elem>
+            <Elem>BOOST_TIMER_DYN_LINK</Elem>
+            <Elem>G4INTY_USE_QT</Elem>
+            <Elem>G4INTY_USE_XT</Elem>
+            <Elem>G4LIB_BUILD_DLL</Elem>
+            <Elem>G4UI_USE_QT</Elem>
+            <Elem>G4UI_USE_TCSH</Elem>
+            <Elem>G4VIS_USE_OPENGL</Elem>
+            <Elem>G4VIS_USE_OPENGLQT</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
             <Elem>OPTICKS_BRAP</Elem>
             <Elem>OPTICKS_CFG4</Elem>
             <Elem>OPTICKS_CUDARAP</Elem>
@@ -427,6 +497,11 @@
             <Elem>OPTICKS_SYSRAP</Elem>
             <Elem>OPTICKS_THRAP</Elem>
             <Elem>OPTICKS_X4</Elem>
+            <Elem>QT_CORE_LIB</Elem>
+            <Elem>QT_GUI_LIB</Elem>
+            <Elem>QT_OPENGL_LIB</Elem>
+            <Elem>QT_PRINTSUPPORT_LIB</Elem>
+            <Elem>QT_WIDGETS_LIB</Elem>
             <Elem>WITH_BOOST_ASIO</Elem>
             <Elem>WITH_G4OPTICKS</Elem>
             <Elem>WITH_ROOT</Elem>
@@ -435,8 +510,36 @@
       </folder>
       <folder path="CaTS-build">
         <ccTool>
+          <incDir>
+            <pElem>include</pElem>
+            <pElem>../../root_install/include</pElem>
+            <pElem>../geant4-10-07-ref-04-install/include/Geant4</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtCore</pElem>
+            <pElem>/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtGui</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtWidgets</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtOpenGL</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport</pElem>
+          </incDir>
           <preprocessorList>
+            <Elem>BOOST_ALL_NO_LIB</Elem>
+            <Elem>BOOST_CHRONO_DYN_LINK</Elem>
+            <Elem>BOOST_TIMER_DYN_LINK</Elem>
             <Elem>CaTSClassesDict_EXPORTS</Elem>
+            <Elem>G4INTY_USE_QT</Elem>
+            <Elem>G4INTY_USE_XT</Elem>
+            <Elem>G4LIB_BUILD_DLL</Elem>
+            <Elem>G4UI_USE_QT</Elem>
+            <Elem>G4UI_USE_TCSH</Elem>
+            <Elem>G4VIS_USE_OPENGL</Elem>
+            <Elem>G4VIS_USE_OPENGLQT</Elem>
+            <Elem>G4VIS_USE_OPENGLX</Elem>
+            <Elem>QT_CORE_LIB</Elem>
+            <Elem>QT_GUI_LIB</Elem>
+            <Elem>QT_OPENGL_LIB</Elem>
+            <Elem>QT_PRINTSUPPORT_LIB</Elem>
+            <Elem>QT_WIDGETS_LIB</Elem>
           </preprocessorList>
         </ccTool>
       </folder>
