@@ -116,7 +116,7 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
             //
             //            Fast_Intensity = aMaterialPropertiesTable->GetProperty(kFASTCOMPONENT);
             //            Slow_Intensity = aMaterialPropertiesTable->GetProperty(kSLOWCOMPONENT);
-            YieldRatio = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD1)/ aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD2); // slowerRatio,
+            YieldRatio = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD1) / aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD2); // slowerRatio,
             FastTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONTIMECONSTANT1); // TimeConstant,
             SlowTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONTIMECONSTANT1); //slowerTimeConstant,
             ScintillationType = Slow;
@@ -185,7 +185,8 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
         }
         tSphotons += Sphotons;
         tCphotons += Cphotons;
-
+        G4cout << "tSphotons:  " << tSphotons <<
+                "   tCphotons:  " << tCphotons << G4endl;
         //   unsigned opticks_photon_offset = 0;
         const G4DynamicParticle* aParticle = aTrack->GetDynamicParticle();
         const G4ParticleDefinition* definition = aParticle->GetDefinition();
@@ -271,8 +272,8 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
         if (num_photons > ConfigurationManager::getInstance()->getMaxPhotons()) {
             g4ok->propagateOpticalPhotons(eventid);
             G4HCtable* hctable = G4SDManager::GetSDMpointer()->GetHCtable();
-            for (G4int  i = 0; i < hctable->entries(); ++i) {
-                std::string sdn= hctable->GetSDname(i);
+            for (G4int i = 0; i < hctable->entries(); ++i) {
+                std::string sdn = hctable->GetSDname(i);
                 std::size_t found = sdn.find("Photondetector");
                 if (found != std::string::npos) {
                     PhotonSD* aSD = (PhotonSD*) G4SDManager::GetSDMpointer()->FindSensitiveDetector(sdn);
