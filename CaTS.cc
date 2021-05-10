@@ -44,6 +44,7 @@
 // project headers:
 #include "ActionInitialization.hh"
 #include "DetectorConstruction.hh"
+#include "OpNoviceDetectorConstruction.hh"
 #include "PhysicsConfigurator.hh"
 #include "ConfigurationManager.hh"
 // Geant4 headers:
@@ -108,6 +109,7 @@ int main(int argc, char** argv) {
     OPTICKS_LOG(argc, argv);
     G4VModularPhysicsList* phys = PhysicsConfigurator::getInstance()->Construct(physicsconf);
     DetectorConstruction* dc = new DetectorConstruction(gdmlfile);
+    //OpNoviceDetectorConstruction* dc = new OpNoviceDetectorConstruction();
     G4RunManager* rm = new G4RunManager();
     rm->SetUserInitialization(dc);
     rm->SetUserInitialization(phys);

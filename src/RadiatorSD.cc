@@ -101,22 +101,24 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
         if (first) {
             aMaterial = aTrack->GetMaterial();
             materialIndex = aMaterial->GetIndex();
-            if (verbose) {
+         //   if (verbose) {
                 G4cout << "RadiatorSD::ProcessHits initializing Material:  "
                         << aMaterial->GetName() << " "
                         << G4endl;
                 G4cout << "RadiatorSD::ProcessHits: Name " << aStep->GetPreStepPoint()->GetPhysicalVolume()->GetLogicalVolume()->GetName() << G4endl;
-            }
+           // }
             aMaterialPropertiesTable = aMaterial->GetMaterialPropertiesTable();
-            if (verbose) {
-                aMaterialPropertiesTable->DumpTable();
-            }
+            //if (verbose) {
+            aMaterialPropertiesTable->DumpTable();
+            //}
             // 
             // properties related to Scintillation
             //
             //            Fast_Intensity = aMaterialPropertiesTable->GetProperty(kFASTCOMPONENT);
             //            Slow_Intensity = aMaterialPropertiesTable->GetProperty(kSLOWCOMPONENT);
-            YieldRatio = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD1) / aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD2); // slowerRatio,
+            //            YieldRatio = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD1) / aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD2); // slowerRatio,
+ //           YieldRatio = aMaterialPropertiesTable->GetConstProperty(kYIELDRATIO);
+            
             FastTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONTIMECONSTANT1); // TimeConstant,
             SlowTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONTIMECONSTANT1); //slowerTimeConstant,
             ScintillationType = Slow;
@@ -185,8 +187,8 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
         }
         tSphotons += Sphotons;
         tCphotons += Cphotons;
-        G4cout << "tSphotons:  " << tSphotons <<
-                "   tCphotons:  " << tCphotons << G4endl;
+        //G4cout << "tSphotons:  " << tSphotons <<
+        //        "   tCphotons:  " << tCphotons << G4endl;
         //   unsigned opticks_photon_offset = 0;
         const G4DynamicParticle* aParticle = aTrack->GetDynamicParticle();
         const G4ParticleDefinition* definition = aParticle->GetDefinition();

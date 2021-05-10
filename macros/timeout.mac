@@ -5,15 +5,15 @@
 # the scintillation process is needed even when we run on GPU but we don't put optical photons on the stack
 #
 /process/activate Scintillation
-/process/optical/scintillation/setStackPhotons false
+/process/optical/scintillation/setStackPhotons true
 #
 # the Cerenkov process is needed even when we run on GPU but we don't put optical photons on the stack
 #
 /process/activate  Cerenkov 
-/process/optical/cerenkov/setStackPhotons false
-/process/inactivate OpAbsorption
-/process/inactivate OpRayleigh
-/process/inactivate OpBoundary
+/process/optical/cerenkov/setStackPhotons true
+#/process/inactivate OpAbsorption
+#/process/inactivate OpRayleigh
+#/process/inactivate OpBoundary
 #/process/inactivate OpMieHG
 /process/optical/rayleigh/verbose 0
 /process/optical/absorption/verbose 0

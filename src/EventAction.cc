@@ -106,7 +106,8 @@ void EventAction::EndOfEventAction(const G4Event* event) {
     bool verbose = ConfigurationManager::getInstance()->isEnable_verbose();
     if (verbose) G4cout << "end of Event:   " << event->GetEventID() << G4endl;
     G4HCofThisEvent* HCE = event->GetHCofThisEvent();
-    assert(HCE);
+    if (HCE == nullptr) return;
+    // assert(HCE);
 #ifdef WITH_ROOT
     Event* CaTSEvt = new Event();
     CaTSEvt->SetEventNr(event->GetEventID());
@@ -212,6 +213,7 @@ void EventAction::EndOfEventAction(const G4Event* event) {
         }
         CaTSEvt->Reset();
         delete CaTSEvt;
+
         // RunAction::getInstance()->getIOTimer()->stop();
     } // end ConfigurationManager::getInstance()->isWriteHits()
 #endif

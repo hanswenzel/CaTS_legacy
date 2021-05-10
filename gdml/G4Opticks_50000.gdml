@@ -70,18 +70,35 @@
         <matrix coldim="2" name="bisMSBTIMECONSTANT0x4b7b8f0" values="-1 1.5 1 1.5"/>
 
         <rotation name="rPMTRotation1"       unit="deg" x="90"    y="270" z="0"/>
-
+        <matrix coldim="2" name="RINDEX0x558eb9360e20" values="2.034e-06 1.3435 2.068e-06 1.344 2.103e-06 1.3445 2.139e-06 1.345 2.177e-06 1.3455 2.216e-06 1.346 2.256e-06 1.3465 2.298e-06 1.347 2.341e-06 1.3475 2.386e-06 1.348 2.433e-06 1.3485 2.481e-06 1.3492 2.532e-06 1.35 2.585e-06 1.3505 2.64e-06 1.351 2.697e-06 1.3518 2.757e-06 1.3522 2.82e-06 1.353 2.885e-06 1.3535 2.954e-06 1.354 3.026e-06 1.3545 3.102e-06 1.355 3.181e-06 1.3555 3.265e-06 1.356 3.353e-06 1.3568 3.446e-06 1.3572 3.545e-06 1.358 3.649e-06 1.3585 3.76e-06 1.359 3.877e-06 1.3595 4.002e-06 1.36 4.136e-06 1.3608"/>
+        <matrix coldim="2" name="GROUPVEL0x558eb9381110" values="2.034e-06 218.243 2.051e-06 218.204 2.0855e-06 218.183 2.121e-06 218.157 2.158e-06 218.246 2.1965e-06 218.204 2.236e-06 218.158 2.277e-06 218.212 2.3195e-06 218.155 2.3635e-06 218.188 2.4095e-06 218.208 2.457e-06 216.507 2.5065e-06 215.846 2.5585e-06 218.128 2.6125e-06 218.11 2.6685e-06 215.856 2.727e-06 218.798 2.7885e-06 215.988 2.8525e-06 218.001 2.9195e-06 218.046 2.99e-06 218.029 3.064e-06 218.046 3.1415e-06 218.01 3.223e-06 218.041 3.309e-06 216.226 3.3995e-06 218.568 3.4955e-06 216.325 3.597e-06 217.945 3.7045e-06 217.962 3.8185e-06 217.941 3.9395e-06 217.951 4.136e-06 216.443"/>
+        <matrix coldim="2" name="ABSLENGTH0x558eb93813d0" values="2.034e-06 3448 2.068e-06 4082 2.103e-06 6329 2.139e-06 9174 2.177e-06 12346 2.216e-06 13889 2.256e-06 15152 2.298e-06 17241 2.341e-06 18868 2.386e-06 20000 2.433e-06 26316 2.481e-06 35714 2.532e-06 45455 2.585e-06 47619 2.64e-06 52632 2.697e-06 52632 2.757e-06 55556 2.82e-06 52632 2.885e-06 52632 2.954e-06 47619 3.026e-06 45455 3.102e-06 41667 3.181e-06 37037 3.265e-06 33333 3.353e-06 30000 3.446e-06 28500 3.545e-06 27000 3.649e-06 24500 3.76e-06 22000 3.877e-06 19500 4.002e-06 17500 4.136e-06 14500"/>
+        <matrix coldim="2" name="SCINTILLATIONCOMPONENT10x558eb93818a0" values="2.034e-06 1 2.068e-06 1 2.103e-06 1 2.139e-06 1 2.177e-06 1 2.216e-06 1 2.256e-06 1 2.298e-06 1 2.341e-06 1 2.386e-06 1 2.433e-06 1 2.481e-06 1 2.532e-06 1 2.585e-06 1 2.64e-06 1 2.697e-06 1 2.757e-06 1 2.82e-06 1 2.885e-06 1 2.954e-06 1 3.026e-06 1 3.102e-06 1 3.181e-06 1 3.265e-06 1 3.353e-06 1 3.446e-06 1 3.545e-06 1 3.649e-06 1 3.76e-06 1 3.877e-06 1 4.002e-06 1 4.136e-06 1"/>
+        <matrix coldim="2" name="SCINTILLATIONCOMPONENT20x558eb9381c70" values="2.034e-06 0.01 2.068e-06 1 2.103e-06 2 2.139e-06 3 2.177e-06 4 2.216e-06 5 2.256e-06 6 2.298e-06 7 2.341e-06 8 2.386e-06 9 2.433e-06 8 2.481e-06 7 2.532e-06 6 2.585e-06 4 2.64e-06 3 2.697e-06 2 2.757e-06 1 2.82e-06 0.01 2.885e-06 1 2.954e-06 2 3.026e-06 3 3.102e-06 4 3.181e-06 5 3.265e-06 6 3.353e-06 7 3.446e-06 8 3.545e-06 9 3.649e-06 8 3.76e-06 7 3.877e-06 6 4.002e-06 5 4.136e-06 4"/>
+        <matrix coldim="1" name="SCINTILLATIONYIELD10x558eb9365120" values="50000"/>
+        <matrix coldim="1" name="SCINTILLATIONYIELD20x558eb9365120" values="500"/>
+        <matrix coldim="1" name="RESOLUTIONSCALE0x558eb9365120" values="1"/>
+        <matrix coldim="1" name="SCINTILLATIONTIMECONSTANT10x558eb9365120" values="1"/>
+        <matrix coldim="1" name="SCINTILLATIONTIMECONSTANT20x558eb9365120" values="10"/>
+        <matrix coldim="1" name="YIELDRATIO0x558eb9365120" values="0.8"/>
     </define>
     <materials>
         <material name="MyWater" >
             <D value="1.40" unit="g/cm3"/>
             <fraction n="1.0000" ref="G4_Ar"/>
-            <property name="RINDEX" ref="WaterRINDEX"/>
-            <property name="SLOWCOMPONENT" ref="SCINT"/>
-            <property name="SCINTILLATIONYIELD" ref="SY" />
-            <property name="RESOLUTIONSCALE" ref="RS" />
-            <property name="SLOWTIMECONSTANT" ref="STC" />
-            <property name="YIELDRATIO" ref="YR" />
+            <property name="RINDEX" ref="RINDEX0x558eb9360e20"/>
+            <property name="GROUPVEL" ref="GROUPVEL0x558eb9381110"/>
+            <property name="ABSLENGTH" ref="ABSLENGTH0x558eb93813d0"/>
+            <property name="SCINTILLATIONCOMPONENT1" ref="SCINTILLATIONCOMPONENT10x558eb93818a0"/>
+            <property name="SCINTILLATIONCOMPONENT2" ref="SCINTILLATIONCOMPONENT20x558eb9381c70"/>
+            <property name="SCINTILLATIONYIELD1" ref="SCINTILLATIONYIELD10x558eb9365120"/>
+            <property name="SCINTILLATIONYIELD2" ref="SCINTILLATIONYIELD20x558eb9365120"/>
+            <property name="RESOLUTIONSCALE" ref="RESOLUTIONSCALE0x558eb9365120"/>
+            <property name="SCINTILLATIONTIMECONSTANT1" ref="SCINTILLATIONTIMECONSTANT10x558eb9365120"/>
+            <property name="SCINTILLATIONTIMECONSTANT2" ref="SCINTILLATIONTIMECONSTANT20x558eb9365120"/>
+            <!--
+        <property name="YIELDRATIO" ref="YIELDRATIO0x558eb9365120"/>
+            -->
         </material>
         <material name="Air">
             <D value="1.290" unit="mg/cm3"/>
@@ -103,7 +120,7 @@
             <property name="SLOWCOMPONENT" ref="SLOWCOMPONENT0x4b72290"/>
             <property name="REEMISSIONPROB" ref="REEMISSIONPROB0x4b73470"/>
             <property name="SCINTILLATIONYIELD1" ref="SY"/>
-	    <property name="SCINTILLATIONYIELD2" ref="SY"/>
+            <property name="SCINTILLATIONYIELD2" ref="SY"/>
             <property name="RESOLUTIONSCALE" ref="RS"/>
             <property name="SCINTILLATIONTIMECONSTANT1" ref="FTC" />
             <property name="SCINTILLATIONTIMECONSTANT2" ref="STC" />
@@ -162,7 +179,7 @@
             <auxiliary auxtype="SensDet" auxvalue="PhotonDetector"/>
         </volume>
         <volume name="Obj">
-            <materialref ref="LS0x4b61c70"/>
+            <materialref ref="MyWater"/>
             <solidref ref="Obj"/>
             <colorref ref="blue"/>
             <auxiliary auxtype="StepLimit" auxvalue="0.4" auxunit="mm"/>
