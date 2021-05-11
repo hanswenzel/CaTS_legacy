@@ -108,19 +108,18 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
                 G4cout << "RadiatorSD::ProcessHits: Name " << aStep->GetPreStepPoint()->GetPhysicalVolume()->GetLogicalVolume()->GetName() << G4endl;
            // }
             aMaterialPropertiesTable = aMaterial->GetMaterialPropertiesTable();
-            //if (verbose) {
+            if (verbose) {
             aMaterialPropertiesTable->DumpTable();
-            //}
+            }
             // 
             // properties related to Scintillation
             //
             //            Fast_Intensity = aMaterialPropertiesTable->GetProperty(kFASTCOMPONENT);
             //            Slow_Intensity = aMaterialPropertiesTable->GetProperty(kSLOWCOMPONENT);
             //            YieldRatio = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD1) / aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD2); // slowerRatio,
- //           YieldRatio = aMaterialPropertiesTable->GetConstProperty(kYIELDRATIO);
-            
-            FastTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONTIMECONSTANT1); // TimeConstant,
-            SlowTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONTIMECONSTANT1); //slowerTimeConstant,
+	    YieldRatio = aMaterialPropertiesTable->GetConstProperty(kYIELDRATIO); // slowerRatio,
+            FastTimeConstant = aMaterialPropertiesTable->GetConstProperty(kFASTTIMECONSTANT); // TimeConstant,
+            SlowTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSLOWTIMECONSTANT); //slowerTimeConstant,
             ScintillationType = Slow;
             //          if (!aMaterialPropertiesTable) return false;
             // 
