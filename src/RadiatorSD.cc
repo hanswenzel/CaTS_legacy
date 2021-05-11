@@ -270,6 +270,7 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
         G4int eventid = event->GetEventID();
         G4OpticksHit hit;
         unsigned num_photons = g4ok->getNumPhotons();
+	//	G4cout <<num_photons<<G4endl;
         if (num_photons > ConfigurationManager::getInstance()->getMaxPhotons()) {
             g4ok->propagateOpticalPhotons(eventid);
             G4HCtable* hctable = G4SDManager::GetSDMpointer()->GetHCtable();
