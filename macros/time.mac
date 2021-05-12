@@ -1,20 +1,15 @@
 /CaTS/enable_verbose false
+#/process/optical/processActivation Scintillation false
 /run/initialize 
-
 #
 # the scintillation process is needed even when we run on GPU but we don't put optical photons on the stack
 #
-/process/activate Scintillation
 /process/optical/scintillation/setStackPhotons false
 #
 # the Cerenkov process is needed even when we run on GPU but we don't put optical photons on the stack
 #
-/process/activate  Cerenkov 
+#/process/activate  Cerenkov 
 /process/optical/cerenkov/setStackPhotons false
-/process/inactivate OpAbsorption
-/process/inactivate OpRayleigh
-/process/inactivate OpBoundary
-/process/inactivate OpMieHG
 /process/optical/rayleigh/verbose 0
 /process/optical/absorption/verbose 0
 /process/optical/boundary/verbose 0

@@ -118,13 +118,14 @@ G4bool lArTPCSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
 #ifdef WITH_G4OPTICKS
     if (ConfigurationManager::getInstance()->isEnable_opticks()) {
         if (first) {
-            aMaterial = aTrack->GetMaterial();
+                        aMaterial = aTrack->GetMaterial();
             materialIndex = aMaterial->GetIndex();
             if (verbose) {
-                G4cout << "lArTPCSD::ProcessHits initializing Material:  "
+                G4cout << "*******************************" << G4endl;
+                G4cout << "RadiatorSD::ProcessHits initializing Material:  "
                         << aMaterial->GetName() << " "
                         << G4endl;
-                G4cout << "lArTPCSD::ProcessHits: Name " << aStep->GetPreStepPoint()->GetPhysicalVolume()->GetLogicalVolume()->GetName() << G4endl;
+                G4cout << "RadiatorSD::ProcessHits: Name " << aStep->GetPreStepPoint()->GetPhysicalVolume()->GetLogicalVolume()->GetName() << G4endl;
             }
             aMaterialPropertiesTable = aMaterial->GetMaterialPropertiesTable();
             if (verbose) {
@@ -133,25 +134,21 @@ G4bool lArTPCSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
             // 
             // properties related to Scintillation
             //
-            //Fast_Intensity = aMaterialPropertiesTable->GetProperty(kFASTCOMPONENT);
-            //Slow_Intensity = aMaterialPropertiesTable->GetProperty(kSLOWCOMPONENT);
-            //YieldRatio = aMaterialPropertiesTable->GetConstProperty(kYIELDRATIO); // slowerRatio,
-            //FastTimeConstant = aMaterialPropertiesTable->GetConstProperty(kFASTTIMECONSTANT); // TimeConstant,
-            //SlowTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSLOWTIMECONSTANT); //slowerTimeConstant,
-
-            YieldRatio = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD1)/ aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD2); // slowerRatio,
+#define REF4 strcmp(G4VERSION_TAG,"$Name: geant4-10-07-ref-04 $")
+#if $REF4 == 0
+            YieldRatio = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD1) / aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD2); // slowerRatio,
             FastTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONTIMECONSTANT1); // TimeConstant,
-            SlowTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONTIMECONSTANT1); //slowerTimeConstant,
-	    
+            SlowTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONTIMECONSTANT2); //slowerTimeConstant,
+#else
+            Fast_Intensity = aMaterialPropertiesTable->GetProperty(kFASTCOMPONENT);
+            Slow_Intensity = aMaterialPropertiesTable->GetProperty(kSLOWCOMPONENT);
+            YieldRatio = aMaterialPropertiesTable->GetConstProperty(kYIELDRATIO);
+#endif            
             ScintillationType = Slow;
-            //          if (!aMaterialPropertiesTable) return false;
             // 
             // properties related to Cerenkov
             //
             Rindex = aMaterialPropertiesTable->GetProperty("RINDEX");
-            //        thePhysicsTable    G4PhysicsTable * GetPhysicsTable() const;
-            //        CerenkovAngleIntegrals = (G4PhysicsOrderedFreeVector*) ((*thePhysicsTable)(materialIndex));
-            //G4PhysicsTable * GetPhysicsTable() const;
             Pmin = Rindex->GetMinLowEdgeEnergy();
             Pmax = Rindex->GetMaxLowEdgeEnergy();
             dp = Pmax - Pmin;

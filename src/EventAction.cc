@@ -119,13 +119,16 @@ void EventAction::EndOfEventAction(const G4Event* event) {
         G4Opticks* g4ok = G4Opticks::Get();
         G4int eventid = event->GetEventID();
         g4ok->propagateOpticalPhotons(eventid);
-        G4HCtable* hctable = G4SDManager::GetSDMpointer()->GetHCtable();
-        for (G4int i = 0; i < hctable->entries(); ++i) {
-            std::string sdn = hctable->GetSDname(i);
-            std::size_t found = sdn.find("Photondetector");
-            if (found != std::string::npos) {
-                PhotonSD* aSD = (PhotonSD*) G4SDManager::GetSDMpointer()->FindSensitiveDetector(sdn);
-                aSD->AddOpticksHits();
+        unsigned num_hits = g4ok->getNumHit();
+        if (num_hits > 0) {
+            G4HCtable* hctable = G4SDManager::GetSDMpointer()->GetHCtable();
+            for (G4int i = 0; i < hctable->entries(); ++i) {
+                std::string sdn = hctable->GetSDname(i);
+                std::size_t found = sdn.find("Photondetector");
+                if (found != std::string::npos) {
+                    PhotonSD* aSD = (PhotonSD*) G4SDManager::GetSDMpointer()->FindSensitiveDetector(sdn);
+                    aSD->AddOpticksHits();
+                }
             }
         }
         g4ok->reset();

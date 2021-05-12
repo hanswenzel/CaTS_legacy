@@ -101,8 +101,8 @@ int main(int argc, char** argv) {
         G4cout << "Usage:  CaTS -pl physicsconfiguration" << G4endl;
         G4cout << G4endl;
     }
-//    G4cout << G4VERSION_TAG << G4endl;
-//    G4cout << G4VERSION_NUMBER << G4endl;
+    //    G4cout << G4VERSION_TAG << G4endl;
+    //    G4cout << G4VERSION_NUMBER << G4endl;
     G4Timer *eventTimer = new G4Timer;
     eventTimer->Start();
 
@@ -133,7 +133,7 @@ int main(int argc, char** argv) {
         //        G4String fileName = argv[2];
         UImanager->ApplyCommand(command + macrofile);
         delete ui;
- //       delete rm;
+        //       delete rm;
     }
 
     eventTimer->Stop();

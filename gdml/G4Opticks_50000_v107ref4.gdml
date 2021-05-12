@@ -16,7 +16,8 @@
         <matrix name="RS"  coldim="1" values="1.0" />
         <matrix name="FTC" coldim="1" values="7.*ns" />
         <matrix name="STC" coldim="1" values="1400.*ns" />
-        <matrix name="YR"  coldim="1" values="0.75" />
+        <matrix name="RY1"  coldim="1" values="0.75" />
+        <matrix name="RY2"  coldim="1" values="0.25" />
         <matrix name="SCINT" coldim="2" values="2.17*eV 0.04
                                                  2.25*eV 0.12 
                                                  2.33*eV 0.27 
@@ -89,10 +90,11 @@
             <property name="RINDEX" ref="RINDEX0x558eb9360e20"/>
             <property name="GROUPVEL" ref="GROUPVEL0x558eb9381110"/>
             <property name="ABSLENGTH" ref="ABSLENGTH0x558eb93813d0"/>
+            <property name="SCINTILLATIONYIELD" ref="SY"/>
+            <property name="SCINTILLATIONYIELD1" ref="RY1"/>
+            <property name="SCINTILLATIONYIELD2" ref="RY2"/>
             <property name="SCINTILLATIONCOMPONENT1" ref="SCINTILLATIONCOMPONENT10x558eb93818a0"/>
             <property name="SCINTILLATIONCOMPONENT2" ref="SCINTILLATIONCOMPONENT20x558eb9381c70"/>
-            <property name="SCINTILLATIONYIELD1" ref="SCINTILLATIONYIELD10x558eb9365120"/>
-            <property name="SCINTILLATIONYIELD2" ref="SCINTILLATIONYIELD20x558eb9365120"/>
             <property name="RESOLUTIONSCALE" ref="RESOLUTIONSCALE0x558eb9365120"/>
             <property name="SCINTILLATIONTIMECONSTANT1" ref="SCINTILLATIONTIMECONSTANT10x558eb9365120"/>
             <property name="SCINTILLATIONTIMECONSTANT2" ref="SCINTILLATIONTIMECONSTANT20x558eb9365120"/>
@@ -119,12 +121,12 @@
             <property name="FASTCOMPONENT" ref="FASTCOMPONENT0x4b710b0"/>
             <property name="SLOWCOMPONENT" ref="SLOWCOMPONENT0x4b72290"/>
             <property name="REEMISSIONPROB" ref="REEMISSIONPROB0x4b73470"/>
-            <property name="SCINTILLATIONYIELD1" ref="SY"/>
-            <property name="SCINTILLATIONYIELD2" ref="SY"/>
+            <property name="SCINTILLATIONYIELD" ref="SY"/>
+            <property name="SCINTILLATIONYIELD1" ref="RY1"/>
+            <property name="SCINTILLATIONYIELD2" ref="RY2"/>
             <property name="RESOLUTIONSCALE" ref="RS"/>
             <property name="SCINTILLATIONTIMECONSTANT1" ref="FTC" />
             <property name="SCINTILLATIONTIMECONSTANT2" ref="STC" />
-            <property name="YIELDRATIO" ref="YR" />
             <property name="GammaFASTTIMECONSTANT" ref="GammaFASTTIMECONSTANT0x4b73a70"/>
             <property name="GammaSLOWTIMECONSTANT" ref="GammaSLOWTIMECONSTANT0x4b73bd0"/>
             <property name="GammaYIELDRATIO" ref="GammaYIELDRATIO0x4b73d20"/>
