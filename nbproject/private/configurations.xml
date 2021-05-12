@@ -24,6 +24,7 @@
         <in>EventAction.hh</in>
         <in>InteractionHit.hh</in>
         <in>InteractionSD.hh</in>
+        <in>OpNoviceDetectorConstruction.hh</in>
         <in>ParticleChange.hh</in>
         <in>PhotonHit.hh</in>
         <in>PhotonSD.hh</in>
@@ -64,6 +65,7 @@
         <in>EventAction.cc</in>
         <in>InteractionHit.cc</in>
         <in>InteractionSD.cc</in>
+        <in>OpNoviceDetectorConstruction.cc</in>
         <in>PhotonHit.cc</in>
         <in>PhotonSD.cc</in>
         <in>PhysicsConfigurator.cc</in>
@@ -111,6 +113,8 @@
         <gdb_interceptlist>
           <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
         </gdb_interceptlist>
+        <gdb_signals>
+        </gdb_signals>
         <gdb_options>
           <DebugOptions>
           </DebugOptions>
@@ -123,9 +127,11 @@
       <runprofile version="9">
         <runcommandpicklist>
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+          <runcommandpicklistitem></runcommandpicklistitem>
+          <runcommandpicklistitem>./CaTS -gdml LArTPC.gdml -pl 'FTFP_BERT+OPTICAL' -macro timenoout.mac</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}"</runcommand>
-        <rundir>/data2/wenzel/gputest1_10.7.ref04/CaTS-build</rundir>
+        <runcommand>./CaTS -gdml LArTPC.gdml -pl 'FTFP_BERT+OPTICAL' -macro timenoout.mac</runcommand>
+        <rundir>/data2/wenzel/gputest1_10.7.ref04/CaTS-install/bin</rundir>
         <buildfirst>false</buildfirst>
         <terminal-type>0</terminal-type>
         <remove-instrumentation>0</remove-instrumentation>
