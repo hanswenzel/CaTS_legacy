@@ -54,7 +54,7 @@ time ./CaTS -g  simpleLArTPC.gdml -pl 'FTFP_BERT+OPTICAL+STEPLIMIT'  -macro time
 
 Only the -g command line variable is mandatory! If you don't specify the macro file interactive mode is assumed:
 
-./CaTS -g impleLArTPC.gdml -pl 'FTFP_BERT+OPTICAL+STEPLIMIT'
+./CaTS -g simpleLArTPC.gdml -pl 'FTFP_BERT+OPTICAL+STEPLIMIT'
 
 if you don't provide the -pl argument the default physics list configuration:
 'FTFP_BERT+OPTICAL+STEPLIMIT'
