@@ -66,11 +66,11 @@ int main(int argc, char** argv) {
     G4String macrofile = "";
     G4UIExecutive* ui = nullptr;
     for (G4int i = 1; i < argc; i = i + 2) {
-        if (G4String(argv[i]) == "-gdml") {
+        if (G4String(argv[i]) == "-g") {
             gdmlfile = argv[i + 1];
         } else if (G4String(argv[i]) == "-pl") {
             physicsconf = G4String(argv[i + 1]);
-        } else if (G4String(argv[i]) == "-macro") {
+        } else if (G4String(argv[i]) == "-m") {
             macrofile = G4String(argv[i + 1]);
         }
     }
@@ -78,14 +78,14 @@ int main(int argc, char** argv) {
         G4cout << "Error! Mandatory input file is not specified!" << G4endl;
         G4cout << G4endl;
         G4cout << G4endl;
-        G4cout << "Usage:  CaTS -gdml intput_gdml_file:mandatory" << G4endl;
+        G4cout << "Usage:  CaTS -g input_gdml_file:mandatory" << G4endl;
         G4cout << G4endl;
         return -1;
     }
     if (physicsconf == "") {
         G4cout << "Warning! no physics configuration specified!" << G4endl;
-        G4cout << "Using default FTFP_BERT" << G4endl;
-        physicsconf = "FTFP_BERT";
+        G4cout << "Using default FTFP_BERT+OPTICAL+STEPLIMIT" << G4endl;
+        physicsconf = "FTFP_BERT+OPTICAL+STEPLIMIT";
         G4cout << G4endl;
         G4cout << G4endl;
         G4cout << "Usage:  CaTS -pl physicsconfiguration" << G4endl;
@@ -101,13 +101,16 @@ int main(int argc, char** argv) {
         G4cout << "Usage:  CaTS -pl physicsconfiguration" << G4endl;
         G4cout << G4endl;
     }
-    //    G4cout << G4VERSION_TAG << G4endl;
-    //    G4cout << G4VERSION_NUMBER << G4endl;
     G4Timer *eventTimer = new G4Timer;
     eventTimer->Start();
 
     OPTICKS_LOG(argc, argv);
     G4VModularPhysicsList* phys = PhysicsConfigurator::getInstance()->Construct(physicsconf);
+    G4String DumpFilename = gdmlfile + "_G4";
+    G4cout << "**********************************************************" << G4endl;
+    G4cout << DumpFilename << G4endl;
+    G4cout << "**********************************************************" << G4endl;
+    ConfigurationManager::getInstance()->setGDMLFileName(DumpFilename);
     DetectorConstruction* dc = new DetectorConstruction(gdmlfile);
     //OpNoviceDetectorConstruction* dc = new OpNoviceDetectorConstruction();
     G4RunManager* rm = new G4RunManager();

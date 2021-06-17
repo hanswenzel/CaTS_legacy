@@ -52,32 +52,20 @@ public:
 
     DetectorConstruction(G4String fname);
     virtual ~DetectorConstruction();
-
-    void PrepareLArTest();
     void ReadGDML();
-
     G4VPhysicalVolume* Construct();
     virtual void ConstructSDandField();
-
-    void SetWorldMaterial(const G4String&);
-    void SetTargetMaterial(const G4String&);
-    void SetMaxStepLength(G4double val);
-
     void UpdateGeometry();
 
 private:
-
     DetectorConstruction & operator=(const DetectorConstruction &right);
     DetectorConstruction(const DetectorConstruction&);
 
     G4String gdmlFile;
-    G4LogicalVolume* logicTarget;
     G4GDMLParser *parser;
     ColorReader* fReader;
     bool verbose;
 };
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo.....
-
 #endif
 

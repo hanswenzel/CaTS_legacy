@@ -54,21 +54,23 @@ class ConfigurationManagerMessenger : public G4UImessenger {
 public:
     ConfigurationManagerMessenger(ConfigurationManager*);
     virtual ~ConfigurationManagerMessenger();
-    void SetNewValue(G4UIcommand*, G4String);
+    virtual void SetNewValue(G4UIcommand*, G4String);
 private:
     ConfigurationManager* mgr;
     G4UIdirectory* testDir;
 #ifdef WITH_ROOT
     G4UIcmdWithABool* writeHitsCmd;
-    G4UIcmdWithABool* doAnalysisCmd; 
+    G4UIcmdWithABool* doAnalysisCmd;
     G4UIcmdWithAString* FileNameCmd;
     G4UIcmdWithAString* HistoFileNameCmd;
 #endif
 #ifdef WITH_G4OPTICKS
     G4UIcmdWithABool* enable_opticksCmd;
-    G4UIcmdWithAnInteger* MaxPhotonsCmd; 
+    G4UIcmdWithAnInteger* MaxPhotonsCmd;
 #endif  
     G4UIcmdWithABool* enable_verboseCmd;
+    G4UIcmdWithABool* dumpgdmlCmd;
+    G4UIcmdWithAString* GDMLFileNameCmd;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

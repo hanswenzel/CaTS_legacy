@@ -18,6 +18,12 @@
 // root [7] rindextable(200,300,10,3);       // refraction index between 200 and 300 nm in nsteps=10 for T=90 K
 // root [8] rayleightable();                 // rayleigh length between 110 and 700 nm in nsteps=100 for T=83.81 K
 // root [9] rayleightable(200,300,10,3);     // rayleigh length between 200 and 300 nm in nsteps=10 for T=90 K
+//
+// scintillation emmission spectrum 
+//root [3] spectrum()
+//root [4] spectrumE()
+
+
 //------------------------------------------------------------------------------------------------------------------
 #include "math.h"
 #include <iostream>
@@ -29,17 +35,25 @@
 #include "TF1.h"
 #include "TMath.h"
 using namespace std;
+//
+const double SY = 50000;  // scintillation yield photons/MeV
+const double RS = 1.0;    // resolution scale 
+const double FTC = 6;     // fast scintillation time constant
+const double STC = 1500.; // slow scintillation time constant
+const double RY1 = 0.75;  // relative yield component 1
+const double RY2 = 0.25;  // relative yield component 2
+//
 const double pi = 3.14159265358979323846;
 const double p3times16 = 16. * pi*pi*pi;
-const double kA = 6.02214129e23; // Avogadro constant
-const double kb = 1.3806488e-16; // boltzmanm constant in cm2 g s-2 K-1
-const double kT = 2.18e-10; // isothermal compressibility in cm^2dyne^-1 where 1 dyne = 1 g·cm/s2
-const double aw = 39.948; // g/mol.
-const double c = 299792458.; // speed of light in m/sec
-const double h = 4.13566743E-15; // Planck constant in eVsec
-const double lambdaUV = 106.6 * 1e-7; // LAr UV Resonance lambda (cm)
-const double lambdaIR = 908.3 * 1e-7; // LAr IR Resonance lambda (cm)
-const double alngth = 66.; // LAr attenuation length in cm at 128 nm
+const double kA = 6.02214129e23;     // Avogadro constant
+const double kb = 1.3806488e-16;     // boltzmanm constant in cm2 g s-2 K-1
+const double kT = 2.18e-10;          // isothermal compressibility in cm^2dyne^-1 where 1 dyne = 1 g·cm/s2
+const double aw = 39.948;            // g/mol.
+const double c = 299792458.;         // speed of light in m/sec
+const double h = 4.13566743E-15;     // Planck constant in eVsec
+const double lambdaUV = 106.6 * 1e-7;// LAr UV Resonance lambda (cm)
+const double lambdaIR = 908.3 * 1e-7;// LAr IR Resonance lambda (cm)
+const double alngth = 66.;           // LAr attenuation length in cm at 128 nm
 // from N. Ishida et al :
 // Nuclear Instruments and Methods in Physics Research Section A: Accelerators,
 // Spectrometers, Detectors and Associated Equipment 384 (23) (1997) 380 - 386.
@@ -76,6 +90,15 @@ const double aIR[4] = {0.00047342, 0.000848595, 0.000846994, 0.0022611};
 const double rho[4] = {0.03549, 0.03513, 0.03481, 0.03449}; // mol/cm3
 double density[4];
 double kbTrhokT[4];
+
+void print() {
+    cout << "     <matrix name = \"RS\"  coldim=\"1\" values=\"" << RS << "\"/>" << endl;
+    cout << "     <matrix name = \"SY\"  coldim=\"1\" values=\"" << SY << "/MeV\" />" << endl;
+    cout << "     <matrix name = \"FTC\" coldim=\"1\" values=\"" << FTC << "*ns\" />" << endl;
+    cout << "     <matrix name = \"STC\" coldim=\"1\" values=\"" << STC << "*ns\" />" << endl;
+    cout << "     <matrix name = \"RY1\" coldim=\"1\" values=\"" << RY1 << "\" />" << endl;
+    cout << "     <matrix name = \"RY2\" coldim=\"1\" values=\"" << RY2 << "\" />" << endl;
+}
 
 void init() {
     for (int i = 0; i < 4; i++) {
@@ -144,7 +167,7 @@ double sellmeierpe_LAr(double x, int index) {
 // emin and emax in nm
 
 void sellmeierLAr(double emin = 110, double emax = 700) {
-    const double minlambda = 110;
+    const double minlambda = 100;
     const double maxlambda = 700;
     if (emin < minlambda || emax > maxlambda) {
         cout << " variables out of range: " << minlambda << " - " << maxlambda << endl;
@@ -278,7 +301,7 @@ void rayleightable(double emin = 110, double emax = 700, int nsteps = 100, int i
     double pe = emax;
     double n = lrayleigh(pe, index);
     double photone = lambdatoe(pe);
-    cout << "     \<matrix name=\"RAYLEIGH\" coldim=\"2\" values=\"" << photone << "*eV " << n << "*cm" << endl;
+    cout << "     <matrix name=\"RAYLEIGH\" coldim=\"2\" values=\"" << photone << "*eV " << n << "*cm" << endl;
     for (int i = 1; i < nsteps - 1; i++) {
         pe = emax - i*stepsize;
         n = lrayleigh(pe, index);
@@ -288,7 +311,7 @@ void rayleightable(double emin = 110, double emax = 700, int nsteps = 100, int i
     pe = emax - (nsteps - 1) * stepsize;
     n = lrayleigh(pe, index);
     photone = lambdatoe(pe);
-    cout << photone << "*eV " << n << "*cm\"/\>" << endl;
+    cout << photone << "*eV " << n << "*cm\"/>" << endl;
 }
 //----------------------------------------------------------------------
 // function prints out the refraction index in the geant 4 gdml format
@@ -297,8 +320,8 @@ void rayleightable(double emin = 110, double emax = 700, int nsteps = 100, int i
 // index of Temperature Array
 // --------------------------------------------------------------------
 
-void rindextable(double emin = 110, double emax = 700, int nsteps = 100, int index = 0) {
-    const double minlambda = 110;
+void rindextable(double emin = 100, double emax = 700, int nsteps = 500, int index = 0) {
+    const double minlambda = 100;
     const double maxlambda = 700;
     if (emin < minlambda || emax > maxlambda) {
         cout << " variables out of range: " << minlambda << " - " << maxlambda << endl;
@@ -308,7 +331,7 @@ void rindextable(double emin = 110, double emax = 700, int nsteps = 100, int ind
     double pe = emax;
     double n = sellmeier_LAr(pe, index);
     double photone = lambdatoe(pe);
-    cout << "     \<matrix name=\"RINDEX\" coldim=\"2\" values=\"" << photone << "*eV " << n << endl;
+    cout << "     <matrix name=\"RINDEX\" coldim=\"2\" values=\"" << photone << "*eV " << n << endl;
     for (int i = 1; i < nsteps - 1; i++) {
         pe = emax - i*stepsize;
         n = sellmeier_LAr(pe, index);
@@ -318,7 +341,7 @@ void rindextable(double emin = 110, double emax = 700, int nsteps = 100, int ind
     pe = emax - (nsteps - 1) * stepsize;
     n = sellmeier_LAr(pe, index);
     photone = lambdatoe(pe);
-    cout << photone << "*eV " << n << "\"/\>" << endl;
+    cout << photone << "*eV " << n << "\"/>" << endl;
 }
 
 void spectrum() {
@@ -338,22 +361,88 @@ void spectrumE() {
     double emin = lambdatoe(160.);
     double emax = lambdatoe(100.);
     double estep = (emax - emin)* 0.01;
-
-    for (int i = 0;i<N;i++) {
-            energy[i] = emin + estep*i;
-            intensity[i] = TMath::Gaus(etolambda(energy[i]), 128, 10,true);
-            cout << energy[i]<< "  "<< intensity[i]<<endl;
-        }
-        TGraph *ve = new TGraph(N, energy, intensity);
-        //ve-> SetTitle("Sinnock et al");
-        ve->SetLineColor(2);
-        ve->SetMarkerColor(2);
-        ve->SetMarkerStyle(22);
-        ve->SetMarkerSize(2);
-        ve->GetXaxis()->SetTitle("Photon energy [eV]");
-        ve->GetYaxis()->SetTitle("Intensity [Arbitrary Units]");
-        ve->SetMinimum(0.);
-        ve->Draw();
-        //TLegend *leg = canvas2->BuildLegend(.7, .65, 0.85, .85);
-        //leg->Draw();
+    for (int i = 0; i < N; i++) {
+        energy[i] = emin + estep*i;
+        intensity[i] = TMath::Gaus(etolambda(energy[i]), 128, 10, true);
     }
+    TGraph *ve = new TGraph(N, energy, intensity);
+    ve->SetLineColor(2);
+    ve->SetMarkerColor(2);
+    ve->SetMarkerStyle(22);
+    ve->SetMarkerSize(2);
+    ve->GetXaxis()->SetTitle("Photon energy [eV]");
+    ve->GetYaxis()->SetTitle("Intensity [Arbitrary Units]");
+    ve->SetMinimum(0.);
+    ve->Draw();
+}
+
+void spectrumtable() {
+    const int N = 100;
+    double energy[N];
+    double intensity[N];
+    double emin = lambdatoe(160.);
+    double emax = lambdatoe(100.);
+    double estep = (emax - emin)* 0.01;
+    cout << " <matrix name=\"SCINTLAR\" coldim=\"2\" values=\"";
+    for (int i = 0; i < N - 1; i++) {
+        cout <<"       "<< emin + estep * i << "*eV " << TMath::Gaus(etolambda(emin + estep * i), 128, 10, true) << endl;
+    }
+    cout << emin + estep * (N - 1) << "*eV " << TMath::Gaus(etolambda(emin + estep * (N - 1)), 128, 10, true) << "\"/>" << endl;
+}
+
+
+
+//----------------------------------------------------------------------
+// function prints out the const rayleigh length in the geant 4 gdml format
+// emin and emax in nm
+// nsteps number of steps
+// index of Temperature Array
+//----------------------------------------------------------------------
+
+void const_rayleightable(double emin = 110, double emax = 700, int nsteps = 100, int index = 0) {
+    const double minlambda = 100;
+    const double maxlambda = 700;
+    if (emin < minlambda || emax > maxlambda) {
+        cout << " variables out of range: " << minlambda << " - " << maxlambda << endl;
+        return;
+    }
+    double stepsize = (emax - emin) / nsteps;
+    double pe = emax;
+    double photone = lambdatoe(pe);
+    cout << "     <matrix name=\"RAYLEIGH\" coldim=\"2\" values=\"" << photone << "*eV 90.0*cm" << endl;
+    for (int i = 1; i < nsteps - 1; i++) {
+        pe = emax - i*stepsize;
+        photone = lambdatoe(pe);
+        cout << photone << "*eV 90.0*cm" << endl;
+    }
+    pe = emax - (nsteps - 1) * stepsize;
+    photone = lambdatoe(pe);
+    cout << photone << "*eV 90.0*cm\"/>" << endl;
+}
+
+//----------------------------------------------------------------------
+// function prints out the const absorbtion length in the geant 4 gdml format
+// emin and emax in nm
+// nsteps number of steps
+//----------------------------------------------------------------------
+
+void const_abslengthtable(double emin = 110, double emax = 700, int nsteps = 100, int index = 0) {
+    const double minlambda = 100;
+    const double maxlambda = 700;
+    if (emin < minlambda || emax > maxlambda) {
+        cout << " variables out of range: " << minlambda << " - " << maxlambda << endl;
+        return;
+    }
+    double stepsize = (emax - emin) / nsteps;
+    double pe = emax;
+    double photone = lambdatoe(pe);
+    cout << "     <matrix name=\"ABSLENGTH\" coldim=\"2\" values=\"" << photone << "*eV 10.0*m" << endl;
+    for (int i = 1; i < nsteps - 1; i++) {
+        pe = emax - i*stepsize;
+        photone = lambdatoe(pe);
+        cout << photone << "*eV 10.0*m" << endl;
+    }
+    pe = emax - (nsteps - 1) * stepsize;
+    photone = lambdatoe(pe);
+    cout << photone << "*eV 10.0*m\"/>" << endl;
+}

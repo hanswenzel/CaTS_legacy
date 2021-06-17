@@ -116,8 +116,7 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
             // 
             // properties related to Scintillation
             //
-#define REF4 strcmp(G4VERSION_TAG,"$Name: geant4-10-07-ref-04 $")
-#if $REF4 == 0
+#if ( G4VERSION_NUMBER >= 1072 )           
             YieldRatio = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD1) / aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD2); // slowerRatio,
             FastTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONTIMECONSTANT1); // TimeConstant,
             SlowTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONTIMECONSTANT2); //slowerTimeConstant,

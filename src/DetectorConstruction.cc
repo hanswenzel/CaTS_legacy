@@ -73,7 +73,8 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 using namespace std;
 
-DetectorConstruction::DetectorConstruction(G4String fname) {
+DetectorConstruction::DetectorConstruction(G4String fname) 
+: G4VUserDetectorConstruction() {
     gdmlFile = fname;
 }
 
@@ -111,6 +112,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
         }
     }
     G4VPhysicalVolume* worldPhysVol = parser->GetWorldVolume();
+    if (ConfigurationManager::getInstance()->isDumpgdml()) parser->Write(ConfigurationManager::getInstance()->getGDMLFileName(), worldPhysVol);
     return worldPhysVol;
 }
 

@@ -1,4 +1,5 @@
 /CaTS/enable_verbose false
+/CaTS/dumpgdml false
 #/process/optical/processActivation Scintillation false
 /run/initialize 
 #

@@ -50,12 +50,17 @@ cmake -DCMAKE_BUILD_TYPE=Debug \
 make install
 cd ../CaTS-install/bin
 export OPTICKS_EMBEDDED_COMMANDLINE_EXTRA="--rngmax 10 --rtx 1"
-time ./CaTS -gdml G4Opticks_50000.gdml -pl 'FTFP_BERT+OPTICAL'  -macro timeout.mac
+time ./CaTS -g  simpleLArTPC.gdml -pl 'FTFP_BERT+OPTICAL+STEPLIMIT'  -macro time.mac
 
 
 if you don't specify the macro file interactive mode is assumed:
 
-./CaTS -gdml G4Opticks_50000.gdml -pl 'FTFP_BERT+OPTICAL'
+./CaTS -gdml G4Opticks_50000.gdml -pl 'FTFP_BERT+OPTICAL+STEPLIMIT'
+
+if you don't provide the -pl argument the default physics list configuration:
+'FTFP_BERT+OPTICAL+STEPLIMIT'
+is used
+
 ```
 ![alt text](https://github.com/hanswenzel/CaTS/blob/master/images/display.png)
 ```bash

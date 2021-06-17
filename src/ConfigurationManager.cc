@@ -63,6 +63,8 @@ ConfigurationManager::ConfigurationManager() {
     MaxPhotons = 1000000;
 #endif 
     enable_verbose = false; // by default we run quiet 
+    dumpgdml = false; // by default we don't write out Detector to gdml file
+    GDMLFileName="dump.gdml_G4";
 }
 ConfigurationManager* ConfigurationManager::getInstance() {
     if (instance == 0) instance = new ConfigurationManager;

@@ -101,6 +101,18 @@ ConfigurationManagerMessenger::ConfigurationManagerMessenger(ConfigurationManage
     enable_verboseCmd->SetParameterName("enable_verbose", false);
     enable_verboseCmd->SetDefaultValue(false);
     enable_verboseCmd->AvailableForStates(G4State_PreInit, G4State_Init, G4State_Idle);
+
+    dumpgdmlCmd = new G4UIcmdWithABool("/CaTS/dumpgdml", this);
+    dumpgdmlCmd->SetGuidance("Set flag for enabling dumping the detector to a gdml file");
+    dumpgdmlCmd->SetParameterName("dumpgdml", false);
+    dumpgdmlCmd->SetDefaultValue(false);
+    dumpgdmlCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
+
+    GDMLFileNameCmd = new G4UIcmdWithAString("/CaTS/GDMLFileName", this);
+    GDMLFileNameCmd->SetGuidance("Enter file name for Hits collections ");
+    GDMLFileNameCmd->SetParameterName("GDMLFileName", true);
+    GDMLFileNameCmd->SetDefaultValue("hist.root");
+    GDMLFileNameCmd->AvailableForStates(G4State_Idle);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -118,6 +130,8 @@ ConfigurationManagerMessenger::~ConfigurationManagerMessenger() {
     delete MaxPhotonsCmd;
 #endif
     delete enable_verboseCmd;
+    delete dumpgdmlCmd;
+    delete GDMLFileNameCmd;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

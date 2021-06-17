@@ -259,9 +259,13 @@ G4VPhysicalVolume* OpNoviceDetectorConstruction::Construct() {
     // Water Tank
     //
     G4OpticalSurface* opWaterSurface = new G4OpticalSurface("WaterSurface");
-    opWaterSurface->SetType(dielectric_LUTDAVIS);
-    opWaterSurface->SetFinish(Rough_LUT);
-    opWaterSurface->SetModel(DAVIS);
+    opWaterSurface->SetType(dielectric_dielectric);
+    opWaterSurface->SetFinish(ground);
+    opWaterSurface->SetModel(unified);
+    // bug in gdml reader so fall back to dielectric_dielectric,ground,unified
+    //opWaterSurface->SetType(dielectric_LUTDAVIS);
+    //opWaterSurface->SetFinish(Rough_LUT);
+    //opWaterSurface->SetModel(DAVIS);
 
     G4LogicalBorderSurface* waterSurface = new G4LogicalBorderSurface(
             "WaterSurface", waterTank_phys, expHall_phys, opWaterSurface);

@@ -74,6 +74,8 @@ private:
     unsigned int MaxPhotons;
 #endif
     bool enable_verbose; // switch on/off diagnostic printouts
+    bool dumpgdml; // write out Detector to gdml file
+    G4String GDMLFileName;
     ConfigurationManagerMessenger* confMessenger;
     ConfigurationManager();
 public:
@@ -131,6 +133,23 @@ public:
     inline bool isEnable_verbose() const {
         return enable_verbose;
     };
+
+    inline void setGDMLFileName(G4String GDMLFileName) {
+        this->GDMLFileName = GDMLFileName;
+    }
+
+    inline G4String getGDMLFileName() const {
+        return GDMLFileName;
+    }
+
+    inline void setDumpgdml(bool dumpgdml) {
+        this->dumpgdml = dumpgdml;
+    }
+
+    inline bool isDumpgdml() const {
+        return dumpgdml;
+    }
+
 #ifdef WITH_G4OPTICKS 
 
     inline void setEnable_opticks(bool enable_opticks) {
@@ -142,6 +161,7 @@ public:
     };
     void setMaxPhotons(unsigned int MaxPhotons);
     unsigned int getMaxPhotons() const;
+
 #endif
 };
 #endif /* /CONFIGURATIONMANAGER */

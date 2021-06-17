@@ -56,7 +56,7 @@ public:
     StackingActionMessenger(StackingAction*);
     ~StackingActionMessenger();
 
-    void SetNewValue(G4UIcommand*, G4String);
+    virtual void SetNewValue(G4UIcommand*, G4String);
 
 private:
     StackingAction* CaTSAction;

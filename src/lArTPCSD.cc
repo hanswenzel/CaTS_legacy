@@ -118,7 +118,7 @@ G4bool lArTPCSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
 #ifdef WITH_G4OPTICKS
     if (ConfigurationManager::getInstance()->isEnable_opticks()) {
         if (first) {
-                        aMaterial = aTrack->GetMaterial();
+            aMaterial = aTrack->GetMaterial();
             materialIndex = aMaterial->GetIndex();
             if (verbose) {
                 G4cout << "*******************************" << G4endl;
@@ -134,8 +134,7 @@ G4bool lArTPCSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
             // 
             // properties related to Scintillation
             //
-#define REF4 strcmp(G4VERSION_TAG,"$Name: geant4-10-07-ref-04 $")
-#if $REF4 == 0
+#if ( G4VERSION_NUMBER >= 1072 )  
             YieldRatio = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD1) / aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD2); // slowerRatio,
             FastTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONTIMECONSTANT1); // TimeConstant,
             SlowTimeConstant = aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONTIMECONSTANT2); //slowerTimeConstant,
@@ -285,7 +284,7 @@ G4bool lArTPCSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
                     MeanNumberOfPhotons2
                     );
         }
-                G4Opticks* g4ok = G4Opticks::Get();
+        G4Opticks* g4ok = G4Opticks::Get();
         G4RunManager* rm = G4RunManager::GetRunManager();
         const G4Event*event = rm->GetCurrentEvent();
         G4int eventid = event->GetEventID();
@@ -294,8 +293,8 @@ G4bool lArTPCSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
         if (num_photons > ConfigurationManager::getInstance()->getMaxPhotons()) {
             g4ok->propagateOpticalPhotons(eventid);
             G4HCtable* hctable = G4SDManager::GetSDMpointer()->GetHCtable();
-            for (G4int  i = 0; i < hctable->entries(); ++i) {
-                std::string sdn= hctable->GetSDname(i);
+            for (G4int i = 0; i < hctable->entries(); ++i) {
+                std::string sdn = hctable->GetSDname(i);
                 std::size_t found = sdn.find("Photondetector");
                 if (found != std::string::npos) {
                     PhotonSD* aSD = (PhotonSD*) G4SDManager::GetSDMpointer()->FindSensitiveDetector(sdn);

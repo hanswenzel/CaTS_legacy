@@ -51,7 +51,6 @@
 #include "G4PhysListFactoryAlt.hh" 
 #include "G4PhysicsConstructorRegistry.hh"
 #include "G4PhysListRegistry.hh"
-//#include "G4OpticalPhysics.hh"
 #include "G4OpticalParameters.hh"
 #include "G4NeutronTrackingCut.hh"
 #include "G4StepLimiter.hh"
