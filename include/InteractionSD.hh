@@ -59,13 +59,10 @@ public:
     G4bool ProcessHits(G4Step*, G4TouchableHistory*);
 
 private:
-    InteractionHitsCollection* interactionCollection;
     G4int HCID;
     ParticleChange* fFirstInter;
     ParticleChange* fOtherInter;
-
+    InteractionHitsCollection* fInteractionHitsCollection;
 };
-
-
 #endif	/* INTERACTIONSD_HH */
 

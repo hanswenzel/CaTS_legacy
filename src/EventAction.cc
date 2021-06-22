@@ -88,7 +88,7 @@ std::vector<std::string> split(const std::string &s, char delim) {
 }
 
 EventAction::EventAction(Ctx* ctx_)
-:
+:G4UserEventAction(),
 ctx(ctx_) {
 #ifdef WITH_ROOT
     enable_IO = ConfigurationManager::getInstance()->isWriteHits();
@@ -211,14 +211,12 @@ void EventAction::EndOfEventAction(const G4Event* event) {
                 G4cout << "SD type: " << Classname << " unknown" << G4endl;
             }
         }
-        if (ConfigurationManager::getInstance()->isWriteHits()) {
             RootIO::GetInstance()->Write(CaTSEvt);
-        }
         CaTSEvt->Reset();
         delete CaTSEvt;
 
         // RunAction::getInstance()->getIOTimer()->stop();
-    } // end ConfigurationManager::getInstance()->isWriteHits()
+    } // end enableio
 #endif
 }
 

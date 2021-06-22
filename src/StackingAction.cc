@@ -69,6 +69,7 @@ StackingAction* StackingAction::instance = 0;
 //#endif
 
 StackingAction::StackingAction() :
+G4UserStackingAction(),
 killPi0(false),
 killeta(false),
 killGammafromnCapture(false)

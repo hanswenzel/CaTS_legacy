@@ -48,6 +48,7 @@ class G4UIdirectory;
 class G4UIcmdWithABool;
 class G4UIcmdWithAString;
 class G4UIcmdWithAnInteger;
+class G4UIcmdWithoutParameter;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 class ConfigurationManagerMessenger : public G4UImessenger {
@@ -71,6 +72,7 @@ private:
     G4UIcmdWithABool* enable_verboseCmd;
     G4UIcmdWithABool* dumpgdmlCmd;
     G4UIcmdWithAString* GDMLFileNameCmd;
+    G4UIcmdWithoutParameter* listCmd;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

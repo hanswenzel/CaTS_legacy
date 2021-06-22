@@ -1,16 +1,3 @@
-// -----------------------------------------------------
-//  _    _        _____         _   
-// | |  / \   _ _|_   _|__  ___| |_ 
-// | | / _ \ | '__|| |/ _ \/ __| __|
-// | |/ ___ \| |   | |  __/\__ \ |_ 
-// |_/_/   \_\_|   |_|\___||___/\__|
-//                                  
-// lArTest: A Geant4 application to study and profile  
-//          simulation of physics processes relevant 
-//          to liquid Ar TPCs
-//
-// Author: Hans Wenzel, Fermilab
-// -----------------------------------------------------
 #ifndef ConfigurationManager_h
 #define ConfigurationManager_h 1
 //
@@ -125,7 +112,7 @@ public:
         return fname;
     }
 #endif  
-
+    void Print();
     inline void setEnable_verbose(bool enable_verbose) {
         this->enable_verbose = enable_verbose;
     };

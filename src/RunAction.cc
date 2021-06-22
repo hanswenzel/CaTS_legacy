@@ -77,7 +77,9 @@ void RunAction::BeginOfRunAction(const G4Run* aRun) {
 #ifdef WITH_ROOT
     G4String fname = ConfigurationManager::getInstance()->getFileName();
     fname = fname + "_Run" + std::to_string(aRun->GetRunID()) + ".root";
+    G4cout << "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&fname:   " << fname << G4endl;
     ConfigurationManager::getInstance()->setfname(fname);
+    RootIO::GetInstance();
     if (ConfigurationManager::getInstance()->isdoAnalysis()) {
         auto analysisManager = G4Analysis::ManagerInstance("root");
         G4cout << "Using " << analysisManager->GetType() << G4endl;

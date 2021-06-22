@@ -103,23 +103,23 @@ public:
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+using InteractionHitsCollection = G4THitsCollection<InteractionHit>;
+extern G4ThreadLocal G4Allocator<InteractionHit>* InteractionHitAllocator;
 
-typedef G4THitsCollection<InteractionHit> InteractionHitsCollection;
-
-extern G4Allocator<InteractionHit> InteractionHitAllocator;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-inline void* InteractionHit::operator new(size_t) {
-    void *aHit;
-    aHit = (void *) InteractionHitAllocator.MallocSingle();
-    return aHit;
+inline void* InteractionHit::operator new(size_t){
+    if (!InteractionHitAllocator) {
+        InteractionHitAllocator = new G4Allocator<InteractionHit>;
+    }
+    return (void *) InteractionHitAllocator->MallocSingle();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 inline void InteractionHit::operator delete(void *aHit) {
-    InteractionHitAllocator.FreeSingle((InteractionHit*) aHit);
+    InteractionHitAllocator->FreeSingle((InteractionHit*) aHit);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

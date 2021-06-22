@@ -38,7 +38,8 @@
               (_(           (see https://bitbucket.org/simoncblyth/opticks.git). 
 -------------------------------------------------------------------------*/
 // Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html
-
+#include <fstream>
+#include<iostream>
 // Geant4 headers
 #include "G4RunManager.hh"
 #include "G4PhysicalVolumeStore.hh"
@@ -73,7 +74,7 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 using namespace std;
 
-DetectorConstruction::DetectorConstruction(G4String fname) 
+DetectorConstruction::DetectorConstruction(G4String fname)
 : G4VUserDetectorConstruction() {
     gdmlFile = fname;
 }
@@ -112,7 +113,16 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
         }
     }
     G4VPhysicalVolume* worldPhysVol = parser->GetWorldVolume();
-    if (ConfigurationManager::getInstance()->isDumpgdml()) parser->Write(ConfigurationManager::getInstance()->getGDMLFileName(), worldPhysVol);
+    if (ConfigurationManager::getInstance()->isDumpgdml()) {
+        ifstream ifile;
+        ifile.open(ConfigurationManager::getInstance()->getGDMLFileName());
+        if (ifile) {
+            cout << ConfigurationManager::getInstance()->getGDMLFileName() << " already exists";
+        } else {
+            G4cout << "Writing: " << ConfigurationManager::getInstance()->getGDMLFileName() << G4endl;
+            parser->Write(ConfigurationManager::getInstance()->getGDMLFileName(), worldPhysVol);
+        }
+    }
     return worldPhysVol;
 }
 

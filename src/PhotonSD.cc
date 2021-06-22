@@ -130,6 +130,7 @@ double PhotonSD::etolambda(double E) {
     return (h * c) / (E * 1.e-9);
 }
 #ifdef WITH_G4OPTICKS
+
 void PhotonSD::AddOpticksHits() {
     G4Opticks* g4ok = G4Opticks::Get();
     bool way_enabled = g4ok->isWayEnabled();
@@ -137,10 +138,9 @@ void PhotonSD::AddOpticksHits() {
     G4OpticksHit hit;
     G4OpticksHitExtra hit_extra;
     G4OpticksHitExtra* hit_extra_ptr = way_enabled ? &hit_extra : NULL;
+    G4cout << "AddOpticksHits: " << num_hits << G4endl;
     for (unsigned i = 0; i < num_hits; i++) {
         g4ok->getHit(i, &hit, hit_extra_ptr);
-      //  G4cout << "AddOpticksHits"<<G4endl;
-        
         PhotonHit* newHit = new PhotonHit(
                 i,
                 0,
@@ -151,6 +151,6 @@ void PhotonSD::AddOpticksHits() {
                 hit.global_polarization);
         fPhotonHitsCollection->insert(newHit);
     }
-//    G4cout << "AddOpticksHits size:  " <<fPhotonHitsCollection->entries() <<G4endl;
+    //    G4cout << "AddOpticksHits size:  " <<fPhotonHitsCollection->entries() <<G4endl;
 }
 #endif

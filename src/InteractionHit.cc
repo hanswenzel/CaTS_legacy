@@ -47,19 +47,19 @@
 #include "G4Colour.hh"
 #include "G4VisAttributes.hh"
 
-G4Allocator<InteractionHit> InteractionHitAllocator;
-
+//G4Allocator<InteractionHit> InteractionHitAllocator;
+G4ThreadLocal G4Allocator<InteractionHit>* InteractionHitAllocator = 0;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-InteractionHit::InteractionHit() {
+InteractionHit::InteractionHit() : G4VHit() {
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-InteractionHit::InteractionHit(G4String pn, G4double p, G4double e,G4double t) {
+InteractionHit::InteractionHit(G4String pn, G4double p, G4double e, G4double t) : G4VHit() {
     pname = pn; // name of secondary particle
-    pmom = p;   // momentum of secondary particle
-    Ekin = e;   // kinetic energy of secondary particle
-    theta = t;  // theta of secondary particle 
+    pmom = p; // momentum of secondary particle
+    Ekin = e; // kinetic energy of secondary particle
+    theta = t; // theta of secondary particle 
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -99,7 +99,7 @@ void InteractionHit::Print() {
 
     G4cout << "Particle name : " << pname
             << "  momentum [GeV]: " << pmom
-            << "kinetic Energy [GeV]"<<Ekin
+            << "kinetic Energy [GeV]" << Ekin
             << "  theta: " << theta
             << G4endl;
 

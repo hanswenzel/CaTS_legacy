@@ -1,30 +1,20 @@
 /CaTS/enable_verbose false
-/run/initialize 
-
-#
-# the scintillation process is needed even when we run on GPU but we don't put optical photons on the stack
-#
-/process/activate Scintillation
+/CaTS/dumpgdml true
+/CaTS/GDMLFileName dump.gdml
+/CaTS/writeHits true
+/CaTS/FileName NewHits.root
 /process/optical/scintillation/setStackPhotons true
-#
-# the Cerenkov process is needed even when we run on GPU but we don't put optical photons on the stack
-#
-/process/activate  Cerenkov 
 /process/optical/cerenkov/setStackPhotons true
-/process/inactivate OpAbsorption
-/process/inactivate OpRayleigh
-/process/inactivate OpBoundary
-#/process/inactivate OpMieHG
 /process/optical/rayleigh/verbose 0
 /process/optical/absorption/verbose 0
 /process/optical/boundary/verbose 0
+/run/initialize 
 /random/setSeeds 7 38 
 /CaTS/enable_opticks false
-#/CaTS/writeHits true
-/CaTS/FileName NewHits
+/CaTS/writeHits false
 /CaTS/doAnalysis false
 /gun/particle e-
 /gun/energy 2 GeV
 /gun/position 0. 0. -105. cm
 /gun/direction 0. 0. 1.
-/run/beamOn 10
+/run/beamOn 1

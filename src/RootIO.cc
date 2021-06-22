@@ -44,6 +44,18 @@
 #include <cstring>
 #include "RootIO.hh"
 #include "ConfigurationManager.hh"
+#include "TROOT.h"
+#include "TFile.h"
+#include "TTree.h"
+#include "TSystem.h"
+
+#include "PhotonHit.hh"
+#include "InteractionHit.hh"
+#include "lArTPCHit.hh"
+#include "TrackerHit.hh"
+#include "CalorimeterHit.hh"
+#include "DRCalorimeterHit.hh"
+#include "Event.hh"
 //
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -53,12 +65,11 @@ static RootIO* instance = 0;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 RootIO::RootIO() : fNevents(0) {
-  //  treeinitialized = false;
     evtinitialized = false;
     TSystem ts;
     gSystem->Load("libCaTSClassesDict");
     G4String FileName = ConfigurationManager::getInstance()->getfname();
-    G4cout<< "Opening File: "<< FileName<< G4endl;
+    G4cout << "Opening File: " << FileName << G4endl;
     fFile = new TFile(FileName.c_str(), "RECREATE");
     TTree::SetMaxTreeSize(1000 * Long64_t(2000000000));
     // Create a ROOT Tree and one superbranch
@@ -77,6 +88,7 @@ RootIO::~RootIO() {
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 RootIO* RootIO::GetInstance() {
+    G4cout << "instance:  " << instance << G4endl;
     if (instance == 0) {
         instance = new RootIO();
     }
@@ -86,7 +98,7 @@ RootIO* RootIO::GetInstance() {
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void RootIO::Write(Event* fevent) {
-
+    G4cout << "writing Event: " << fevent->GetEventNumber() << G4endl;
     if (!evtinitialized) {
         Int_t bufsize = 64000;
         fevtbranch = ftree->Branch("event.", &fevent, bufsize, 0);

@@ -74,14 +74,14 @@ InteractionSD::~InteractionSD() {
 
 void InteractionSD::Initialize(G4HCofThisEvent* HCE) {
     G4cout << "Hits Collection capacity:  " << HCE->GetCapacity() << G4endl;
-    interactionCollection = new InteractionHitsCollection
+    fInteractionHitsCollection= new InteractionHitsCollection
             (SensitiveDetectorName, collectionName[0]);
     if (HCID < 0) {
         G4cout << "InteractionSD::Initialize:  " << SensitiveDetectorName << "   " << collectionName[0] << G4endl;
         HCID = G4SDManager::GetSDMpointer()->GetCollectionID(collectionName[0]);
 
     }
-    HCE->AddHitsCollection(HCID, interactionCollection);
+    HCE->AddHitsCollection(HCID, fInteractionHitsCollection);
     fFirstInter = new ParticleChange(true);
     fOtherInter = new ParticleChange();
 }
@@ -158,7 +158,7 @@ G4bool InteractionSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
 
             G4double theta = (sec->GetMomentum()).theta();
             InteractionHit* newHit = new InteractionHit(pname, pmom, Ekin, theta);
-            interactionCollection->insert(newHit);
+            fInteractionHitsCollection->insert(newHit);
             //}
         }
     }

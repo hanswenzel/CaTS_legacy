@@ -55,7 +55,7 @@ ConfigurationManager::ConfigurationManager() {
 #ifdef WITH_ROOT
     HistoFileName = "histograms.root";
     doAnalysis = false; // by default don't do analysis
-    FileName = "hits";    
+    fname = "hits.root";
     writeHits = true; // by default we write hits
 #endif
 #ifdef WITH_G4OPTICKS 
@@ -64,21 +64,42 @@ ConfigurationManager::ConfigurationManager() {
 #endif 
     enable_verbose = false; // by default we run quiet 
     dumpgdml = false; // by default we don't write out Detector to gdml file
-    GDMLFileName="dump.gdml_G4";
+    GDMLFileName = "dump.gdml_G4";
 }
+
 ConfigurationManager* ConfigurationManager::getInstance() {
     if (instance == 0) instance = new ConfigurationManager;
     return instance;
 }
 #ifdef WITH_G4OPTICKS 
-    void ConfigurationManager::setMaxPhotons(unsigned int MaxPhotons) {
-        this->MaxPhotons = MaxPhotons;
-    }
 
-    unsigned int ConfigurationManager::getMaxPhotons() const {
-        return MaxPhotons;
-    }
+void ConfigurationManager::setMaxPhotons(unsigned int MaxPhotons) {
+    this->MaxPhotons = MaxPhotons;
+}
 
+unsigned int ConfigurationManager::getMaxPhotons() const {
+    return MaxPhotons;
+}
+#endif
 
- #endif  
-    
+void ConfigurationManager::Print() {
+    G4cout << "--------------------------------------------------" << G4endl;
+    G4cout << "CaTS configuration: " << G4endl;
+    G4cout << "====================" << G4endl;
+    G4cout << G4endl;
+    G4cout << "enable_verbose:   " << enable_verbose << G4endl;
+    G4cout << "dumpgdml:         " << dumpgdml << G4endl;
+    G4cout << "GDMLFileName:     " << GDMLFileName << G4endl;
+#ifdef WITH_ROOT 
+    G4cout << "doAnalysis:       " << doAnalysis << G4endl;
+    G4cout << "HistoFileName:    " << HistoFileName << G4endl;
+    G4cout << "writeHits:        " << writeHits << G4endl;
+    G4cout << "FileName:         " << FileName << G4endl;
+    G4cout << "fname:            " << fname << G4endl;
+#endif
+#ifdef WITH_G4OPTICKS  
+    G4cout << "enable_opticks:   " << enable_opticks << G4endl;
+    G4cout << "MaxPhotons:       " << MaxPhotons << G4endl;
+#endif
+    G4cout << "--------------------------------------------------" << G4endl;
+}

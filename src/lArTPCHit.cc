@@ -54,7 +54,7 @@ lArTPCHit::lArTPCHit()
 : G4VHit(), fElectrons(0), fPosX(0), fPosY(0), fPosZ(0) {
 }
 
-lArTPCHit::lArTPCHit(G4double fe, G4double fx, G4double fy, G4double fz) {
+lArTPCHit::lArTPCHit(G4double fe, G4double fx, G4double fy, G4double fz) : G4VHit() {
     fElectrons = fe;
     fPosX = fx;
     fPosY = fy;

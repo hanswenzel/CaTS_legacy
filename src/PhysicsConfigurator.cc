@@ -92,8 +92,7 @@ G4VModularPhysicsList* PhysicsConfigurator::Construct(G4String physName) {
     //  if (PhysicsConfigurator::getInstance()->isEnable_OpticalConstructor()) physName = physName + "+OPTICAL";
     // if (PhysicsConfigurator::getInstance()->isEnable_StepLimiter()) physName = physName + "+STEPLIMIT";
     //if (PhysicsConfigurator::getInstance()->isEnable_NeutronKiller()) physName = physName + "+NEUTRONLIMIT";
-    G4cout << "***********************" << physName << G4endl;
-    //  G4String physName = "FTFP_BERT+OPTICAL+STEPLIMIT+NEUTRONLIMIT";
+    if (verbose) G4cout << "Physics configuration: " << physName << G4endl;
     //
     // currently using the Constructor names doesn't work otherwise it would be:
     // G4String physName = "FTFP_BERT+G4OpticalPhysics+G4StepLimiterPhysics";
@@ -116,7 +115,6 @@ G4VModularPhysicsList* PhysicsConfigurator::Construct(G4String physName) {
     if (verbose) {
         G4cout << phys->GetPhysicsTableDirectory() << G4endl;
     }
-    //G4OpticalPhysics* opticalPhysics = (G4OpticalPhysics*) phys->GetPhysics("Optical");
     G4OpticalParameters::Instance()-> SetProcessActivation("Cerenkov", true);
     G4OpticalParameters::Instance()-> SetProcessActivation("Scintillation", true);
     G4OpticalParameters::Instance()-> SetProcessActivation("OpAbsorption", true);
@@ -125,13 +123,6 @@ G4VModularPhysicsList* PhysicsConfigurator::Construct(G4String physName) {
     G4OpticalParameters::Instance()-> SetProcessActivation("OpWLS", false);
     G4OpticalParameters::Instance()-> SetProcessActivation("OpWLS2", false);
 	      
-			 
-    //opticalPhysics->Configure(kCerenkov, true);
-    //opticalPhysics->Configure(kWLS, true);
-    //opticalPhysics->Configure(kScintillation, true);
-    //opticalPhysics->Configure(kRayleigh, true);
-    //opticalPhysics->Configure(kBoundary, true);
-    //opticalPhysics->Configure(kAbsorption, true);
     G4OpticalParameters::Instance()->SetCerenkovStackPhotons(false);
     G4OpticalParameters::Instance()->SetScintStackPhotons(false);
     G4OpticalParameters::Instance()->SetScintTrackSecondariesFirst(true); // only relevant if we actually stack and trace the optical photons
