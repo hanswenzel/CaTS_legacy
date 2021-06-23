@@ -41,14 +41,15 @@
 -------------------------------------------------------------------------*/
 // Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html
 
-#include <vector>
+#include <mutex>
 #include "G4String.hh"
+
 class ConfigurationManagerMessenger;
 
 class ConfigurationManager {
 private:
     static ConfigurationManager* instance;
-
+    static std::once_flag initInstanceFlag;
 #ifdef WITH_ROOT 
     bool doAnalysis; // variable determines if we are doing analysis
     G4String HistoFileName; // File name for histos and  ntuples
@@ -67,9 +68,17 @@ private:
     ConfigurationManager();
 public:
 
-    ~ConfigurationManager();
-    static ConfigurationManager* getInstance();
+    ~ConfigurationManager()=default;
 
+    static ConfigurationManager* getInstance() {
+        std::call_once(initInstanceFlag, ConfigurationManager::initConfigurationManager);
+    //    if (instance == 0) instance = new ConfigurationManager;
+        return instance;
+    }
+
+    static void initConfigurationManager() {
+        instance = new ConfigurationManager();
+    }
 #ifdef WITH_ROOT
 
     inline void setHistoFileName(G4String HistoFileName) {
@@ -113,6 +122,7 @@ public:
     }
 #endif  
     void Print();
+
     inline void setEnable_verbose(bool enable_verbose) {
         this->enable_verbose = enable_verbose;
     };

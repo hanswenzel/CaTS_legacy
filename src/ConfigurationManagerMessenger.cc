@@ -146,8 +146,8 @@ void ConfigurationManagerMessenger::SetNewValue(G4UIcommand* command, G4String n
 #ifdef WITH_ROOT
     if (command == writeHitsCmd) mgr->setWriteHits(writeHitsCmd->GetNewBoolValue(newValue));
     if (command == FileNameCmd) mgr->setFileName(newValue);
-    if (command == doAnalysisCmd) mgr->setWriteHits(doAnalysisCmd->GetNewBoolValue(newValue));
-    if (command == HistoFileNameCmd) mgr->setFileName(newValue);
+    if (command == doAnalysisCmd) mgr->setdoAnalysis(doAnalysisCmd->GetNewBoolValue(newValue));
+    if (command == HistoFileNameCmd) mgr->setHistoFileName(newValue);
 #endif
 #ifdef WITH_G4OPTICKS
     if (command == enable_opticksCmd) mgr->setEnable_opticks(enable_opticksCmd->GetNewBoolValue(newValue));

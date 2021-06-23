@@ -117,7 +117,10 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
         ifstream ifile;
         ifile.open(ConfigurationManager::getInstance()->getGDMLFileName());
         if (ifile) {
-            cout << ConfigurationManager::getInstance()->getGDMLFileName() << " already exists";
+            G4cout << "****************************************************" << G4endl;
+            G4cout << ConfigurationManager::getInstance()->getGDMLFileName() << " already exists!!!" << G4endl;
+            G4cout << "No new gdml dump created!!!"<< G4endl;
+            G4cout << "****************************************************" << G4endl;
         } else {
             G4cout << "Writing: " << ConfigurationManager::getInstance()->getGDMLFileName() << G4endl;
             parser->Write(ConfigurationManager::getInstance()->getGDMLFileName(), worldPhysVol);

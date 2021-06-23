@@ -65,7 +65,7 @@
 RunAction* RunAction::instance = 0;
 
 RunAction::RunAction()
-: G4UserRunAction() {
+: G4UserRunAction(),geo_initialized(false) {
 }
 
 void RunAction::BeginOfRunAction(const G4Run* aRun) {
@@ -73,8 +73,7 @@ void RunAction::BeginOfRunAction(const G4Run* aRun) {
     if (ConfigurationManager::getInstance()->isWriteHits()) {
         G4String fname = ConfigurationManager::getInstance()->getFileName();
         fname = fname + "_Run" + std::to_string(aRun->GetRunID()) + ".root";
-        G4cout << "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&fname:   " << fname << G4endl;
-        //ConfigurationManager::getInstance()->setfname(fname);
+        ConfigurationManager::getInstance()->setfname(fname);
         RootIO::GetInstance();
     }
     if (ConfigurationManager::getInstance()->isdoAnalysis()) {
@@ -95,6 +94,7 @@ void RunAction::BeginOfRunAction(const G4Run* aRun) {
 #endif   
 #ifdef WITH_G4OPTICKS
     if (ConfigurationManager::getInstance()->isEnable_opticks()) {
+        if(!geo_initialized){
         G4cout << "\n\n###[ RunAction::BeginOfRunAction G4Opticks.setGeometry\n\n" << G4endl;
         G4VPhysicalVolume* world = G4TransportationManager::GetTransportationManager()->GetNavigatorForTracking()->GetWorldVolume();
         assert(world);
@@ -112,9 +112,12 @@ void RunAction::BeginOfRunAction(const G4Run* aRun) {
             g4ok->setSensorData(sensorIndex, efficiency_1, efficiency_2, sensor_cat, sensor_identifier);
         }
         G4cout << "\n\n###] RunAction::BeginOfRunAction G4Opticks.setGeometry\n\n" << G4endl;
+        geo_initialized=true;
+        }
     }
 #endif 
 }
+
 void RunAction::EndOfRunAction(const G4Run*) {
 #ifdef WITH_G4OPTICKS
     if (ConfigurationManager::getInstance()->isEnable_opticks()) {
@@ -134,6 +137,7 @@ void RunAction::EndOfRunAction(const G4Run*) {
     }
 #endif    
 }
+
 RunAction* RunAction::getInstance() {
     if (instance == 0) instance = new RunAction;
     return instance;

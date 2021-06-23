@@ -86,8 +86,6 @@ int main(int argc, char** argv) {
         G4cout << "Warning! no physics configuration specified!" << G4endl;
         G4cout << "Using default FTFP_BERT+OPTICAL+STEPLIMIT" << G4endl;
         physicsconf = "FTFP_BERT+OPTICAL+STEPLIMIT";
-        G4cout << G4endl;
-        G4cout << G4endl;
         G4cout << "Usage:  CaTS -pl physicsconfiguration" << G4endl;
         G4cout << G4endl;
     }

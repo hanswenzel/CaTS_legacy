@@ -45,13 +45,13 @@
 #include "ConfigurationManager.hh"
 #include "ConfigurationManagerMessenger.hh"
 
-using namespace std;
+//using namespace std;
 
-ConfigurationManager* ConfigurationManager::instance = 0;
+ConfigurationManager* ConfigurationManager::instance = nullptr;
+std::once_flag ConfigurationManager::initInstanceFlag;
 
 ConfigurationManager::ConfigurationManager() {
     confMessenger = new ConfigurationManagerMessenger(this);
-
 #ifdef WITH_ROOT
     HistoFileName = "histograms.root";
     doAnalysis = false; // by default don't do analysis
@@ -67,10 +67,7 @@ ConfigurationManager::ConfigurationManager() {
     GDMLFileName = "dump.gdml_G4";
 }
 
-ConfigurationManager* ConfigurationManager::getInstance() {
-    if (instance == 0) instance = new ConfigurationManager;
-    return instance;
-}
+
 #ifdef WITH_G4OPTICKS 
 
 void ConfigurationManager::setMaxPhotons(unsigned int MaxPhotons) {
