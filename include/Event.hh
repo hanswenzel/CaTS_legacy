@@ -40,6 +40,7 @@
 // Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html
 #ifndef Event_HH
 #define Event_HH
+#pragma once
 #include <vector>
 #include <map>
 

@@ -43,22 +43,17 @@
 
 #include "G4VUserTrackInformation.hh"
 
-
 /**
 TrackInfo
 ============
+ **/
 
-**/
-
-class TrackInfo : public G4VUserTrackInformation
-{
-    public:
-    TrackInfo( int photon_record_id_ )
-        :
-        photon_record_id(photon_record_id_)
-    {
+class TrackInfo : public G4VUserTrackInformation {
+public:
+    TrackInfo(int photon_record_id_)
+    :
+    photon_record_id(photon_record_id_) {
     }
-
-    int photon_record_id ;  
+    int photon_record_id;
 };
 

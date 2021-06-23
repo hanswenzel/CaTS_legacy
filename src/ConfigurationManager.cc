@@ -56,7 +56,7 @@ ConfigurationManager::ConfigurationManager() {
     HistoFileName = "histograms.root";
     doAnalysis = false; // by default don't do analysis
     fname = "hits.root";
-    writeHits = true; // by default we write hits
+    writeHits = false; // by default we don't write hits
 #endif
 #ifdef WITH_G4OPTICKS 
     enable_opticks = true; // by default we use opticks

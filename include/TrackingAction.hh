@@ -40,7 +40,6 @@
 // Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html
 
 #pragma once
-
 #include "G4UserTrackingAction.hh"
 
 class G4Track;

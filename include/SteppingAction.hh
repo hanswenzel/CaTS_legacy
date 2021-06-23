@@ -40,7 +40,6 @@
 // Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html
 
 #pragma once
-
 #include "G4UserSteppingAction.hh"
 class Ctx;
 
@@ -48,7 +47,6 @@ class SteppingAction : public G4UserSteppingAction {
 public:
     SteppingAction(Ctx* ctx_);
     virtual void UserSteppingAction(const G4Step* step);
-
     Ctx* ctx;
 };
 

@@ -615,5 +615,6 @@ CMS TN / 95-184. December 1995.
    <setup version="1.0" name="Default">
       <world ref="TOP"/>
    </setup>
+</gdml_simple_extension> 
 
-</gdml>
+

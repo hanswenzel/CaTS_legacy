@@ -48,13 +48,14 @@
 #include "TFile.h"
 #include "TTree.h"
 #include "TSystem.h"
-
+/*
 #include "PhotonHit.hh"
 #include "InteractionHit.hh"
 #include "lArTPCHit.hh"
 #include "TrackerHit.hh"
 #include "CalorimeterHit.hh"
 #include "DRCalorimeterHit.hh"
+*/
 #include "Event.hh"
 //
 

@@ -41,7 +41,7 @@
 
 #ifndef TrackerSD_h
 #define TrackerSD_h 1
-
+#pragma once
 #include "G4VSensitiveDetector.hh"
 #include "TrackerHit.hh"
 class G4Step;

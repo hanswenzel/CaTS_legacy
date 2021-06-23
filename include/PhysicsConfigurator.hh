@@ -40,8 +40,8 @@
 // Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html
 
 #pragma once
-#include "G4String.hh"
-#include "G4VModularPhysicsList.hh"
+class G4String;
+class G4VModularPhysicsList;
 class PhysicsConfigurator {
 private:
     static PhysicsConfigurator* instance;

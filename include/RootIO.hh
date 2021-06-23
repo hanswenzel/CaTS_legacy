@@ -43,9 +43,11 @@
 #define ROOTIO_HH
 #ifdef WITH_ROOT
 // Include files
+#pragma once
 
 #include "TROOT.h"
-#include "TSystem.h"
+
+ /* #include "TSystem.h"
 #include "TFile.h"
 #include "TTree.h"
 
@@ -56,11 +58,11 @@
 #include "CalorimeterHit.hh"
 #include "DRCalorimeterHit.hh"
 #include "Event.hh"
-
-//class TFile;
-//class TTree;
-//class TBranch;
-//class Event;
+*/
+class TFile;
+class TTree;
+class TBranch;
+class Event;
 
 class RootIO {
 public:

@@ -55,6 +55,7 @@
 #include "G4SystemOfUnits.hh"
 #include "G4PhysicalConstants.hh"
 #include "G4VRestDiscreteProcess.hh"
+#include "G4MaterialPropertiesTable.hh"
 #ifdef WITH_G4OPTICKS
 #include "G4Opticks.hh"
 #include "TrackInfo.hh"

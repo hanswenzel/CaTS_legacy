@@ -124,11 +124,6 @@ void PhotonSD::EndOfEvent(G4HCofThisEvent*) {
     if (verbose) G4cout << " Number of PhotonHits:  " << NbHits << G4endl;
 }
 
-double PhotonSD::etolambda(double E) {
-    // input  photon energy in MeV
-    // return   wavelength in nm 
-    return (h * c) / (E * 1.e-9);
-}
 #ifdef WITH_G4OPTICKS
 
 void PhotonSD::AddOpticksHits() {
@@ -138,7 +133,6 @@ void PhotonSD::AddOpticksHits() {
     G4OpticksHit hit;
     G4OpticksHitExtra hit_extra;
     G4OpticksHitExtra* hit_extra_ptr = way_enabled ? &hit_extra : NULL;
-    G4cout << "AddOpticksHits: " << num_hits << G4endl;
     for (unsigned i = 0; i < num_hits; i++) {
         g4ok->getHit(i, &hit, hit_extra_ptr);
         PhotonHit* newHit = new PhotonHit(

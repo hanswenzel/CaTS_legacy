@@ -41,13 +41,10 @@
 
 #ifndef PrimaryGeneratorAction_h
 #define PrimaryGeneratorAction_h 1
-
+#pragma once 
 #include "G4VUserPrimaryGeneratorAction.hh"
-
 class G4ParticleGun;
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 {
 public:
@@ -58,13 +55,10 @@ public:
   G4ParticleGun* GetParticleGun() {return particleGun;};
 
 private:
-
   PrimaryGeneratorAction & operator=(const PrimaryGeneratorAction &right);
   PrimaryGeneratorAction(const PrimaryGeneratorAction&);
-
   G4ParticleGun*   particleGun;
 };
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 #endif

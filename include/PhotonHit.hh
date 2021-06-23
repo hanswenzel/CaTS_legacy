@@ -41,12 +41,11 @@
 
 #ifndef PhotonHit_h
 #define PhotonHit_h 1
-
+#pragma once 
 #include "G4VHit.hh"
 #include "G4THitsCollection.hh"
 #include "G4Allocator.hh"
 #include "G4ThreeVector.hh"
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 class PhotonHit : public G4VHit {

@@ -41,7 +41,7 @@
 
 #ifndef LARTPCHIT_HH
 #define LARTPCHIT_HH
-
+#pragma once
 #include "G4VHit.hh"
 #include "G4THitsCollection.hh"
 #include "G4Allocator.hh"

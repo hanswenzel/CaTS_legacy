@@ -1,8 +1,9 @@
 /CaTS/enable_verbose false
 /CaTS/dumpgdml true
 /CaTS/GDMLFileName dump.gdml
-/CaTS/writeHits true
-/CaTS/FileName NewHits.root
+#/CaTS/writeHits true
+/CaTS/writeHits false
+#/CaTS/FileName NewHits.root
 /run/initialize 
 #
 # the scintillation process is needed even when we run on GPU but we don't put optical photons on the stack

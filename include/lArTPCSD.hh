@@ -1,23 +1,3 @@
-// -----------------------------------------------------
-//  _    _        _____         _   
-// | |  / \   _ _|_   _|__  ___| |_ 
-// | | / _ \ | '__|| |/ _ \/ __| __|
-// | |/ ___ \| |   | |  __/\__ \ |_ 
-// |_/_/   \_\_|   |_|\___||___/\__|
-//                                  
-// lArTest: A Geant4 application to study and profile  
-//          simulation of physics processes relevant 
-//          to liquid Ar TPCs
-//
-// Author: Hans Wenzel, Fermilab
-// -----------------------------------------------------
-#ifndef lArTPCSD_h
-#define lArTPCSD_h 1
-#include "G4Scintillation.hh"
-#include "G4VSensitiveDetector.hh"
-#include "G4MaterialPropertiesTable.hh"
-#include "G4PhysicsOrderedFreeVector.hh" 
-#include "G4ScintillationTrackInformation.hh"
 //
 // ********************************************************************
 // * License and Disclaimer                                           *
@@ -58,17 +38,22 @@
               (_(           (see https://bitbucket.org/simoncblyth/opticks.git). 
 -------------------------------------------------------------------------*/
 // Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html
+#ifndef lArTPCSD_h
+#define lArTPCSD_h 1
+#pragma once
 #include "lArTPCHit.hh"
+#include "G4VSensitiveDetector.hh"
+#include "G4Scintillation.hh"
+#include "G4ScintillationTrackInformation.hh"
 class G4Step;
 class G4HCofThisEvent;
-
+class G4MaterialPropertiesTable;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 class lArTPCSD : public G4VSensitiveDetector {
 public:
     lArTPCSD(G4String name);
     virtual ~lArTPCSD();
-
     // methods from base class
     virtual void Initialize(G4HCofThisEvent* hitCollection);
     virtual G4bool ProcessHits(G4Step* step, G4TouchableHistory* history);
@@ -101,12 +86,9 @@ private:
     bool verbose;
     int tCphotons;
     int tSphotons;
-
     double NumElectrons(double e, double ds);
     lArTPCHitsCollection* flArTPCHitsCollection;
     G4int fHCID;
 };
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 #endif

@@ -1,5 +1,4 @@
 //
-//
 // ********************************************************************
 // * License and Disclaimer                                           *
 // *                                                                  *
@@ -54,6 +53,13 @@
 #include "RunAction.hh"
 #include "Event.hh"
 #include "PhotonSD.hh"
+
+#include "PhotonHit.hh"
+#include "InteractionHit.hh"
+#include "lArTPCHit.hh"
+#include "TrackerHit.hh"
+#include "CalorimeterHit.hh"
+#include "DRCalorimeterHit.hh"
 #ifdef WITH_ROOT
 #include "RootIO.hh"
 #endif
@@ -115,7 +121,7 @@ void EventAction::EndOfEventAction(const G4Event* event) {
 #endif  //end WITH_ROOT    
 #ifdef WITH_G4OPTICKS
     if (ConfigurationManager::getInstance()->isEnable_opticks()) {
-        RunAction::getInstance()->getOpticksTimer()->resume();
+//        RunAction::getInstance()->getOpticksTimer()->resume();
         G4Opticks* g4ok = G4Opticks::Get();
         G4int eventid = event->GetEventID();
         g4ok->propagateOpticalPhotons(eventid);

@@ -38,7 +38,6 @@
               (_(           (see https://bitbucket.org/simoncblyth/opticks.git). 
 -------------------------------------------------------------------------*/
 // Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html
-
 #include <cassert>
 // Geant4 headers
 #include "G4Run.hh"
@@ -67,19 +66,17 @@ RunAction* RunAction::instance = 0;
 
 RunAction::RunAction()
 : G4UserRunAction() {
-    OpticksTimer = new cpu_timer();
-    OpticksTimer->stop();
-    IOTimer = new cpu_timer();
-    IOTimer->stop();
 }
 
 void RunAction::BeginOfRunAction(const G4Run* aRun) {
 #ifdef WITH_ROOT
-    G4String fname = ConfigurationManager::getInstance()->getFileName();
-    fname = fname + "_Run" + std::to_string(aRun->GetRunID()) + ".root";
-    G4cout << "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&fname:   " << fname << G4endl;
-    ConfigurationManager::getInstance()->setfname(fname);
-    RootIO::GetInstance();
+    if (ConfigurationManager::getInstance()->isWriteHits()) {
+        G4String fname = ConfigurationManager::getInstance()->getFileName();
+        fname = fname + "_Run" + std::to_string(aRun->GetRunID()) + ".root";
+        G4cout << "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&fname:   " << fname << G4endl;
+        //ConfigurationManager::getInstance()->setfname(fname);
+        RootIO::GetInstance();
+    }
     if (ConfigurationManager::getInstance()->isdoAnalysis()) {
         auto analysisManager = G4Analysis::ManagerInstance("root");
         G4cout << "Using " << analysisManager->GetType() << G4endl;
@@ -99,7 +96,6 @@ void RunAction::BeginOfRunAction(const G4Run* aRun) {
 #ifdef WITH_G4OPTICKS
     if (ConfigurationManager::getInstance()->isEnable_opticks()) {
         G4cout << "\n\n###[ RunAction::BeginOfRunAction G4Opticks.setGeometry\n\n" << G4endl;
-        OpticksTimer->resume();
         G4VPhysicalVolume* world = G4TransportationManager::GetTransportationManager()->GetNavigatorForTracking()->GetWorldVolume();
         assert(world);
         bool standardize_geant4_materials = false; // required for alignment
@@ -115,30 +111,21 @@ void RunAction::BeginOfRunAction(const G4Run* aRun) {
             unsigned sensorIndex = 1 + i; // 1-based
             g4ok->setSensorData(sensorIndex, efficiency_1, efficiency_2, sensor_cat, sensor_identifier);
         }
-        OpticksTimer->stop();
         G4cout << "\n\n###] RunAction::BeginOfRunAction G4Opticks.setGeometry\n\n" << G4endl;
     }
 #endif 
 }
-
 void RunAction::EndOfRunAction(const G4Run*) {
-
 #ifdef WITH_G4OPTICKS
     if (ConfigurationManager::getInstance()->isEnable_opticks()) {
         G4cout << "\n\n###[ RunAction::EndOfRunAction G4Opticks.Finalize\n\n" << G4endl;
-        OpticksTimer->resume();
         G4Opticks::Finalize();
-        OpticksTimer->stop();
-        std::cout << "Opticks Timer: " << OpticksTimer->format() << '\n';
-        std::cout << "IO Timer:      " << IOTimer->format() << '\n';
         G4cout << "\n\n###] RunAction::EndOfRunAction G4Opticks.Finalize\n\n" << G4endl;
     }
 #endif
 #ifdef WITH_ROOT
     if (ConfigurationManager::getInstance()->isWriteHits()) {
-        IOTimer->resume();
         RootIO::GetInstance()->Close();
-        IOTimer->stop();
     }
     if (ConfigurationManager::getInstance()->isdoAnalysis()) {
         auto analysisManager = G4AnalysisManager::Instance();
@@ -147,7 +134,6 @@ void RunAction::EndOfRunAction(const G4Run*) {
     }
 #endif    
 }
-
 RunAction* RunAction::getInstance() {
     if (instance == 0) instance = new RunAction;
     return instance;

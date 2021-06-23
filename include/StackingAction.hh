@@ -41,12 +41,9 @@
 
 #ifndef StackingAction_H
 #define StackingAction_H 1
-
-#include "globals.hh"
+#pragma once
 #include "G4UserStackingAction.hh"
 #include "StackingActionMessenger.hh"
-#include <map>
-#include <set>
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 

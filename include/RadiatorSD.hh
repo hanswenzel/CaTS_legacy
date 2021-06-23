@@ -41,14 +41,13 @@
 
 #ifndef RadiatorSD_h
 #define RadiatorSD_h 1
+#pragma once
 #include "G4Scintillation.hh"
 #include "G4VSensitiveDetector.hh"
-#include "G4MaterialPropertiesTable.hh"
-#include "G4PhysicsOrderedFreeVector.hh" 
 #include "G4ScintillationTrackInformation.hh"
 class G4Step;
 class G4HCofThisEvent;
-
+class G4MaterialPropertiesTable;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 class RadiatorSD : public G4VSensitiveDetector {

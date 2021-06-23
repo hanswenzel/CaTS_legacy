@@ -48,6 +48,8 @@
 //
 // Geant4 headers
 //
+#include "G4String.hh"
+#include "G4VModularPhysicsList.hh"
 #include "G4PhysListFactoryAlt.hh" 
 #include "G4PhysicsConstructorRegistry.hh"
 #include "G4PhysListRegistry.hh"

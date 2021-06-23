@@ -41,6 +41,7 @@
 
 #ifndef TRACKERHIT_HH
 #define TRACKERHIT_HH
+#pragma once
 #include "G4VHit.hh"
 #include "G4THitsCollection.hh"
 #include "G4Allocator.hh"
