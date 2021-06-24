@@ -43,7 +43,8 @@
 //* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
 //---------------------------------------------------------------------
 //
-
+#ifndef TrackingAction_h
+#define TrackingAction_h 1
 #pragma once
 #include "G4UserTrackingAction.hh"
 
@@ -58,3 +59,4 @@ public:
     virtual void PostUserTrackingAction(const G4Track* track);
     Ctx* ctx;
 };
+#endif

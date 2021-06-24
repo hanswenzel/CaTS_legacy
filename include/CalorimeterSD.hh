@@ -43,7 +43,6 @@
 //* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
 //---------------------------------------------------------------------
 //
-
 #ifndef CalorimeterSD_h
 #define CalorimeterSD_h 1
 

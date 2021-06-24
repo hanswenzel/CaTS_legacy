@@ -43,7 +43,6 @@
 //* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
 //---------------------------------------------------------------------
 //
-
 #ifndef INTERACTIONHIT_HH
 #define	INTERACTIONHIT_HH
 #include "G4VHit.hh"

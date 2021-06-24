@@ -43,7 +43,6 @@
 //* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
 //---------------------------------------------------------------------
 //
-
 #ifndef Ctx_h
 #define Ctx_h 1
 /**

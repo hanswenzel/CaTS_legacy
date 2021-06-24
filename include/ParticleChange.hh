@@ -43,8 +43,6 @@
 //* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
 //---------------------------------------------------------------------
 //
-
-
 #ifndef PARTICLECHANGE_HH
 #define	PARTICLECHANGE_HH
 #include "G4VParticleChange.hh"

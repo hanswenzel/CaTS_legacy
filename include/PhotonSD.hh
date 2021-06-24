@@ -43,7 +43,6 @@
 //* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
 //---------------------------------------------------------------------
 //
-
 #ifndef PhotonSD_h
 #define PhotonSD_h 1
 #pragma once

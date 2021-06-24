@@ -43,7 +43,8 @@
 //* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
 //---------------------------------------------------------------------
 //
-
+#ifndef PhysicsConfigurator_h
+#define PhysicsConfigurator_h 1
 #pragma once
 class G4String;
 class G4VModularPhysicsList;
@@ -56,3 +57,4 @@ public:
     ~PhysicsConfigurator();
     static PhysicsConfigurator* getInstance();
 };
+#endif

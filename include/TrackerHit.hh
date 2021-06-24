@@ -43,7 +43,6 @@
 //* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
 //---------------------------------------------------------------------
 //
-
 #ifndef TRACKERHIT_HH
 #define TRACKERHIT_HH
 #pragma once
@@ -98,5 +97,4 @@ inline void TrackerHit::operator delete(void *aHit) {
     TrackerHitAllocator->FreeSingle((TrackerHit*) aHit);
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 #endif

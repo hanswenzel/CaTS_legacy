@@ -43,9 +43,9 @@
 //* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
 //---------------------------------------------------------------------
 //
-
+#ifndef TrackInfo_h
+#define TrackInfon_h 1
 #pragma once
-
 #include "G4VUserTrackInformation.hh"
 
 /**
@@ -61,3 +61,4 @@ public:
     }
     int photon_record_id;
 };
+#endif

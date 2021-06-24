@@ -43,7 +43,8 @@
 //* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
 //---------------------------------------------------------------------
 //
-
+#ifndef SteppingAction_h
+#define SteppingAction_h 1
 #pragma once
 #include "G4UserSteppingAction.hh"
 class Ctx;
@@ -54,3 +55,4 @@ public:
     virtual void UserSteppingAction(const G4Step* step);
     Ctx* ctx;
 };
+#endif

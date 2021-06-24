@@ -43,7 +43,6 @@
 //* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
 //---------------------------------------------------------------------
 //
-
 #ifndef ROOTIO_HH
 #define ROOTIO_HH
 #ifdef WITH_ROOT
