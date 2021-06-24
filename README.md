@@ -6,6 +6,38 @@ for the simulation of calorimeter and tracking detectors.
 It also serves as an Example that demonstrates how to use opticks
 from within Geant4 for the creation and propagation of optical photons.
 https://bitbucket.org/simoncblyth/opticks.git.
+
+The components of CaTS are:
+
+
+Detector Description:      described in gdml input file (e.g. crystalcal.gdml)
+(Geometry, Materials,
+ optical properties,
+ sensitive detector)
+
+Input modules:                
+
+    GPS
+    Particle Gun
+    HEPMC (Pythia)
+
+
+Physics Lists:                  choice of all Reference Physics Lists
+                                          optical physics processes (Cerenkov, Rayleigh,
+                                          Scintillation etc.) are added (talk to)  
+                
+Sensitive Detectors:        (+ corresponding Hit classes)        
+
+    TrackerSD(Hit)  
+    CalorimeterSD(Hit)
+    DRCalorimeterSD(Hit) (besides registering energy deposit counts produced Cerenkov photons)
+    StoppingCalorimeterSD (registers total energy of entering particle and kills the particle afterwards to avoid further tracking)
+    PhotonSD(Hit): sensitive detector that  registers optical photons.
+
+
+
+
+
 This requires the opticks environment to be set up properly.  At the moment we
 use the following external packages and versions thereof:  
 
