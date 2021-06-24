@@ -65,7 +65,7 @@
 RunAction* RunAction::instance = 0;
 
 RunAction::RunAction()
-: G4UserRunAction(),geo_initialized(false) {
+: G4UserRunAction(), geo_initialized(false) {
 }
 
 void RunAction::BeginOfRunAction(const G4Run* aRun) {
@@ -94,25 +94,25 @@ void RunAction::BeginOfRunAction(const G4Run* aRun) {
 #endif   
 #ifdef WITH_G4OPTICKS
     if (ConfigurationManager::getInstance()->isEnable_opticks()) {
-        if(!geo_initialized){
-        G4cout << "\n\n###[ RunAction::BeginOfRunAction G4Opticks.setGeometry\n\n" << G4endl;
-        G4VPhysicalVolume* world = G4TransportationManager::GetTransportationManager()->GetNavigatorForTracking()->GetWorldVolume();
-        assert(world);
-        bool standardize_geant4_materials = false; // required for alignment
-        G4Opticks* g4ok = G4Opticks::Get();
-        g4ok->setGeometry(world, standardize_geant4_materials);
-        const std::vector<G4PVPlacement*>& sensor_placements = g4ok->getSensorPlacements();
-        G4cout << "sensor_placements.size():  " << sensor_placements.size() << G4endl;
-        for (unsigned i = 0; i < sensor_placements.size(); i++) {
-            float efficiency_1 = 0.5f;
-            float efficiency_2 = 1.0f;
-            int sensor_cat = -1; // -1:means no angular info
-            int sensor_identifier = 0xc0ffee + i; // mockup a detector specific identifier
-            unsigned sensorIndex = 1 + i; // 1-based
-            g4ok->setSensorData(sensorIndex, efficiency_1, efficiency_2, sensor_cat, sensor_identifier);
-        }
-        G4cout << "\n\n###] RunAction::BeginOfRunAction G4Opticks.setGeometry\n\n" << G4endl;
-        geo_initialized=true;
+        if (!geo_initialized) {
+            G4cout << "\n\n###[ RunAction::BeginOfRunAction G4Opticks.setGeometry\n\n" << G4endl;
+            G4VPhysicalVolume* world = G4TransportationManager::GetTransportationManager()->GetNavigatorForTracking()->GetWorldVolume();
+            assert(world);
+            bool standardize_geant4_materials = false; // required for alignment
+            G4Opticks* g4ok = G4Opticks::Get();
+            g4ok->setGeometry(world, standardize_geant4_materials);
+            const std::vector<G4PVPlacement*>& sensor_placements = g4ok->getSensorPlacements();
+            G4cout << "sensor_placements.size():  " << sensor_placements.size() << G4endl;
+            for (unsigned i = 0; i < sensor_placements.size(); i++) {
+                float efficiency_1 = 0.5f;
+                float efficiency_2 = 1.0f;
+                int sensor_cat = -1; // -1:means no angular info
+                int sensor_identifier = 0xc0ffee + i; // mockup a detector specific identifier
+                unsigned sensorIndex = 1 + i; // 1-based
+                g4ok->setSensorData(sensorIndex, efficiency_1, efficiency_2, sensor_cat, sensor_identifier);
+            }
+            G4cout << "\n\n###] RunAction::BeginOfRunAction G4Opticks.setGeometry\n\n" << G4endl;
+            geo_initialized = true;
         }
     }
 #endif 

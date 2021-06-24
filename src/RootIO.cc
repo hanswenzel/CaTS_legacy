@@ -48,21 +48,9 @@
 #include "TFile.h"
 #include "TTree.h"
 #include "TSystem.h"
-/*
-#include "PhotonHit.hh"
-#include "InteractionHit.hh"
-#include "lArTPCHit.hh"
-#include "TrackerHit.hh"
-#include "CalorimeterHit.hh"
-#include "DRCalorimeterHit.hh"
-*/
 #include "Event.hh"
-//
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 static RootIO* instance = 0;
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 RootIO::RootIO() : fNevents(0) {
@@ -76,7 +64,6 @@ RootIO::RootIO() : fNevents(0) {
     // Create a ROOT Tree and one superbranch
     ftree = new TTree("Events", "ROOT tree containing Hit collections");
     ftree->SetAutoSave(1000000000); // autosave when 1 Gbyte written
-    //if (!treeinitialized) {
     Int_t branchStyle = 1;
     TTree::SetBranchStyle(branchStyle);
 }
@@ -89,7 +76,6 @@ RootIO::~RootIO() {
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 RootIO* RootIO::GetInstance() {
-    G4cout << "instance:  " << instance << G4endl;
     if (instance == 0) {
         instance = new RootIO();
     }

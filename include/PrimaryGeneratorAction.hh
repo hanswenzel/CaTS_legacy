@@ -43,22 +43,55 @@
 #define PrimaryGeneratorAction_h 1
 #pragma once 
 #include "G4VUserPrimaryGeneratorAction.hh"
+#include "globals.hh"
 class G4ParticleGun;
+class PrimaryGeneratorActionMessenger;
+class G4VPrimaryGenerator;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
-{
-public:
-  PrimaryGeneratorAction();
-  virtual ~PrimaryGeneratorAction();
-
-  void GeneratePrimaries(G4Event*);
-  G4ParticleGun* GetParticleGun() {return particleGun;};
-
+class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction {
 private:
-  PrimaryGeneratorAction & operator=(const PrimaryGeneratorAction &right);
-  PrimaryGeneratorAction(const PrimaryGeneratorAction&);
-  G4ParticleGun*   particleGun;
+    PrimaryGeneratorAction & operator=(const PrimaryGeneratorAction &right);
+    PrimaryGeneratorAction(const PrimaryGeneratorAction&);
+    G4VPrimaryGenerator* currentGenerator;
+    G4String currentGeneratorName;
+    std::map<G4String, G4VPrimaryGenerator*> gentypeMap;
+    PrimaryGeneratorActionMessenger* gunMessenger;
+    static PrimaryGeneratorAction* instance;
+
+public:
+    PrimaryGeneratorAction();
+    virtual ~PrimaryGeneratorAction();
+    virtual void GeneratePrimaries(G4Event*);
+    void SetGenerator(G4VPrimaryGenerator* gen);
+    void SetGenerator(G4String genname);
+    G4VPrimaryGenerator* GetGenerator() const;
+    G4String GetGeneratorName() const;
+    static PrimaryGeneratorAction* getInstance();
 };
+// ====================================================================
+// inline functions
+// ====================================================================
+
+inline void PrimaryGeneratorAction::SetGenerator(G4VPrimaryGenerator* gen) {
+    currentGenerator = gen;
+}
+
+inline void PrimaryGeneratorAction::SetGenerator(G4String genname) {
+    std::map<G4String, G4VPrimaryGenerator*>::iterator pos = gentypeMap.find(genname);
+    if (pos != gentypeMap.end()) {
+        currentGenerator = pos->second;
+        currentGeneratorName = genname;
+    }
+}
+
+inline G4VPrimaryGenerator* PrimaryGeneratorAction::GetGenerator() const {
+    return currentGenerator;
+}
+
+inline G4String PrimaryGeneratorAction::GetGeneratorName() const {
+    return currentGeneratorName;
+}
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 #endif
