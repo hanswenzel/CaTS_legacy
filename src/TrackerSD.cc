@@ -22,23 +22,27 @@
 // * use  in  resulting  scientific  publications,  and indicate your *
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
-// 
-/* ------------------------------------------------------------------------
-            |\___/|       
-            )     (    
-           =\     /=
-             )===(
-            /     \         CaTS: Calorimeter and Tracker Simulation
-            |     |         CaTS is a flexible and extend-able framework 
-           /       \        for the simulation of calorimeter and tracking detectors. 
-           \       /        https://github.com/hanswenzel/CaTS
-            \__  _/         CaTS also serves as an Example that demonstrates how to 
-              ( (           use opticks from within Geant4 for the creation and propagation 
-               ) )          of optical photons. 
-              (_(           (see https://bitbucket.org/simoncblyth/opticks.git). 
--------------------------------------------------------------------------*/
-// Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html
-
+//
+//---------------------------------------------------------------------
+//*            |\___/|                                                *
+//*            )     (                                                *
+//*           =\     /=                                               *
+//*             )===(                                                 *
+//*            /     \     CaTS: Calorimeter and Tracker Simulation   *
+//*            |     |     is a flexible and extend-able framework    *
+//*           /       \    for the simulation of various detector     *
+//*	      \       /    systems                                    *
+//*            \__  _/     https://github.com/hanswenzel/CaTS         *
+//*	         ( (                                                  *
+//*	          ) )                                                 *
+//*              (_(                                                  *
+//* CaTS also serves as an example that demonstrates how to use       *
+//* opticks from within Geant4 for the creation and propagation of    *
+//* optical photons.                                                  *
+//* see https://bitbucket.org/simoncblyth/opticks.git).               *
+//* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
+//---------------------------------------------------------------------
+//
 #include "TrackerSD.hh"
 #include "G4HCofThisEvent.hh"
 #include "G4Step.hh"
@@ -52,10 +56,7 @@
 #include "G4UnitsTable.hh"
 #include "G4SystemOfUnits.hh"
 #include "ConfigurationManager.hh"
-
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 TrackerSD::TrackerSD(G4String name)
 : G4VSensitiveDetector(name), fTrackerHitsCollection(0), fHCID(0) {
     G4String HCname = name + "_HC";
@@ -66,7 +67,6 @@ TrackerSD::TrackerSD(G4String name)
     verbose = ConfigurationManager::getInstance()->isEnable_verbose();
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 void TrackerSD::Initialize(G4HCofThisEvent* hce) {
     fTrackerHitsCollection = new TrackerHitsCollection(SensitiveDetectorName, collectionName[0]);
     if (fHCID < 0) {
@@ -80,9 +80,7 @@ void TrackerSD::Initialize(G4HCofThisEvent* hce) {
 
 TrackerSD::~TrackerSD() {
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 G4bool TrackerSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     G4double edep = aStep->GetTotalEnergyDeposit();
     if (edep == 0.) return false;
@@ -96,9 +94,7 @@ G4bool TrackerSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     return true;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 void TrackerSD::EndOfEvent(G4HCofThisEvent*) {
     G4int NbHits = fTrackerHitsCollection->entries();
     if (verbose) G4cout << " Number of TrackerHits:  " << NbHits << G4endl;
 }
-

@@ -22,23 +22,27 @@
 // * use  in  resulting  scientific  publications,  and indicate your *
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
-// 
-/* ------------------------------------------------------------------------
-            |\___/|       
-            )     (    
-           =\     /=
-             )===(
-            /     \         CaTS: Calorimeter and Tracker Simulation
-            |     |         CaTS is a flexible and extend-able framework 
-           /       \        for the simulation of calorimeter and tracking detectors. 
-           \       /        https://github.com/hanswenzel/CaTS
-            \__  _/         CaTS also serves as an Example that demonstrates how to 
-              ( (           use opticks from within Geant4 for the creation and propagation 
-               ) )          of optical photons. 
-              (_(           (see https://bitbucket.org/simoncblyth/opticks.git). 
--------------------------------------------------------------------------*/
-// Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html
-
+//
+//---------------------------------------------------------------------
+//*            |\___/|                                                *
+//*            )     (                                                *
+//*           =\     /=                                               *
+//*             )===(                                                 *
+//*            /     \     CaTS: Calorimeter and Tracker Simulation   *
+//*            |     |     is a flexible and extend-able framework    *
+//*           /       \    for the simulation of various detector     *
+//*	      \       /    systems                                    *
+//*            \__  _/     https://github.com/hanswenzel/CaTS         *
+//*	         ( (                                                  *
+//*	          ) )                                                 *
+//*              (_(                                                  *
+//* CaTS also serves as an example that demonstrates how to use       *
+//* opticks from within Geant4 for the creation and propagation of    *
+//* optical photons.                                                  *
+//* see https://bitbucket.org/simoncblyth/opticks.git).               *
+//* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
+//---------------------------------------------------------------------
+//
 #include "DRCalorimeterSD.hh"
 #include "ConfigurationManager.hh"
 //
@@ -52,7 +56,6 @@
 #include "G4Cerenkov.hh"
 #include<iomanip>
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 DRCalorimeterSD::DRCalorimeterSD(G4String name)
 : G4VSensitiveDetector(name), fDRCalorimeterHitsCollection(0), fHCID(0) {
     G4String HCname = name + "_HC";
@@ -62,7 +65,6 @@ DRCalorimeterSD::DRCalorimeterSD(G4String name)
     fHCID = -1;
     verbose = ConfigurationManager::getInstance()->isEnable_verbose();
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 DRCalorimeterSD::~DRCalorimeterSD() {
@@ -142,4 +144,3 @@ void DRCalorimeterSD::EndOfEvent(G4HCofThisEvent*) {
     G4int NbHits = fDRCalorimeterHitsCollection->entries();
     if (verbose) G4cout << " Number of DRCalorimeterHits:  " << NbHits << G4endl;
 }
-
