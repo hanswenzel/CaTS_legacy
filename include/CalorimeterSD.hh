@@ -64,9 +64,9 @@ public:
     virtual void EndOfEvent(G4HCofThisEvent* hitCollection);
 
 private:
-    CalorimeterHitsCollection* fCalorimeterHitsCollection;
-    G4int fHCID;
-    bool verbose;
+    CalorimeterHitsCollection* fCalorimeterHitsCollection {nullptr};
+    G4int fHCID {0};
+    bool verbose {false};
 };
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 

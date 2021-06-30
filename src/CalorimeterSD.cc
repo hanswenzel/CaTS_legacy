@@ -51,9 +51,9 @@
 #include "G4ios.hh"
 #include "ConfigurationManager.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
+//, fCalorimeterHitsCollection(0), fHCID(0) 
 CalorimeterSD::CalorimeterSD(G4String name)
-: G4VSensitiveDetector(name), fCalorimeterHitsCollection(0), fHCID(0) {
+: G4VSensitiveDetector(name){
     G4String HCname = name + "_HC";
     collectionName.insert(HCname);
     G4cout << collectionName.size() << "   CalorimeterSD name:  " << name << " collection Name: "
@@ -64,7 +64,7 @@ CalorimeterSD::CalorimeterSD(G4String name)
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-CalorimeterSD::~CalorimeterSD() {}
+CalorimeterSD::~CalorimeterSD() = default;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
