@@ -62,7 +62,7 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 PhotonSD::PhotonSD(G4String name)
-: G4VSensitiveDetector(name), fPhotonHitsCollection(0), fHCID(0) {
+: G4VSensitiveDetector(name){
     G4String HCname = name + "_HC";
     collectionName.insert(HCname);
     G4cout << collectionName.size() << "   PhotonSD name:  " << name << " collection Name: "
@@ -83,8 +83,7 @@ void PhotonSD::Initialize(G4HCofThisEvent* hce) {
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-PhotonSD::~PhotonSD() {
-}
+PhotonSD::~PhotonSD() = default;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 G4bool PhotonSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {

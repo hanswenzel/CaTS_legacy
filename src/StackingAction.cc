@@ -71,21 +71,12 @@ StackingAction* StackingAction::instance = 0;
 //#endif
 
 StackingAction::StackingAction() :
-G4UserStackingAction(),
-killPi0(false),
-killeta(false),
-killGammafromnCapture(false)
-//histo_beta(0),
-//EGammahisto(0),
-//ENeutronhisto(0),
-//EProtonhisto(0),
-//CaptureGammahisto(0) 
+G4UserStackingAction()
 {
     //#ifdef G4ANALYSIS_USE
     //analysis = Analysis::getInstance();
     //#endif
     pMessenger = new StackingActionMessenger(this);
-
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -50,15 +50,12 @@
 #include "G4Colour.hh"
 #include "G4VisAttributes.hh"
 
-G4ThreadLocal G4Allocator<TrackerHit>* TrackerHitAllocator = 0;
+G4ThreadLocal G4Allocator<TrackerHit>* TrackerHitAllocator = nullptr;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 TrackerHit::TrackerHit()
-: G4VHit(),
-Edep(0),
-position(0),
-time(0) {
+: G4VHit(){
 }
 
 TrackerHit::TrackerHit(G4double iedep,

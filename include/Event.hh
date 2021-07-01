@@ -54,26 +54,24 @@
 
 class Event {
 private:
-    G4int fEvtNum;
+    G4int fEvtNum{0};
     // Hit Map:
     std::map<G4String, std::vector<G4VHit*> > hcmap; // map of Hit Collections
 public:
 
-    Event() : fEvtNum(0) {
-    }
+    Event() = default;
 
-    virtual ~Event() {
-    }
+    virtual ~Event() =default;
 
-    void SetEventNr(G4int i) {
+    inline void SetEventNr(G4int i) {
         fEvtNum = i;
     }
 
-    G4int GetEventNumber() const {
+    inline G4int GetEventNumber() const {
         return fEvtNum;
     }
 
-    std::map<G4String, std::vector<G4VHit*> >* GetHCMap() {
+    inline std::map<G4String, std::vector<G4VHit*> >* GetHCMap() {
         return &hcmap;
     }
     void Reset();

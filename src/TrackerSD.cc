@@ -58,7 +58,7 @@
 #include "ConfigurationManager.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TrackerSD::TrackerSD(G4String name)
-: G4VSensitiveDetector(name), fTrackerHitsCollection(0), fHCID(0) {
+: G4VSensitiveDetector(name){
     G4String HCname = name + "_HC";
     collectionName.insert(HCname);
     G4cout << collectionName.size() << "   TrackerSD name:  " << name << " collection Name: "
@@ -77,9 +77,7 @@ void TrackerSD::Initialize(G4HCofThisEvent* hce) {
     hce->AddHitsCollection(fHCID, fTrackerHitsCollection);
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-TrackerSD::~TrackerSD() {
-}
+TrackerSD::~TrackerSD() =default;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 G4bool TrackerSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     G4double edep = aStep->GetTotalEnergyDeposit();

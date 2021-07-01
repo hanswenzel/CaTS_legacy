@@ -77,10 +77,10 @@ public:
     void EndofEvent();
     static StackingAction* getInstance();
 private:
-    G4bool killPi0;
-    G4bool killeta;
-    G4bool killGammafromnCapture;
-    StackingActionMessenger* pMessenger;
+    G4bool killPi0{false};
+    G4bool killeta{false};
+    G4bool killGammafromnCapture{false};
+    StackingActionMessenger* pMessenger{nullptr};
     static StackingAction* instance;
     void FillHistos(const G4Track* aTrack);
 };

@@ -72,11 +72,11 @@
 #include "lArTPCSD.hh"
 #include "ConfigurationManager.hh"
 #include "PhotonSD.hh"
-using namespace std;
+//using namespace std;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 lArTPCSD::lArTPCSD(G4String name)
-: G4VSensitiveDetector(name), flArTPCHitsCollection(0), fHCID(0) {
+: G4VSensitiveDetector(name) {
     G4String HCname = name + "_HC";
     collectionName.insert(HCname);
     verbose = ConfigurationManager::getInstance()->isEnable_verbose();
@@ -87,12 +87,8 @@ lArTPCSD::lArTPCSD(G4String name)
     fHCID = -1;
     first = true;
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-lArTPCSD::~lArTPCSD() {
-}
-
+lArTPCSD::~lArTPCSD() = default;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void lArTPCSD::Initialize(G4HCofThisEvent* hce) {
@@ -106,7 +102,6 @@ void lArTPCSD::Initialize(G4HCofThisEvent* hce) {
     }
     hce->AddHitsCollection(fHCID, flArTPCHitsCollection);
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 G4bool lArTPCSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
@@ -181,7 +176,6 @@ G4bool lArTPCSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
         G4double BetaInverse = 0.0;
         G4double MeanNumberOfPhotons1 = 0.0;
         G4double MeanNumberOfPhotons2 = 0.0;
-
         G4SteppingManager* fpSteppingManager = G4EventManager::GetEventManager()->GetTrackingManager()->GetSteppingManager();
         G4StepStatus stepStatus = fpSteppingManager->GetfStepStatus();
         if (stepStatus != fAtRestDoItProc) {
@@ -312,12 +306,9 @@ G4bool lArTPCSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
 #endif 
     return true;
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void lArTPCSD::EndOfEvent(G4HCofThisEvent*) {
-    //G4cout << " Number of Scintillation Photons:  " << tSphotons << G4endl;
-    //G4cout << " Number of Cerenkov Photons:  " << tCphotons << G4endl;
     tSphotons = 0;
     tCphotons = 0;
     G4int NbHits = flArTPCHitsCollection->entries();
@@ -325,6 +316,7 @@ void lArTPCSD::EndOfEvent(G4HCofThisEvent*) {
         G4cout << " Number of lArTPCHits:  " << NbHits << G4endl;
     }
 }
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 double lArTPCSD::NumElectrons(double edep, double ds) {
     // Nucl.Instrum.Meth.A523:275-286,2004

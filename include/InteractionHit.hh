@@ -54,13 +54,12 @@
 
 class InteractionHit : public G4VHit {
 private:
-    G4String pname; // name of secondary particle
-    G4double pmom; // momentum of secondary particle
-    G4double Ekin; // kinetic energy of secondary particle
-    G4double theta; // theta of secondary particle  
+    G4String pname{""}; // name of secondary particle
+    G4double pmom{0}; // momentum of secondary particle
+    G4double Ekin{0}; // kinetic energy of secondary particle
+    G4double theta{0}; // theta of secondary particle  
 
 public:
-
     InteractionHit();
     InteractionHit(G4String n, G4double m, G4double e, G4double t);
     ~InteractionHit();

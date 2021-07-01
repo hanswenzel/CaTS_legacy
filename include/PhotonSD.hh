@@ -68,8 +68,8 @@ public:
     virtual void EndOfEvent(G4HCofThisEvent* hitCollection);
 
 private:
-    PhotonHitsCollection* fPhotonHitsCollection;
-    G4int fHCID;
+    PhotonHitsCollection* fPhotonHitsCollection{0};
+    G4int fHCID{0};
     const double c = 299792458.; // speed of light in m/sec
     const double h = 4.13566743E-15; // Planck constant in eVsec
     bool verbose;

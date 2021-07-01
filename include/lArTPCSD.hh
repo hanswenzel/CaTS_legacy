@@ -71,29 +71,29 @@ private:
     //
     // properties related to Scintillation
     //
-    G4MaterialPropertyVector* Fast_Intensity;
-    G4MaterialPropertyVector* Slow_Intensity;
-    G4double YieldRatio; // slowerRatio,
-    G4double FastTimeConstant; // TimeConstant,
-    G4double SlowTimeConstant; //slowerTimeConstant,
+    G4MaterialPropertyVector* Fast_Intensity{nullptr};
+    G4MaterialPropertyVector* Slow_Intensity{nullptr};
+    G4double YieldRatio{0}; // slowerRatio,
+    G4double FastTimeConstant{0}; // TimeConstant,
+    G4double SlowTimeConstant{0}; //slowerTimeConstant,
     G4ScintillationType ScintillationType;
     //
     // properties related to Cerenkov
     //
-    G4MaterialPropertyVector* Rindex;
-    G4PhysicsOrderedFreeVector* CerenkovAngleIntegrals;
-    const G4PhysicsTable* thePhysicsTable;
-    G4double Pmin;
-    G4double Pmax;
-    G4double dp;
-    G4double nMax;
-    bool first;
-    bool verbose;
-    int tCphotons;
-    int tSphotons;
+    G4MaterialPropertyVector* Rindex{nullptr};
+    G4PhysicsOrderedFreeVector* CerenkovAngleIntegrals{nullptr};
+    const G4PhysicsTable* thePhysicsTable{0};
+    G4double Pmin{0};
+    G4double Pmax{0};
+    G4double dp{0};
+    G4double nMax{0};
+    bool first{false};
+    bool verbose{false};
+    int tCphotons{0};
+    int tSphotons{0};
     double NumElectrons(double e, double ds);
-    lArTPCHitsCollection* flArTPCHitsCollection;
-    G4int fHCID;
+    lArTPCHitsCollection* flArTPCHitsCollection{nullptr};
+    G4int fHCID{0};
 };
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 #endif

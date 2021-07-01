@@ -71,6 +71,9 @@ ConfigurationManager::ConfigurationManager() {
     GDMLFileName = "dump.gdml_G4";
 }
 
+ConfigurationManager::~ConfigurationManager() {
+    delete confMessenger;
+}
 
 #ifdef WITH_G4OPTICKS 
 

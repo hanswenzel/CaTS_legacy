@@ -54,16 +54,12 @@
 #include "PrimaryGeneratorAction.hh"
 #include "PrimaryGeneratorActionMessenger.hh"
 PrimaryGeneratorAction* PrimaryGeneratorAction::instance = 0;
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 PrimaryGeneratorAction* PrimaryGeneratorAction::getInstance() {
     if (instance == 0) instance = new PrimaryGeneratorAction();
     return instance;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//using namespace std;
-
 PrimaryGeneratorAction::PrimaryGeneratorAction() {
     const char* filename = "pythia_event.data";
     gentypeMap["HEPEvt"] = new G4HEPEvtInterface(filename);
@@ -84,9 +80,7 @@ PrimaryGeneratorAction::PrimaryGeneratorAction() {
     currentGeneratorName = "particleGun";
     instance = this;
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 PrimaryGeneratorAction::~PrimaryGeneratorAction() {
     delete gunMessenger;
     for (std::map<G4String, G4VPrimaryGenerator*>::iterator ii = gentypeMap.begin(); ii != gentypeMap.end(); ++ii) {
@@ -94,9 +88,7 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction() {
         gentypeMap.erase((*ii).first);
     }
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
     currentGenerator->GeneratePrimaryVertex(anEvent);
 }

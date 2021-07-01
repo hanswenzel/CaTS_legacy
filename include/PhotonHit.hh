@@ -59,13 +59,10 @@ public:
     PhotonHit(const PhotonHit&);
     const PhotonHit& operator=(const PhotonHit&);
     G4bool operator==(const PhotonHit&) const;
-
     inline void* operator new(size_t);
     inline void operator delete(void*);
-
     virtual void Draw();
     virtual void Print();
-
     PhotonHit(unsigned id,
             unsigned pid,
             G4double wavelength,
@@ -74,31 +71,69 @@ public:
             G4ThreeVector direction,
             G4ThreeVector polarization);
 
-    G4double GetWavelength() {
+    inline void SetWavelength(G4double wavelength) {
+        this->wavelength = wavelength;
+    }
+
+    inline G4double GetWavelength() {
         return wavelength;
     }
-    void SetPolarization(G4ThreeVector polarization);
-    G4ThreeVector GetPolarization() const;
-    void SetDirection(G4ThreeVector direction);
-    G4ThreeVector GetDirection() const;
-    void SetPosition(G4ThreeVector position);
-    G4ThreeVector GetPosition() const;
-    void SetTime(G4double time);
-    G4double GetTime() const;
-    void SetWavelength(G4double wavelength);
-    void SetPid(unsigned pid);
-    unsigned GetPid() const;
-    void SetId(unsigned id);
-    unsigned GetId() const;
 
+    inline void SetPolarization(G4ThreeVector polarization) {
+        this->polarization = polarization;
+    }
+
+    inline G4ThreeVector GetPolarization() const {
+        return polarization;
+    }
+
+    inline void SetDirection(G4ThreeVector direction) {
+        this->direction = direction;
+    }
+
+    inline G4ThreeVector GetDirection() const {
+        return direction;
+    }
+
+    inline void SetPosition(G4ThreeVector position) {
+        this->position = position;
+    }
+
+    inline G4ThreeVector GetPosition() const {
+        return position;
+    }
+
+    inline void SetTime(G4double time) {
+        this->time = time;
+    }
+
+    inline G4double GetTime() const {
+        return time;
+    }
+
+    inline void SetPid(unsigned pid) {
+        this->pid = pid;
+    }
+
+    inline unsigned GetPid() const {
+        return pid;
+    }
+
+    inline void SetId(unsigned id) {
+        this->id = id;
+    }
+
+    inline unsigned GetId() const {
+        return id;
+    }
 private:
-    unsigned id;
-    unsigned pid;
-    G4double wavelength;
-    G4double time;
-    G4ThreeVector position;
-    G4ThreeVector direction;
-    G4ThreeVector polarization;
+    unsigned id{0};
+    unsigned pid{0};
+    G4double wavelength{0};
+    G4double time{0};
+    G4ThreeVector position{0};
+    G4ThreeVector direction{0};
+    G4ThreeVector polarization{0};
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -106,20 +141,15 @@ private:
 using PhotonHitsCollection = G4THitsCollection<PhotonHit>;
 extern G4ThreadLocal G4Allocator<PhotonHit>* PhotonHitAllocator;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 inline void* PhotonHit::operator new(size_t){
     if (!PhotonHitAllocator) {
         PhotonHitAllocator = new G4Allocator<PhotonHit>;
     }
     return (void *) PhotonHitAllocator->MallocSingle();
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 inline void PhotonHit::operator delete(void *aHit) {
     PhotonHitAllocator->FreeSingle((PhotonHit*) aHit);
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 #endif

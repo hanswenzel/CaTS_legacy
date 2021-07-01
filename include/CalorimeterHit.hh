@@ -109,16 +109,16 @@ public:
         this->em_Edep = em_Edep;
     };
 
-     double Getem_Edep() const {
+    inline double Getem_Edep() const {
         return em_Edep;
     };
 
 private:
-    unsigned int id;
-    double Edep;
-    double em_Edep;
-    double time;
-    G4ThreeVector position;
+    unsigned int id{0};
+    double Edep{0};
+    double em_Edep{0};
+    double time{0};
+    G4ThreeVector position{0};
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -139,7 +139,5 @@ inline void* CalorimeterHit::operator new(size_t){
 inline void CalorimeterHit::operator delete(void *aHit) {
     CalorimeterHitAllocator->FreeSingle((CalorimeterHit*) aHit);
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 #endif

@@ -51,7 +51,6 @@
 #include "G4ios.hh"
 #include "ConfigurationManager.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//, fCalorimeterHitsCollection(0), fHCID(0) 
 CalorimeterSD::CalorimeterSD(G4String name)
 : G4VSensitiveDetector(name){
     G4String HCname = name + "_HC";
@@ -61,13 +60,9 @@ CalorimeterSD::CalorimeterSD(G4String name)
     fHCID = -1;
     verbose = ConfigurationManager::getInstance()->isEnable_verbose();
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 CalorimeterSD::~CalorimeterSD() = default;
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 void CalorimeterSD::Initialize(G4HCofThisEvent* hce) {
     fCalorimeterHitsCollection = new CalorimeterHitsCollection(SensitiveDetectorName, collectionName[0]);
     if (fHCID < 0) {
@@ -77,9 +72,7 @@ void CalorimeterSD::Initialize(G4HCofThisEvent* hce) {
     }
     hce->AddHitsCollection(fHCID, fCalorimeterHitsCollection);
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 G4bool CalorimeterSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     double edep = aStep->GetTotalEnergyDeposit() / CLHEP::MeV;
     if (edep == 0.) return false;
@@ -90,7 +83,7 @@ G4bool CalorimeterSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     //std::cout<<"ID:  "<<ID<<"  Edep:  "<< edep<<std::endl;
     G4Track* theTrack = aStep->GetTrack();
     G4String particleType = theTrack->GetDefinition()->GetParticleName();
-    // 
+    //
     //  check if this cell has been hit before
     //fCalorimeterHitsCollection
     for (unsigned int j = 0; j < fCalorimeterHitsCollection->entries(); j++) {
@@ -115,7 +108,6 @@ G4bool CalorimeterSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     fCalorimeterHitsCollection->insert(newHit);
     return true;
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void CalorimeterSD::EndOfEvent(G4HCofThisEvent*) {
     G4int NbHits = fCalorimeterHitsCollection->entries();

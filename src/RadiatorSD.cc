@@ -77,15 +77,10 @@ using namespace std;
 
 RadiatorSD::RadiatorSD(G4String name)
 : G4VSensitiveDetector(name) {
-    first = true;
     verbose = ConfigurationManager::getInstance()->isEnable_verbose();
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-RadiatorSD::~RadiatorSD() {
-}
-
+RadiatorSD::~RadiatorSD() =default;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void RadiatorSD::Initialize(G4HCofThisEvent*) {

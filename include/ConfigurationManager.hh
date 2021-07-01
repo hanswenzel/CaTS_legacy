@@ -72,7 +72,7 @@ private:
     ConfigurationManager();
 public:
 
-    ~ConfigurationManager()=default;
+    ~ConfigurationManager();
 
     static ConfigurationManager* getInstance() {
         std::call_once(initInstanceFlag, ConfigurationManager::initConfigurationManager);

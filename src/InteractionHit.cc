@@ -52,7 +52,7 @@
 #include "G4VisAttributes.hh"
 
 //G4Allocator<InteractionHit> InteractionHitAllocator;
-G4ThreadLocal G4Allocator<InteractionHit>* InteractionHitAllocator = 0;
+G4ThreadLocal G4Allocator<InteractionHit>* InteractionHitAllocator = nullptr;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 InteractionHit::InteractionHit() : G4VHit() {
@@ -103,7 +103,7 @@ void InteractionHit::Print() {
 
     G4cout << "Particle name : " << pname
             << "  momentum [GeV]: " << pmom
-            << "kinetic Energy [GeV]" << Ekin
+            << "  kinetic Energy [GeV]" << Ekin
             << "  theta: " << theta
             << G4endl;
 

@@ -50,19 +50,11 @@
 #include "G4Colour.hh"
 #include "G4VisAttributes.hh"
 
-G4ThreadLocal G4Allocator<CalorimeterHit>* CalorimeterHitAllocator = 0;
-
+G4ThreadLocal G4Allocator<CalorimeterHit>* CalorimeterHitAllocator = nullptr;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-CalorimeterHit::CalorimeterHit()
-: G4VHit(),
-id(0),
-Edep(0),
-em_Edep(0),
-time(0),
-position(0) {
+CalorimeterHit::CalorimeterHit() : G4VHit() {
 }
-
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 CalorimeterHit::CalorimeterHit(unsigned i,
         G4double e,
         G4double em,
@@ -74,15 +66,9 @@ CalorimeterHit::CalorimeterHit(unsigned i,
     time = t;
     position = p;
 }
-
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-CalorimeterHit::~CalorimeterHit() {
-}
-
+CalorimeterHit::~CalorimeterHit() = default;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 CalorimeterHit::CalorimeterHit(const CalorimeterHit& right)
 : G4VHit() {
     this->id = right.id;
@@ -91,9 +77,7 @@ CalorimeterHit::CalorimeterHit(const CalorimeterHit& right)
     this->time = right.time;
     this->position = right.position;
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 const CalorimeterHit& CalorimeterHit::operator=(const CalorimeterHit& right) {
     this->id = right.id;
     this->Edep = right.Edep;
@@ -102,18 +86,13 @@ const CalorimeterHit& CalorimeterHit::operator=(const CalorimeterHit& right) {
     this->position = right.position;
     return *this;
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 G4bool CalorimeterHit::operator==(const CalorimeterHit& right) const {
     return (this == &right) ? true : false;
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 void CalorimeterHit::Draw() {
     G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();
-
     if (pVVisManager) {
         G4Circle circle(position);
         circle.SetScreenSize(2.);
@@ -123,11 +102,8 @@ void CalorimeterHit::Draw() {
         circle.SetVisAttributes(attribs);
         pVVisManager->Draw(circle);
     }
-
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 void CalorimeterHit::Print() {
 
     //    position.
@@ -138,5 +114,4 @@ void CalorimeterHit::Print() {
     //          << "  wavelength deposit[MeV]: " << fEdep
     //          << "  position[mm]: " << fPos << G4endl;
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

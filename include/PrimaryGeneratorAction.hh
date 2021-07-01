@@ -52,6 +52,7 @@ class G4ParticleGun;
 class PrimaryGeneratorActionMessenger;
 class G4VPrimaryGenerator;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
 class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction {
 private:
     PrimaryGeneratorAction & operator=(const PrimaryGeneratorAction &right);

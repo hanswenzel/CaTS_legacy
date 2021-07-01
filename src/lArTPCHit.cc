@@ -50,11 +50,11 @@
 #include "G4Colour.hh"
 #include "G4VisAttributes.hh"
 
-G4ThreadLocal G4Allocator<lArTPCHit>* lArTPCHitAllocator = 0;
+G4ThreadLocal G4Allocator<lArTPCHit>* lArTPCHitAllocator = nullptr;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 lArTPCHit::lArTPCHit()
-: G4VHit(), fElectrons(0), fPosX(0), fPosY(0), fPosZ(0) {
+: G4VHit(){
 }
 
 lArTPCHit::lArTPCHit(G4double fe, G4double fx, G4double fy, G4double fz) : G4VHit() {

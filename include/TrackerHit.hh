@@ -59,23 +59,33 @@ public:
     TrackerHit(const TrackerHit&);
     const TrackerHit& operator=(const TrackerHit&);
     G4bool operator==(const TrackerHit&) const;
-
     inline void* operator new(size_t);
     inline void operator delete(void*);
-
     virtual void Draw();
     virtual void Print();
-
     TrackerHit(G4double edep, G4ThreeVector position, G4double time);
-
-    G4double GetEdep() {
+    inline void SetEdep(G4double Edep) {
+        this->Edep = Edep;
+    }
+    inline G4double GetEdep() {
         return Edep;
     }
+    inline void SetTime(G4double time) {
+        this->time = time;
+    }
+    inline G4double GetTime() const {
+        return time;
+    }
+    inline void SetPosition(G4ThreeVector position) {
+        this->position = position;
+    }
+    inline G4ThreeVector GetPosition() const {
+        return position;
+    }
 private:
-
-    G4double Edep;
-    G4ThreeVector position;
-    G4double time;
+    G4double Edep{0};
+    G4ThreeVector position{0};
+    G4double time{0};
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

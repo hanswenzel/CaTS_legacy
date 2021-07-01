@@ -63,10 +63,9 @@
 #include "G4StepLimiterPhysics.hh"
 #include "G4SystemOfUnits.hh"
 PhysicsConfigurator* PhysicsConfigurator::instance = 0;
-
-PhysicsConfigurator::PhysicsConfigurator() {
-}
-
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+PhysicsConfigurator::PhysicsConfigurator() =default;
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 G4VModularPhysicsList* PhysicsConfigurator::Construct(G4String physName) {
     //
     // Access to registries and factories
@@ -140,10 +139,9 @@ G4VModularPhysicsList* PhysicsConfigurator::Construct(G4String physName) {
     }
     return phys;
 }
-
-PhysicsConfigurator::~PhysicsConfigurator() {
-}
-
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+PhysicsConfigurator::~PhysicsConfigurator()=default;
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 PhysicsConfigurator* PhysicsConfigurator::getInstance() {
     if (instance == 0) instance = new PhysicsConfigurator();
     return instance;

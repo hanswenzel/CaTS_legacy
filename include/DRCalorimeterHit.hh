@@ -90,35 +90,34 @@ public:
         return time;
     };
 
-   inline  void SetId(unsigned int id) {
+    inline void SetId(unsigned int id) {
         this->id = id;
     };
 
-  inline   unsigned int GetId() const {
+    inline unsigned int GetId() const {
         return id;
     };
 
-   inline  void SetEdep(double Edep) {
+    inline void SetEdep(double Edep) {
         this->Edep = Edep;
     };
 
-   inline  double GetEdep() const {
+    inline double GetEdep() const {
         return Edep;
     };
-
-
-     void SetNceren(unsigned int Nceren);
-     unsigned int GetNceren() const;
-     void SetEm_Edep(double em_Edep);
-     double GetEm_Edep() const;;
+    void SetNceren(unsigned int Nceren);
+    unsigned int GetNceren() const;
+    void SetEm_Edep(double em_Edep);
+    double GetEm_Edep() const;
+    ;
 
 private:
-    unsigned int id;
-    double Edep;
-    double em_Edep;
-    unsigned int Nceren;
-    double time;
-    G4ThreeVector position;
+    unsigned int id{0};
+    double Edep{0};
+    double em_Edep{0};
+    unsigned int Nceren{0};
+    double time{0};
+    G4ThreeVector position{0};
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

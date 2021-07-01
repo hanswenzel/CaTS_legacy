@@ -84,14 +84,14 @@ private:
     G4MaterialPropertyVector* Rindex;
     G4PhysicsOrderedFreeVector* CerenkovAngleIntegrals;
     const G4PhysicsTable* thePhysicsTable;
-    G4double Pmin;
-    G4double Pmax;
-    G4double dp;
-    G4double nMax;
-    bool first;
-    bool verbose;
-    int tCphotons;
-    int tSphotons;
+    G4double Pmin{0};
+    G4double Pmax{0};
+    G4double dp{0};
+    G4double nMax{0};
+    bool first{true};
+    bool verbose{false};
+    int tCphotons{0};
+    int tSphotons{0};
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -66,11 +66,8 @@ public:
 
     inline void* operator new(size_t);
     inline void operator delete(void*);
-
     virtual void Draw();
     virtual void Print();
-
-public:
 
     void SetElectrons(G4double de) {
         fElectrons = de;
@@ -105,10 +102,10 @@ public:
     };
 private:
 
-    G4double fElectrons;
-    G4double fPosX;
-    G4double fPosY;
-    G4double fPosZ;
+    G4double fElectrons{0};
+    G4double fPosX{0};
+    G4double fPosY{0};
+    G4double fPosZ{0};
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
