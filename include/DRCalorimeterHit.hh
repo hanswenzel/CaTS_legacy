@@ -63,10 +63,16 @@ public:
 
     inline void* operator new(size_t);
     inline void operator delete(void*);
-
     virtual void Draw();
-    virtual void Print();
 
+    inline virtual void Print() {
+        G4cout << "DRCalorimeterHit  id:  " << id << " Edep: " << Edep <<
+                " em_Edep: " << em_Edep << " NCeren: " <<Nceren<<
+                " X: " << position.getX() <<
+                " Y: " << position.getY() <<
+                " Z: " << position.getZ() << G4endl;
+    }
+    //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
     DRCalorimeterHit(unsigned int i,
             double e,
             double em,

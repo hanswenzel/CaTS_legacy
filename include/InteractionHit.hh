@@ -69,8 +69,16 @@ public:
 
     inline void* operator new(size_t);
     inline void operator delete(void*);
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+inline void Print() {
+    G4cout << "InteractionHit pname : " << pname
+            << "  momentum [GeV]: " << pmom
+            << "  kinetic Energy [GeV]" << Ekin
+            << "  theta: " << theta
+            << G4endl;
 
-    void Print();
+}
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
     void SetPname(G4String de) {
         pname = de;

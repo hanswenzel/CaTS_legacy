@@ -64,8 +64,7 @@ lArTPCHit::lArTPCHit(G4double fe, G4double fx, G4double fy, G4double fz) : G4VHi
     fPosZ = fz;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-lArTPCHit::~lArTPCHit() {
-}
+lArTPCHit::~lArTPCHit() =default;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 lArTPCHit::lArTPCHit(const lArTPCHit& right)
 : G4VHit() {
@@ -101,12 +100,3 @@ void lArTPCHit::Draw() {
     }
      */
 }
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void lArTPCHit::Print() {
-    G4cout << "Nr. of electrons: " << fElectrons
-            << "  x position [mm]: " << fPosX
-            << "  y position [mm]: " << fPosY
-            << "  z position [mm]: " << fPosZ
-            << G4endl;
-}
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -62,7 +62,25 @@ public:
     inline void* operator new(size_t);
     inline void operator delete(void*);
     virtual void Draw();
-    virtual void Print();
+    //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+    inline virtual void Print() {
+        G4cout << "PhotonHit id: " << id
+                << " pid: " << pid
+                << " wavelength: " << wavelength
+                << " time: " << time
+                << " position X: " << position.getX()
+                << " Y: " << position.getY()
+                << " Z: " << position.getZ()
+                << " direction X: " << direction.getX()
+                << " Y: " << direction.getY()
+                << " Z: " << direction.getZ()
+                << " polarization: X:" << polarization.getX()
+                << " Y: " << polarization.getY()
+                << " Z: " << polarization.getZ()
+                << G4endl;
+    }
+    //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
     PhotonHit(unsigned id,
             unsigned pid,
             G4double wavelength,
@@ -148,6 +166,7 @@ inline void* PhotonHit::operator new(size_t){
     return (void *) PhotonHitAllocator->MallocSingle();
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
 inline void PhotonHit::operator delete(void *aHit) {
     PhotonHitAllocator->FreeSingle((PhotonHit*) aHit);
 }

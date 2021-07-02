@@ -67,8 +67,15 @@ public:
     inline void* operator new(size_t);
     inline void operator delete(void*);
     virtual void Draw();
-    virtual void Print();
-
+    //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+    inline virtual void lArTPCHit::Print() {
+        G4cout << "lArTPCHit Nr. of electrons: " << fElectrons
+                << "  x position [mm]: " << fPosX
+                << "  y position [mm]: " << fPosY
+                << "  z position [mm]: " << fPosZ
+                << G4endl;
+    }
+    //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
     void SetElectrons(G4double de) {
         fElectrons = de;
     };

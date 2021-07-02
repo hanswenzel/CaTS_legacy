@@ -96,17 +96,3 @@ const InteractionHit& InteractionHit::operator=(const InteractionHit& right) {
 G4int InteractionHit::operator==(const InteractionHit& right) const {
     return (this == &right) ? 1 : 0;
 }
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void InteractionHit::Print() {
-
-    G4cout << "Particle name : " << pname
-            << "  momentum [GeV]: " << pmom
-            << "  kinetic Energy [GeV]" << Ekin
-            << "  theta: " << theta
-            << G4endl;
-
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

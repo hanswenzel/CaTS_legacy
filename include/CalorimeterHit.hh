@@ -60,13 +60,16 @@ public:
     CalorimeterHit(const CalorimeterHit&);
     const CalorimeterHit& operator=(const CalorimeterHit&);
     G4bool operator==(const CalorimeterHit&) const;
-
     inline void* operator new(size_t);
     inline void operator delete(void*);
-
     virtual void Draw();
-    virtual void Print();
 
+    inline virtual void Print() {
+        G4cout << "CalorimeterHit  id:  " << id << " Edep: " << Edep
+                << " em_Edep: " << em_Edep << " time: " << time
+                << " X: " << position.getX() << " Y: " << position.getY() << " Z: " << position.getZ()
+                << G4endl;
+    }
     CalorimeterHit(unsigned int i,
             double e,
             double em,
@@ -89,23 +92,23 @@ public:
         return time;
     };
 
-   inline  void SetId(unsigned int id) {
+    inline void SetId(unsigned int id) {
         this->id = id;
     };
 
-  inline   unsigned int GetId() const {
+    inline unsigned int GetId() const {
         return id;
     };
 
-   inline  void SetEdep(double Edep) {
+    inline void SetEdep(double Edep) {
         this->Edep = Edep;
     };
 
-   inline  double GetEdep() const {
+    inline double GetEdep() const {
         return Edep;
     };
 
-   inline  void Setem_Edep(double em_Edep) {
+    inline void Setem_Edep(double em_Edep) {
         this->em_Edep = em_Edep;
     };
 

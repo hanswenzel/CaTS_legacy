@@ -113,19 +113,3 @@ void PhotonHit::Draw() {
     }
 
 }
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void PhotonHit::Print() {
-    G4cout << "id: " << id
-            << " pid: " << pid
-            << " wavelength: " << wavelength
-            << " time: " << time
-            << G4endl;
-    //    position.
-    //    G4ThreeVector position;
-    //    G4ThreeVector direction;
-    //    G4ThreeVector polarization;
-    //  G4cout << "  trackID: " << fTrackID << "  chamberNb: " << fChamberNb
-    //          << "  wavelength deposit[MeV]: " << fEdep
-    //          << "  position[mm]: " << fPos << G4endl;
-}
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

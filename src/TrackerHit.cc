@@ -113,15 +113,3 @@ void TrackerHit::Draw() {
     }
 
 }
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void TrackerHit::Print() {
-//    G4cout << "id: " << id
-//            << " pid: " << pid
-//            << " wavelength: " << wavelength
-//            << " time: " << time
-//            << G4endl;
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -62,27 +62,40 @@ public:
     inline void* operator new(size_t);
     inline void operator delete(void*);
     virtual void Draw();
-    virtual void Print();
+    //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+    inline virtual void Print() {
+        G4cout << "TrackerHit  id:  " << id << " Edep: " << Edep
+                << " X: " << position.getX() << " Y: " << position.getY() << " Z: " << position.getZ()
+                << " time: " << time << G4endl;
+    }
+    //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
     TrackerHit(G4double edep, G4ThreeVector position, G4double time);
+
     inline void SetEdep(G4double Edep) {
         this->Edep = Edep;
     }
+
     inline G4double GetEdep() {
         return Edep;
     }
+
     inline void SetTime(G4double time) {
         this->time = time;
     }
+
     inline G4double GetTime() const {
         return time;
     }
+
     inline void SetPosition(G4ThreeVector position) {
         this->position = position;
     }
+
     inline G4ThreeVector GetPosition() const {
         return position;
     }
 private:
+    G4int id{0};
     G4double Edep{0};
     G4ThreeVector position{0};
     G4double time{0};

@@ -104,14 +104,3 @@ void CalorimeterHit::Draw() {
     }
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void CalorimeterHit::Print() {
-
-    //    position.
-    //    G4ThreeVector position;
-    //    G4ThreeVector direction;
-    //    G4ThreeVector polarization;
-    //  G4cout << "  trackID: " << fTrackID << "  chamberNb: " << fChamberNb
-    //          << "  wavelength deposit[MeV]: " << fEdep
-    //          << "  position[mm]: " << fPos << G4endl;
-}
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
