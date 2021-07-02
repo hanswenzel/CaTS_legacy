@@ -125,7 +125,7 @@ G4VModularPhysicsList* PhysicsConfigurator::Construct(G4String physName) {
     G4OpticalParameters::Instance()-> SetProcessActivation("OpAbsorption", true);
     G4OpticalParameters::Instance()-> SetProcessActivation("OpRayleigh", true);
     G4OpticalParameters::Instance()-> SetProcessActivation("OpMieHG", false);
-    G4OpticalParameters::Instance()-> SetProcessActivation("OpWLS", false);
+    G4OpticalParameters::Instance()-> SetProcessActivation("OpWLS", true);
     G4OpticalParameters::Instance()-> SetProcessActivation("OpWLS2", false);
 	      
     G4OpticalParameters::Instance()->SetCerenkovStackPhotons(false);
