@@ -22,22 +22,27 @@
 // * use  in  resulting  scientific  publications,  and indicate your *
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
-// 
-/* ------------------------------------------------------------------------
-            |\___/|       
-            )     (    
-           =\     /=
-             )===(
-            /     \         CaTS: Calorimeter and Tracker Simulation
-            |     |         CaTS is a flexible and extend-able framework 
-           /       \        for the simulation of calorimeter and tracking detectors. 
-           \       /        https://github.com/hanswenzel/CaTS
-            \__  _/         CaTS also serves as an Example that demonstrates how to 
-              ( (           use opticks from within Geant4 for the creation and propagation 
-               ) )          of optical photons. 
-              (_(           (see https://bitbucket.org/simoncblyth/opticks.git). 
--------------------------------------------------------------------------*/
-// Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html
+//
+//---------------------------------------------------------------------
+//*            |\___/|                                                *
+//*            )     (                                                *
+//*           =\     /=                                               *
+//*             )===(                                                 *
+//*            /     \     CaTS: Calorimeter and Tracker Simulation   *
+//*            |     |     is a flexible and extend-able framework    *
+//*           /       \    for the simulation of various detector     *
+//*	      \       /    systems                                    *
+//*            \__  _/     https://github.com/hanswenzel/CaTS         *
+//*	         ( (                                                  *
+//*	          ) )                                                 *
+//*              (_(                                                  *
+//* CaTS also serves as an example that demonstrates how to use       *
+//* opticks from within Geant4 for the creation and propagation of    *
+//* optical photons.                                                  *
+//* see https://bitbucket.org/simoncblyth/opticks.git).               *
+//* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
+//---------------------------------------------------------------------
+//
 #ifdef WITH_G4OPTICKS
 #include "OPTICKS_LOG.hh"
 #endif
@@ -55,11 +60,8 @@
 #include "G4VisExecutive.hh"
 #include "G4VModularPhysicsList.hh"
 #include "G4Version.hh"
-// boost headers: 
-#include <boost/timer/timer.hpp>
 
 int main(int argc, char** argv) {
-    boost::timer::auto_cpu_timer t;
     bool interactive = false;
     G4String physicsconf = "";
     G4String gdmlfile = "";

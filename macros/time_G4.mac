@@ -2,7 +2,7 @@
 /CaTS/dumpgdml true
 /CaTS/GDMLFileName dump.gdml
 /CaTS/writeHits true
-/CaTS/FileName NewHits.root
+/CaTS/FileName NewHits_G4_point
 /process/optical/scintillation/setStackPhotons true
 /process/optical/cerenkov/setStackPhotons true
 /process/optical/rayleigh/verbose 0
@@ -11,10 +11,9 @@
 /run/initialize 
 /random/setSeeds 7 38 
 /CaTS/enable_opticks false
-/CaTS/writeHits false
 /CaTS/doAnalysis false
 /gun/particle e-
-/gun/energy 2 GeV
-/gun/position 0. 0. -105. cm
+/gun/energy 0.1 MeV
+/gun/position 0. 0. 0. cm
 /gun/direction 0. 0. 1.
-/run/beamOn 1
+/run/beamOn 1000

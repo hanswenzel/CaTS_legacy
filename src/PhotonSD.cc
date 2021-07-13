@@ -58,11 +58,9 @@
 #include "OpticksFlags.hh"
 #include "G4OpticksHit.hh"
 #endif
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 PhotonSD::PhotonSD(G4String name)
-: G4VSensitiveDetector(name){
+: G4VSensitiveDetector(name) {
     G4String HCname = name + "_HC";
     collectionName.insert(HCname);
     G4cout << collectionName.size() << "   PhotonSD name:  " << name << " collection Name: "
@@ -82,17 +80,15 @@ void PhotonSD::Initialize(G4HCofThisEvent* hce) {
     hce->AddHitsCollection(fHCID, fPhotonHitsCollection);
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 PhotonSD::~PhotonSD() = default;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 G4bool PhotonSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     G4Track* theTrack = aStep->GetTrack();
     // we only deal with optical Photons:
     if (theTrack->GetDefinition() != G4OpticalPhoton::OpticalPhotonDefinition()) {
         return false;
     }
-    G4double theEdep = theTrack->GetTotalEnergy();
+    G4double theEdep = theTrack->GetTotalEnergy()/CLHEP::eV;
     const G4VProcess * thisProcess = theTrack->GetCreatorProcess();
 
     G4String processname;
@@ -128,7 +124,6 @@ void PhotonSD::EndOfEvent(G4HCofThisEvent*) {
 }
 
 #ifdef WITH_G4OPTICKS
-
 void PhotonSD::AddOpticksHits() {
     G4Opticks* g4ok = G4Opticks::Get();
     bool way_enabled = g4ok->isWayEnabled();

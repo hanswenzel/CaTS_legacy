@@ -99,14 +99,10 @@ std::vector<std::string> split(const std::string &s, char delim) {
 
 EventAction::EventAction(Ctx* ctx_)
 :G4UserEventAction(),
-ctx(ctx_) {
-#ifdef WITH_ROOT
-    enable_IO = ConfigurationManager::getInstance()->isWriteHits();
-#endif 
-}
+ctx(ctx_){}
 
-EventAction::~EventAction() {
-}
+EventAction::~EventAction() = default;
+
 
 void EventAction::BeginOfEventAction(const G4Event* anEvent) {
     ctx->setEvent(anEvent);
@@ -149,7 +145,7 @@ void EventAction::EndOfEventAction(const G4Event* event) {
     //
     if (verbose) G4cout << "Number of collections:  " << HCE->GetNumberOfCollections() << G4endl;
 #ifdef WITH_ROOT
-    if (enable_IO) {
+    if (ConfigurationManager::getInstance()->isWriteHits()) {
         //RunAction::getInstance()->getIOTimer()->resume();
         for (int i = 0; i < HCE->GetNumberOfCollections(); i++) {
             G4VHitsCollection* hc = HCE->GetHC(i);

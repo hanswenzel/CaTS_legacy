@@ -55,6 +55,4 @@ public:
     virtual void BeginOfEventAction(const G4Event* anEvent);
     virtual void EndOfEventAction(const G4Event* anEvent);
     Ctx* ctx;
-private:
-  bool enable_IO;    
 };

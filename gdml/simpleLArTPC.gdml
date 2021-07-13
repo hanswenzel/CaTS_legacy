@@ -43,6 +43,7 @@
             -->
             <property name="FASTCOMPONENT" ref="SCINTLAR"/>
             <property name="SLOWCOMPONENT" ref="SCINTLAR"/>
+            <property name="REEMISSIONPROB" ref="SCINTLAR"/>
             <property name="SCINTILLATIONYIELD" ref="SY" />
             <property name="RESOLUTIONSCALE" ref="RS" />
             <property name="SLOWTIMECONSTANT" ref="STC" />

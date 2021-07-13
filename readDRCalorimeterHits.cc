@@ -73,6 +73,7 @@ int main(int argc, char** argv) {
     TH1F* time0 = new TH1F("time0", "timing of photon hits", 400, 0., 100.);
     TH1F* time1 = new TH1F("time1", "timing of photon hits", 400, 0., 100.);
     TH1F* time2 = new TH1F("time2", "timing of photon hits", 400, 0., 100.);
+    TH1F* pe = new TH1F("pe", "wavelength of detected photons", 400, 0., 400.);
     TFile fo(argv[1]);
     std::vector<lArTPCHit*> hits;
     std::vector<PhotonHit*> hitsp;
@@ -113,7 +114,7 @@ int main(int argc, char** argv) {
                 }
             }
             if ((*hciter).first == "volArgon_Target_HC") {
-                
+
                 cout << "=================================" << endl;
                 for (G4int ii = 0; ii < NbHits; ii++) {
                     InteractionHit* interHit = dynamic_cast<InteractionHit*> (hits.at(ii));
@@ -127,7 +128,9 @@ int main(int argc, char** argv) {
                     //                  cout << "X: " << photonHit->GetPosition().getX() << endl;
                     //                  cout << "Y: " << photonHit->GetPosition().getY() << endl;
                     //                  cout << "Z: " << photonHit->GetPosition().getZ() << endl;
+                    cout << photonHit->GetWavelength()*1.e-6 << endl;
                     time->Fill(photonHit->GetTime());
+                    pe->Fill(photonHit->GetWavelength()*1.e-6);
                     if (photonHit->GetPosition().getZ()<-100.) time0->Fill(photonHit->GetTime());
                     if (photonHit->GetPosition().getZ()>-100. && photonHit->GetPosition().getZ() < 100) time1->Fill(photonHit->GetTime());
                     if (photonHit->GetPosition().getZ() < 100.) time2->Fill(photonHit->GetTime());

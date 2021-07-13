@@ -76,7 +76,7 @@ private:
     //    double etolambda(double);
 
     inline double etolambda(double E) {
-        // input  photon energy in MeV
+        // input  photon energy in eV
         // return   wavelength in nm 
         return (h * c) / (E * 1.e-9);
     }

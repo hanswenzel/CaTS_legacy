@@ -68,7 +68,7 @@ public:
     inline void operator delete(void*);
     virtual void Draw();
     //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-    inline virtual void lArTPCHit::Print() {
+    inline virtual void Print() {
         G4cout << "lArTPCHit Nr. of electrons: " << fElectrons
                 << "  x position [mm]: " << fPosX
                 << "  y position [mm]: " << fPosY

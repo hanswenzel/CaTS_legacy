@@ -1,4 +1,4 @@
-//
+
 // ********************************************************************
 // * License and Disclaimer                                           *
 // *                                                                  *
@@ -80,7 +80,7 @@ RadiatorSD::RadiatorSD(G4String name)
     verbose = ConfigurationManager::getInstance()->isEnable_verbose();
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-RadiatorSD::~RadiatorSD() =default;
+RadiatorSD::~RadiatorSD() = default;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void RadiatorSD::Initialize(G4HCofThisEvent*) {
@@ -132,11 +132,12 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
             Pmin = Rindex->GetMinLowEdgeEnergy();
             Pmax = Rindex->GetMaxLowEdgeEnergy();
             dp = Pmax - Pmin;
+            nMax = Rindex->GetMaxValue();
             if (verbose) {
                 G4cout << "nMax: " << nMax
-                        << "Pmin: " << Pmin
-                        << "Pmax: " << Pmax
-                        << "dp: " << dp << G4endl;
+                        << "  Pmin: " << Pmin
+                        << "  Pmax: " << Pmax
+                        << "  dp: " << dp << G4endl;
                 Rindex->DumpValues();
             }
             //
