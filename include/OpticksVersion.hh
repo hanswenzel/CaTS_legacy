@@ -43,74 +43,27 @@
 //* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
 //---------------------------------------------------------------------
 //
+#ifndef OPTICKSVERSION_HH
+#define OPTICKSVERSION_HH 1
 
-#ifndef RadiatorSD_h
-#define RadiatorSD_h 1
-#pragma once
-#include "G4Scintillation.hh"
-#include "G4VSensitiveDetector.hh"
-#include "G4ScintillationTrackInformation.hh"
-class G4Step;
-class G4HCofThisEvent;
-class G4MaterialPropertiesTable;
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+// Numbering rule for "OPTICKSVERSION_NUMBER":
+// - The number is consecutive (i.e. 711) as an integer.
+// - The meaning of each digit is as follows;
+//
+//   711
+//   |--> major version number
+//    |--> minor version number
+//     |--> patch number
 
-class RadiatorSD : public G4VSensitiveDetector {
-public:
-    RadiatorSD(G4String name);
-    virtual ~RadiatorSD();
-
-    // methods from base class
-    virtual void Initialize(G4HCofThisEvent* hitCollection);
-    virtual G4bool ProcessHits(G4Step* step, G4TouchableHistory* history);
-    virtual void EndOfEvent(G4HCofThisEvent* hitCollection);
-
-private:
-    G4int materialIndex;
-    const G4Material* aMaterial;
-    G4MaterialPropertiesTable* aMaterialPropertiesTable;
-    //
-    // properties related to Scintillation
-    //
-    G4MaterialPropertyVector* Fast_Intensity;
-    G4MaterialPropertyVector* Slow_Intensity;
-    G4double YieldRatio; // slowerRatio,
-    G4double FastTimeConstant; // TimeConstant,
-    G4double SlowTimeConstant; //slowerTimeConstant,
-    G4ScintillationType ScintillationType;
-    //
-    // properties related to Cerenkov
-    //
-    G4MaterialPropertyVector* Rindex;
-    G4PhysicsOrderedFreeVector* CerenkovAngleIntegrals;
-    const G4PhysicsTable* thePhysicsTable;
-    G4double Pmin{0};
-    G4double Pmax{0};
-    G4double dp{0};
-    G4double nMax{0};
-    bool first{true};
-    bool verbose{false};
-    int tCphotons{0};
-    int tSphotons{0};
-#ifdef WITH_G4OPTICKS
-    //
-    // info needed for generating Cerenkov photons on the GPU;
-    //
-    G4double maxCos{0.0};
-    G4double maxSin2{0.0};
-    G4double beta{0.0};
-    G4double beta1{0.0};
-    G4double beta2{0.0};
-    G4double BetaInverse{0.0};
-    G4double MeanNumberOfPhotons1{0.0};
-    G4double MeanNumberOfPhotons2{0.0};
-    G4int Sphotons{0}; // number of scintillation photons this step 
-    G4int Cphotons{0}; // number of Cerenkov photons this step 
-    const G4double ScintillationTime{0.0};
-    const G4int scntId{1};
+#ifndef OPTICKSVERSION_NUMBER
+  #define OPTICKSVERSION_NUMBER 101
 #endif
-};
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
+#ifndef OPTICKSVERSION_TAG
+  #define OPTICKSVERSION_TAG "Opticks-1-00-patch-01"
+#endif
+// as variables
+#include <string>
+static const std::string OpticksVersion = "Opticks-1-00-patch-01";
+static const std::string OpticksDate = "(06-August-2021)";
 #endif

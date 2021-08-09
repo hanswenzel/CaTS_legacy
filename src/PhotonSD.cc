@@ -59,6 +59,7 @@
 #include "G4OpticksHit.hh"
 #endif
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
 PhotonSD::PhotonSD(G4String name)
 : G4VSensitiveDetector(name) {
     G4String HCname = name + "_HC";
@@ -82,13 +83,14 @@ void PhotonSD::Initialize(G4HCofThisEvent* hce) {
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 PhotonSD::~PhotonSD() = default;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
 G4bool PhotonSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     G4Track* theTrack = aStep->GetTrack();
     // we only deal with optical Photons:
     if (theTrack->GetDefinition() != G4OpticalPhoton::OpticalPhotonDefinition()) {
         return false;
     }
-    G4double theEdep = theTrack->GetTotalEnergy()/CLHEP::eV;
+    G4double theEdep = theTrack->GetTotalEnergy() / CLHEP::eV;
     const G4VProcess * thisProcess = theTrack->GetCreatorProcess();
 
     G4String processname;
@@ -120,18 +122,20 @@ G4bool PhotonSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
 
 void PhotonSD::EndOfEvent(G4HCofThisEvent*) {
     G4int NbHits = fPhotonHitsCollection->entries();
-    if (verbose) G4cout << " Number of PhotonHits:  " << NbHits << G4endl;
+    if (verbose) G4cout << " PhotonSD::EndOfEvent Number of PhotonHits:  " << NbHits << G4endl;
 }
 
 #ifdef WITH_G4OPTICKS
+
 void PhotonSD::AddOpticksHits() {
     G4Opticks* g4ok = G4Opticks::Get();
     bool way_enabled = g4ok->isWayEnabled();
     unsigned num_hits = g4ok->getNumHit();
+    if (verbose) G4cout << "PhotonSD::AddOpticksHits PhotonHits:  " << num_hits << G4endl;
     G4OpticksHit hit;
     G4OpticksHitExtra hit_extra;
     G4OpticksHitExtra* hit_extra_ptr = way_enabled ? &hit_extra : NULL;
-    for (unsigned i = 0; i < num_hits; i++) {
+     for (unsigned i = 0; i < num_hits; i++) {
         g4ok->getHit(i, &hit, hit_extra_ptr);
         PhotonHit* newHit = new PhotonHit(
                 i,
@@ -143,6 +147,6 @@ void PhotonSD::AddOpticksHits() {
                 hit.global_polarization);
         fPhotonHitsCollection->insert(newHit);
     }
-    //    G4cout << "AddOpticksHits size:  " <<fPhotonHitsCollection->entries() <<G4endl;
+    if (verbose) G4cout << "AddOpticksHits size:  " << fPhotonHitsCollection->entries() << G4endl;
 }
 #endif

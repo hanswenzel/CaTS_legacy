@@ -230,6 +230,7 @@ G4bool lArTPCSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
             //        opticks_photon_offset = G4Opticks::Get()->getNumPhotons();
             //        G4cout << "lArTPCSD::ProcessHits: offset " << opticks_photon_offset << G4endl;
             //        G4cout << "lArTPCSD::ProcessHits:  Scint. photons " << Sphotons << G4endl;
+	  /*
             G4Opticks::Get()->collectScintillationStep(
                     //1, // 0    id:zero means use scintillation step count
                     OpticksGenstep_G4Scintillation_1042,
@@ -256,7 +257,17 @@ G4bool lArTPCSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
                     0.0, //not used scintillationIntegrationMax,
                     0, //spare1
                     0 // spare2
-                    );
+                    );*/
+	  	    G4double ScintillationRiseTime=0.0;
+	    G4Opticks::Get()->collectGenstep_G4Scintillation_1042(  
+             aTrack, 
+             aStep, 
+             Sphotons, 
+             scntId,
+             ScintillationTime, 
+             ScintillationRiseTime
+             );
+
         }
         //
         // harvest the Cerenkov photon gensteps:

@@ -80,8 +80,8 @@
 using namespace std;
 
 DetectorConstruction::DetectorConstruction(G4String fname)
-: G4VUserDetectorConstruction() {
-    gdmlFile = fname;
+: G4VUserDetectorConstruction(), gdmlFile(fname){
+//    gdmlFile = fname;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

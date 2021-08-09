@@ -77,32 +77,25 @@ int main(int argc, char** argv) {
     TH1F* wl = new TH1F("wl", "wavelength of detected photons", 1000, 0., 250.);
     TH1F* np = new TH1F("np", "number of detected photons", 100, 0., 50.);
     TFile fo(argv[1]);
-    //  avoid unused variable warning
-    //    (void) hits;
-    //    (void) hitsp;
     fo.GetListOfKeys()->Print();
     Event *event = new Event();
     TTree *Tevt = (TTree*) fo.Get("Events");
     Tevt->SetBranchAddress("event.", &event);
     TBranch* fevtbranch = Tevt->GetBranch("event.");
     Int_t nevent = fevtbranch->GetEntries();
-    cout << " Nr. of Events:  " << nevent << endl;
+    cout << "Nr. of Events:  " << nevent << endl;
     for (Int_t i = 0; i < nevent; i++) {
         fevtbranch->GetEntry(i);
-        std::map<G4String, std::vector<G4VHit*> > *hcmap = event->GetHCMap();
-        std::map<G4String, std::vector<G4VHit*> >::iterator hciter;
-        for (hciter = hcmap->begin(); hciter != hcmap->end(); hciter++) {
-            std::vector<G4VHit*> hits = (*hciter).second;
-            if ((hciter)->first == "Det_Photondetector_HC") {
+        auto *hcmap = event->GetHCMap();
+        for (const auto ele : *hcmap) {
+            auto hits = ele.second;
+            if (ele.first == "Det_Photondetector_HC") {
+                auto hits = ele.second;
                 G4int NbHits = hits.size();
                 cout << "Event: " << i << "  Number of Hits:  " << NbHits << endl;
                 np->Fill(NbHits);
                 for (G4int ii = 0; ii < NbHits; ii++) {
                     PhotonHit* photonHit = dynamic_cast<PhotonHit*> (hits.at(ii));
-                    //                  cout << "X: " << photonHit->GetPosition().getX() << endl;
-                    //                  cout << "Y: " << photonHit->GetPosition().getY() << endl;
-                    //                  cout << "Z: " << photonHit->GetPosition().getZ() << endl;
-                    cout << photonHit->GetWavelength() << endl;
                     time->Fill(photonHit->GetTime());
                     wl->Fill(photonHit->GetWavelength());
                     if (photonHit->GetPosition().getZ()<-100.) time0->Fill(photonHit->GetTime());

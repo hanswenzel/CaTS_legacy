@@ -66,6 +66,7 @@
 #include "OpticksGenstep.h"
 #include "OpticksFlags.hh"
 #include "G4OpticksHit.hh"
+#include "OpticksVersion.hh"
 #endif
 // project headers
 #include "RadiatorSD.hh"
@@ -212,6 +213,7 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
             //           int opticks_photon_offset = G4Opticks::Get()->getNumPhotons();
             //            G4cout << "RadiatorSD::ProcessHits: offset " << opticks_photon_offset << G4endl;
             //            G4cout << "RadiatorSD::ProcessHits:  Scint. photons " << Sphotons << G4endl;
+	  /*
             G4Opticks::Get()->collectScintillationStep(
                     //1, // 0    id:zero means use scintillation step count
                     OpticksGenstep_G4Scintillation_1042,
@@ -239,6 +241,19 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
                     0, //spare1
                     0 // spare2
                     );
+	    */
+	    G4double ScintillationRiseTime=0.0;
+	    G4Opticks::Get()->collectGenstep_G4Scintillation_1042(  
+             aTrack, 
+             aStep, 
+             Sphotons, 
+             scntId,
+             ScintillationTime, 
+             ScintillationRiseTime
+             );
+
+
+	    
         }
         //
         // harvest the Cerenkov photon gensteps:

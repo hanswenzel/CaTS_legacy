@@ -80,9 +80,6 @@
 #include "G4OpticksHit.hh"
 #endif
 
-#include <boost/timer/timer.hpp>
-using namespace boost::timer;
-
 std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
     std::stringstream ss(s);
     std::string item;
@@ -98,11 +95,11 @@ std::vector<std::string> split(const std::string &s, char delim) {
 }
 
 EventAction::EventAction(Ctx* ctx_)
-:G4UserEventAction(),
-ctx(ctx_){}
+: G4UserEventAction(),
+ctx(ctx_) {
+}
 
 EventAction::~EventAction() = default;
-
 
 void EventAction::BeginOfEventAction(const G4Event* anEvent) {
     ctx->setEvent(anEvent);
@@ -110,7 +107,7 @@ void EventAction::BeginOfEventAction(const G4Event* anEvent) {
 
 void EventAction::EndOfEventAction(const G4Event* event) {
     bool verbose = ConfigurationManager::getInstance()->isEnable_verbose();
-    if (verbose) G4cout << "end of Event:   " << event->GetEventID() << G4endl;
+    if (verbose) G4cout << "EventAction::EndOfEventAction Event:   " << event->GetEventID() << G4endl;
     G4HCofThisEvent* HCE = event->GetHCofThisEvent();
     if (HCE == nullptr) return;
     // assert(HCE);
@@ -121,11 +118,11 @@ void EventAction::EndOfEventAction(const G4Event* event) {
 #endif  //end WITH_ROOT    
 #ifdef WITH_G4OPTICKS
     if (ConfigurationManager::getInstance()->isEnable_opticks()) {
-//        RunAction::getInstance()->getOpticksTimer()->resume();
         G4Opticks* g4ok = G4Opticks::Get();
         G4int eventid = event->GetEventID();
         g4ok->propagateOpticalPhotons(eventid);
         unsigned num_hits = g4ok->getNumHit();
+        std::cout << "EndOfEventAction: num_hits: " << num_hits << std::endl;
         if (num_hits > 0) {
             G4HCtable* hctable = G4SDManager::GetSDMpointer()->GetHCtable();
             for (G4int i = 0; i < hctable->entries(); ++i) {
@@ -137,7 +134,16 @@ void EventAction::EndOfEventAction(const G4Event* event) {
                 }
             }
         }
+        std::cout << "*******************************************************************************************************************" << std::endl;
+        std::cout << " EndOfEventAction: numphotons:   " << g4ok->getNumPhotons() << " Gensteps: " << g4ok->getNumGensteps() << "  Maxgensteps:  " << g4ok->getMaxGensteps() << std::endl;
+        std::cout << " EndOfEventAction: num_hits: " << g4ok->getNumHit() << std::endl;
+        std::cout << g4ok->dbgdesc() << std::endl;
         g4ok->reset();
+        std::cout << "========================== After reset: " << std::endl;
+        std::cout << " EndOfEventAction: numphotons:   " << g4ok->getNumPhotons() << " Gensteps: " << g4ok->getNumGensteps() << "  Maxgensteps:  " << g4ok->getMaxGensteps() << std::endl;
+        std::cout << "EndOfEventAction: num_hits: " << g4ok->getNumHit() << std::endl;
+        std::cout << g4ok->dbgdesc() << std::endl;
+        std::cout << "*******************************************************************************************************************" << std::endl;
     }// end isEnable_opticks
 #endif  //end   WITH_G4OPTICKS
     //
@@ -217,7 +223,7 @@ void EventAction::EndOfEventAction(const G4Event* event) {
                 G4cout << "SD type: " << Classname << " unknown" << G4endl;
             }
         }
-            RootIO::GetInstance()->Write(CaTSEvt);
+        RootIO::GetInstance()->Write(CaTSEvt);
         CaTSEvt->Reset();
         delete CaTSEvt;
 
