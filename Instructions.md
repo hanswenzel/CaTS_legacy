@@ -10,8 +10,7 @@ This are instructions how to build opticks making use of preinstalled libraries 
     export CUDA_SAMPLES=${CUDA_INSTALL_DIR}/samples
     export G4INSTALL=/data2/wenzel/geant4.10.07.p02_install
     export LOCAL_BASE=${WORK_DIR}/local
-    export CMAKE_PREFIX_PATH=${G4INSTALL}:${LOCAL_BASE}/opticks/externals:${OptiX_INSTALL_DIR}:${WORK_DIR}/opticks/cmake/Modules/:${WORK_DIR}/local/opti
-cks:${WORK_DIR}/local/opticks:${WORK_DIR}/local/opticks/externals/
+    export CMAKE_PREFIX_PATH=${G4INSTALL}:${LOCAL_BASE}/opticks/externals:${OptiX_INSTALL_DIR}:${WORK_DIR}/opticks/cmake/Modules/:${WORK_DIR}/local/opticks:${WORK_DIR}/local/opticks:${WORK_DIR}/local/opticks/externals/
     export PYTHONPATH=$WORK_DIR
     export OPTICKS_HOME=${WORK_DIR}/opticks
     export PATH=${LOCAL_BASE}/bin:${PATH}
