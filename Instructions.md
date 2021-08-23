@@ -1,6 +1,8 @@
 # Building vs. existing libraries
 
-This are instructions how to build opticks making use of preinstalled libraries available on the system. These libraries include CLHEP, xerces-c, boost and specifically geant4. For geant 4 we use the current version at the time of writing which is geant4.10.7.p2. We make use of the fact that the om-cmake function of om.bash is sensitive to CMAKE_PREFIX_PATH envvar so that we can point to the directories where the different libraries are installed. There have been a few changes to cmake files etc. which have been committed to a fork of the opticks github repository so we clone opticks from there. In principle just cut and paste the following line to a file change the envars of the different directories to match your system and source the resulting script.
+This are instructions how to build opticks making use of preinstalled libraries available on the system. These libraries include CLHEP, xerces-c, boost and  geant4.
+For geant 4 we use the current version at the time of writing which is geant4.10.7.p2. We make use of the fact that the om-cmake function of om.bash is sensitive
+to CMAKE_PREFIX_PATH envvar so that we can point to the directories where the different libraries are installed. There have been a few changes to cmake files etc. which have been committed to a fork of the opticks github repository so we clone opticks from there. In principle just cut and paste the following line to a file change the envars of the different directories to match your system and source the resulting script.
 
     cat > setup_opticks.sh << +EOF
     export WORK_DIR=/data2/wenzel/gputest_10.7.p02
@@ -120,10 +122,10 @@ This are instructions how to build opticks making use of preinstalled libraries 
     cd ${WORK_DIR}/local/opticks/externals/
     ln -s ${OptiX_INSTALL_DIR} OptiX
     cd ${WORK_DIR}
-    opticks-externals-install >& install_ext.log
+    opticks-externals-install >& install_ext.log &
     cd ${WORK_DIR}
     echo $G4INSTALL
-    opticks-full  >& install_full.log 
+    opticks-full  >& install_full.log &
     opticks-t
     #cd ${OPTICKS_HOME}/externals
     #opticksdata-
