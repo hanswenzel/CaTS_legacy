@@ -1,5 +1,13 @@
 
 https://developer.nvidia.com/cuda-downloads
+https://developer.nvidia.com/nvidia-hpc-sdk-downloads
+
+
+
+
+https://developer.nvidia.com/designworks/optix/download
+
+
 
 # Building vs. existing libraries
 
