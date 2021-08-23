@@ -87,8 +87,9 @@ A good way to check that things are working properly is to build the cuda sample
     make 
     bin/x86_64/linux/release/deviceQuery
     bin/x86_64/linux/release/deviceQueryDrv 
- 
 
+2 Tools For Monitoring Nvidia GPUs On Linux can be found here:
+https://www.linuxuprising.com/2019/06/2-tools-for-monitoring-nvidia-gpus-on.html
 
 # Installing Optix (6.5)
 
@@ -222,7 +223,6 @@ to CMAKE_PREFIX_PATH envvar so that we can point to the directories where the li
         nvidia-smi;
         ${CUDA_SAMPLES}/bin/x86_64/linux/release/deviceQuery
     }
-    export OPTICKS_KEY=CaTS.X4PhysicalVolume.World_PV.8bf2e3a1e2eb9062d0d6b8a2a45c4cf3
     +EOF
 
     source setup_opticks.sh
