@@ -1,5 +1,48 @@
+# Prerequisites
+Opticks requires Geant4, nvidia cuda and nvidia Optix (6.5) among other libraries.  CaTS in addition will require ROOT. 
+
+# Building CLHEP
+https://proj-clhep.web.cern.ch/proj-clhep/clhep23.html
+
+    wget https://proj-clhep.web.cern.ch/proj-clhep/dist1/clhep-2.4.4.0.tgz
+
+    tar xzvf clhep-2.4.4.0.tgz
+    cd 2.4.4.0/
+    mkdir CLHEP-build
+    cd  CLHEP-build
+    cmake -DCMAKE_INSTALL_PREFIX=../CLHEP-install DCLHEP_BUILD_CXXSTD=-std=c++11 ../CLHEP
+    make -j 8
+    make install
+
+
+# Building Geant4
+
+First build Geant4. 
+
+    cd to G4directory
+    wget https://geant4-data.web.cern.ch/releases/geant4.10.07.p02.tar.gz
+    mkdir geant4.10.07.p02-build
+    cd  geant4.10.07.p02-build
+    cmake -DCMAKE_INSTALL_PREFIX=../geant4.10.07.p02-install -DGEANT4_BUILD_VERBOSE_CODE=OFF -DGEANT4_INSTALL_DATA=ON -DGEANT4_USE_SYSTEM_CLHEP=ON -DGEANT4_USE_GDML=ON -DGEANT4_USE_SYSTEM_EXPAT=ON -DGEANT4_USE_SYSTEM_ZLIB=ON  -DGEANT4_USE_QT=ON -DGEANT4_BUILD_MULTITHREADED=ON -DGEANT4_USE_OPENGL_X11=ON ../geant4.10.07.p02
+    make -j 8
+    make install
+
+other Geant4 versions are available at:
+https://geant4.web.cern.ch/support/download
+
+
+Building ROOT 
+
+
+
+https://geant4.web.cern.ch/support/download
+
+CLHEP version 2.4.4.0
+
+https://proj-clhep.web.cern.ch/proj-clhep/clhep23.html
 
 https://developer.nvidia.com/cuda-downloads
+
 https://developer.nvidia.com/nvidia-hpc-sdk-downloads
 
 
@@ -9,10 +52,10 @@ https://developer.nvidia.com/designworks/optix/download
 
 
 
-# Building vs. existing libraries
+# Building opticks vs. existing libraries
 
-This are instructions how to build opticks making use of preinstalled libraries available on the system. These libraries include CLHEP, xerces-c, boost and  geant4.
-For geant 4 we use the current version at the time of writing which is geant4.10.7.p2. We make use of the fact that the om-cmake function of om.bash is sensitive
+This are instructions how to build opticks making use of preinstalled libraries available on the system. These libraries include CLHEP, xerces-c, boost and  Geant4.
+For geant 4 we use the current version at the time of writing which is Geant4.10.7.p2. We make use of the fact that the om-cmake function of om.bash is sensitive
 to CMAKE_PREFIX_PATH envvar so that we can point to the directories where the libraries are installed and void having to rebuild them.  In principle just cut and paste the following line to a file change the envars of the different directories to match your system and source the resulting script.
 
     cat > setup_opticks.sh << +EOF
@@ -21,7 +64,9 @@ to CMAKE_PREFIX_PATH envvar so that we can point to the directories where the li
     export OPTICKS_COMPUTE_CAPABILITY=75
     export CUDA_INSTALL_DIR=/usr/local/cuda-11.3
     export CUDA_SAMPLES=${CUDA_INSTALL_DIR}/samples
-    export G4INSTALL=/data2/wenzel/geant4.10.07.p02_install
+    export G4INSTALL=/data2/wenzel/Geant4.10.07.p02_install
+    . ${G4INSTALL}/bin/Geant4.sh
+    . /data2/wenzel/root_install/bin/thisroot.sh
     export LOCAL_BASE=${WORK_DIR}/local
     export CMAKE_PREFIX_PATH=${G4INSTALL}:${LOCAL_BASE}/opticks/externals:${OptiX_INSTALL_DIR}:${WORK_DIR}/opticks/cmake/Modules/:${WORK_DIR}/local/opticks:${WORK_DIR}/local/opticks:${WORK_DIR}/local/opticks/externals/
     export PYTHONPATH=$WORK_DIR
@@ -73,8 +118,6 @@ to CMAKE_PREFIX_PATH envvar so that we can point to the directories where the li
         *:"$new":*)  ;;
         *) LD_LIBRARY_PATH="$new:$LD_LIBRARY_PATH"  ;;
     esac
-    . ${G4INSTALL}/bin/geant4.sh
-    . /data2/wenzel/root_install/bin/thisroot.sh
     opticks-
     new=${CUDA_INSTALL_DIR}/bin
     case ":${PATH:=$new}:" in
@@ -188,7 +231,7 @@ use the following external packages and versions thereof:
 - nvidia Optix 6.5
 - nvidia cuda 11.0
 - nvidia driver 460.27.04
-- geant4 10.7.p02
+- Geant4 10.7.p02
 - xercesc 3.2.2
 - openmesh 6.3
 - glew 1.13.0
