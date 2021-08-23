@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gdml_simple_extension xmlns:gdml_simple_extension="http://www.example.org" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="SimpleExtension.xsd">
+    <extension>
+        <color name="magenta" R="0.0" G="1.0" B="0.0" A="1.0" />
+        <color name="green" R="0.0" G="1.0" B="0.0" A="1.0" />
+        <color name="red" R="1.0" G="0.0" B="0.0" A="1.0" />
+        <color name="blue" R="0.0" G="0.0" B="1.0" A="1.0" />
+        <color name="yellow" R="1.0" G="1.0" B="0.0" A="1.0" />
+    </extension>
+    <define>
+        <matrix name="SY" coldim="1" values="50000/MeV" />
+        <matrix name="RS" coldim="1" values="1.0" />
+        <matrix name="FTC" coldim="1" values="0.001*ns" />
+        <matrix name="STC" coldim="1" values="1400.*ns" />
+        <matrix name="RY1" coldim="1" values="0.75" />
+        <matrix name="RY2" coldim="1" values="0.25" />
+        <matrix name="YR" coldim="1" values="1." />
+        <matrix name="SCINTLAR" coldim="2" values="7.74901*eV 0.000238409        7.79551*eV 0.000322081        7.842*eV 0.000429707        7.88849*eV 0.000566384        7.93499*eV 0.000737801        7.98148*eV 0.00095019        8.02798*eV 0.00121025        8.07447*eV 0.00152501        8.12096*eV 0.00190171        8.16746*eV 0.00234761        8.21395*eV 0.00286978        8.26045*eV 0.00347484        8.30694*eV 0.00416879        8.35343*eV 0.00495668        8.39993*eV 0.0058424        8.44642*eV 0.00682847        8.49292*eV 0.00791578        8.53941*eV 0.00910346        8.58591*eV 0.0103887        8.6324*eV 0.0117668        8.67889*eV 0.0132309        8.72539*eV 0.0147724        8.77188*eV 0.0163804        8.81838*eV 0.0180427        8.86487*eV 0.0197453        8.91136*eV 0.0214731        8.95786*eV 0.0232096        9.00435*eV 0.0249382        9.05085*eV 0.0266413        9.09734*eV 0.0283018        9.14383*eV 0.0299026        9.19033*eV 0.0314274        9.23682*eV 0.0328608        9.28332*eV 0.0341885        9.32981*eV 0.0353979        9.3763*eV 0.0364779        9.4228*eV 0.0374193        9.46929*eV 0.0382148        9.51579*eV 0.038859        9.56228*eV 0.0393486        9.60877*eV 0.0396822        9.65527*eV 0.0398606        9.70176*eV 0.0398859        9.74826*eV 0.0397623        9.79475*eV 0.0394953        9.84125*eV 0.0390919        9.88774*eV 0.0385602        9.93423*eV 0.0379091        9.98073*eV 0.0371486        10.0272*eV 0.036289        10.0737*eV 0.0353412        10.1202*eV 0.034316        10.1667*eV 0.0332247        10.2132*eV 0.032078        10.2597*eV 0.0308868        10.3062*eV 0.0296612        10.3527*eV 0.0284112        10.3992*eV 0.0271461        10.4457*eV 0.0258745        10.4922*eV 0.0246045        10.5387*eV 0.0233434        10.5852*eV 0.0220979        10.6316*eV 0.0208737        10.6781*eV 0.0196762        10.7246*eV 0.0185096        10.7711*eV 0.017378        10.8176*eV 0.0162842        10.8641*eV 0.015231        10.9106*eV 0.0142202        10.9571*eV 0.0132532        11.0036*eV 0.012331        11.0501*eV 0.011454        11.0966*eV 0.0106224        11.1431*eV 0.0098359        11.1896*eV 0.0090939        11.2361*eV 0.00839559        11.2826*eV 0.00773992        11.3291*eV 0.00712565        11.3755*eV 0.0065514        11.422*eV 0.00601564        11.4685*eV 0.00551678        11.515*eV 0.00505315        11.5615*eV 0.00462305        11.608*eV 0.00422473" />
+        <matrix name="RINDEXLAR" coldim="2" values="7.74901*eV 1.0        7.79551*eV 1.0        7.842*eV 1.0        7.88849*eV 1.0        7.93499*eV 1.0        7.98148*eV 1.0        8.02798*eV 1.0        8.07447*eV 1.0        8.12096*eV 1.0        8.16746*eV 1.0       8.21395*eV 1.0        8.26045*eV 1.0        8.30694*eV 1.0        8.35343*eV 1.0        8.39993*eV 1.0        8.44642*eV 1.0        8.49292*eV 1.0        8.53941*eV 1.0        8.58591*eV 1.0        8.6324*eV 1.0        8.67889*eV 1.0        8.72539*eV 1.0        8.77188*eV 1.0        8.81838*eV 1.0        8.86487*eV 1.0        8.91136*eV 1.0        8.95786*eV 1.0        9.00435*eV 1.0        9.05085*eV 1.0        9.09734*eV 1.0        9.14383*eV 1.0        9.19033*eV 1.0        9.23682*eV 1.0        9.28332*eV 1.0        9.32981*eV 1.0        9.3763*eV 1.0        9.4228*eV 1.0        9.46929*eV 1.0        9.51579*eV 1.0        9.56228*eV 1.0        9.60877*eV 1.0        9.65527*eV 1.0        9.70176*eV 1.0        9.74826*eV 1.0        9.79475*eV 1.0        9.84125*eV 1.0        9.88774*eV 1.0        9.93423*eV 1.0        9.98073*eV 1.0        10.0272*eV 1.0        10.0737*eV 1.0        10.1202*eV 1.0        10.1667*eV 1.0        10.2132*eV 1.0        10.2597*eV 1.0        10.3062*eV 1.0        10.3527*eV 1.0        10.3992*eV 1.0        10.4457*eV 1.0        10.4922*eV 1.0        10.5387*eV 1.0        10.5852*eV 1.0        10.6316*eV 1.0        10.6781*eV 1.0        10.7246*eV 1.0        10.7711*eV 1.0        10.8176*eV 1.0        10.8641*eV 1.0        10.9106*eV 1.0        10.9571*eV 1.0        11.0036*eV 1.0        11.0501*eV 1.0        11.0966*eV 1.0        11.1431*eV 1.0        11.1896*eV 1.0        11.2361*eV 1.0        11.2826*eV 1.0        11.3291*eV 1.0        11.3755*eV 1.0        11.422*eV 1.0        11.4685*eV 1.0        11.515*eV 1.0        11.5615*eV 1.0        11.608*eV 1.0"  />
+        <matrix name="ABSLENGTHLAR" coldim="2" values="7.74901*eV 10.0*m 7.77525*eV 10.0*m 7.80167*eV 10.0*m 7.82827*eV 10.0*m 7.85506*eV 10.0*m 7.88202*eV 10.0*m 7.90917*eV 10.0*m 7.93651*eV 10.0*m 7.96404*eV 10.0*m 7.99176*eV 10.0*m 8.01968*eV 10.0*m 8.04779*eV 10.0*m 8.07609*eV 10.0*m 8.1046*eV 10.0*m 8.13331*eV 10.0*m 8.16222*eV 10.0*m 8.19134*eV 10.0*m 8.22067*eV 10.0*m 8.25021*eV 10.0*m 8.27996*eV 10.0*m 8.30993*eV 10.0*m 8.34012*eV 10.0*m 8.37052*eV 10.0*m 8.40115*eV 10.0*m 8.432*eV 10.0*m 8.46308*eV 10.0*m 8.4944*eV 10.0*m 8.52594*eV 10.0*m 8.55772*eV 10.0*m 8.58973*eV 10.0*m 8.62199*eV 10.0*m 8.65449*eV 10.0*m 8.68723*eV 10.0*m 8.72023*eV 10.0*m 8.75347*eV 10.0*m 8.78697*eV 10.0*m 8.82073*eV 10.0*m 8.85475*eV 10.0*m 8.88903*eV 10.0*m 8.92358*eV 10.0*m 8.9584*eV 10.0*m 8.99349*eV 10.0*m 9.02885*eV 10.0*m 9.0645*eV 10.0*m 9.10043*eV 10.0*m 9.13664*eV 10.0*m 9.17314*eV 10.0*m 9.20994*eV 10.0*m 9.24703*eV 10.0*m 9.28442*eV 10.0*m 9.32212*eV 10.0*m 9.36012*eV 10.0*m 9.39844*eV 10.0*m 9.43707*eV 10.0*m 9.47602*eV 10.0*m 9.51529*eV 10.0*m 9.55489*eV 10.0*m 9.59481*eV 10.0*m 9.63508*eV 10.0*m 9.67568*eV 10.0*m 9.71663*eV 10.0*m 9.75792*eV 10.0*m 9.79957*eV 10.0*m 9.84158*eV 10.0*m 9.88394*eV 10.0*m 9.92668*eV 10.0*m 9.96978*eV 10.0*m 10.0133*eV 10.0*m 10.0571*eV 10.0*m 10.1014*eV 10.0*m 10.146*eV 10.0*m 10.191*eV 10.0*m 10.2365*eV 10.0*m 10.2823*eV 10.0*m 10.3286*eV 10.0*m 10.3752*eV 10.0*m 10.4223*eV 10.0*m 10.4699*eV 10.0*m 10.5178*eV 10.0*m 10.5662*eV 10.0*m 10.6151*eV 10.0*m 10.6644*eV 10.0*m 10.7142*eV 10.0*m 10.7644*eV 10.0*m 10.8151*eV 10.0*m 10.8663*eV 10.0*m 10.9179*eV 10.0*m 10.9701*eV 10.0*m 11.0228*eV 10.0*m 11.076*eV 10.0*m 11.1296*eV 10.0*m 11.1839*eV 10.0*m 11.2386*eV 10.0*m 11.2939*eV 10.0*m 11.3497*eV 10.0*m 11.4061*eV 10.0*m 11.463*eV 10.0*m 11.5206*eV 10.0*m 11.5787*eV 10.0*m 11.6373*eV 10.0*m" />
+        <matrix name="RAYLEIGHLAR" coldim="2" values="7.74901*eV 90.0*cm 7.77525*eV 90.0*cm 7.80167*eV 90.0*cm 7.82827*eV 90.0*cm 7.85506*eV 90.0*cm 7.88202*eV 90.0*cm 7.90917*eV 90.0*cm 7.93651*eV 90.0*cm 7.96404*eV 90.0*cm 7.99176*eV 90.0*cm 8.01968*eV 90.0*cm 8.04779*eV 90.0*cm 8.07609*eV 90.0*cm 8.1046*eV 90.0*cm 8.13331*eV 90.0*cm 8.16222*eV 90.0*cm 8.19134*eV 90.0*cm 8.22067*eV 90.0*cm 8.25021*eV 90.0*cm 8.27996*eV 90.0*cm 8.30993*eV 90.0*cm 8.34012*eV 90.0*cm 8.37052*eV 90.0*cm 8.40115*eV 90.0*cm 8.432*eV 90.0*cm 8.46308*eV 90.0*cm 8.4944*eV 90.0*cm 8.52594*eV 90.0*cm 8.55772*eV 90.0*cm 8.58973*eV 90.0*cm 8.62199*eV 90.0*cm 8.65449*eV 90.0*cm 8.68723*eV 90.0*cm 8.72023*eV 90.0*cm 8.75347*eV 90.0*cm 8.78697*eV 90.0*cm 8.82073*eV 90.0*cm 8.85475*eV 90.0*cm 8.88903*eV 90.0*cm 8.92358*eV 90.0*cm 8.9584*eV 90.0*cm 8.99349*eV 90.0*cm 9.02885*eV 90.0*cm 9.0645*eV 90.0*cm 9.10043*eV 90.0*cm 9.13664*eV 90.0*cm 9.17314*eV 90.0*cm 9.20994*eV 90.0*cm 9.24703*eV 90.0*cm 9.28442*eV 90.0*cm 9.32212*eV 90.0*cm 9.36012*eV 90.0*cm 9.39844*eV 90.0*cm 9.43707*eV 90.0*cm 9.47602*eV 90.0*cm 9.51529*eV 90.0*cm 9.55489*eV 90.0*cm 9.59481*eV 90.0*cm 9.63508*eV 90.0*cm 9.67568*eV 90.0*cm 9.71663*eV 90.0*cm 9.75792*eV 90.0*cm 9.79957*eV 90.0*cm 9.84158*eV 90.0*cm 9.88394*eV 90.0*cm 9.92668*eV 90.0*cm 9.96978*eV 90.0*cm 10.0133*eV 90.0*cm 10.0571*eV 90.0*cm 10.1014*eV 90.0*cm 10.146*eV 90.0*cm 10.191*eV 90.0*cm 10.2365*eV 90.0*cm 10.2823*eV 90.0*cm 10.3286*eV 90.0*cm 10.3752*eV 90.0*cm 10.4223*eV 90.0*cm 10.4699*eV 90.0*cm 10.5178*eV 90.0*cm 10.5662*eV 90.0*cm 10.6151*eV 90.0*cm 10.6644*eV 90.0*cm 10.7142*eV 90.0*cm 10.7644*eV 90.0*cm 10.8151*eV 90.0*cm 10.8663*eV 90.0*cm 10.9179*eV 90.0*cm 10.9701*eV 90.0*cm 11.0228*eV 90.0*cm 11.076*eV 90.0*cm 11.1296*eV 90.0*cm 11.1839*eV 90.0*cm 11.2386*eV 90.0*cm 11.2939*eV 90.0*cm 11.3497*eV 90.0*cm 11.4061*eV 90.0*cm 11.463*eV 90.0*cm 11.5206*eV 90.0*cm 11.5787*eV 90.0*cm 11.6373*eV 90.0*cm" />
+        <rotation name="rPMTRotation1" unit="deg" x="90" y="270" z="0" />
+        <matrix coldim="2" name="REFLECTIVITY" values="2.034*eV 1 2.068*eV 1 2.103*eV 1 2.139*eV 1 2.177*eV 1 2.216*eV 1 2.256*eV 1 2.298*eV 1 2.341*eV 1 2.386*eV 1 2.433*eV 1 2.481*eV 1 2.532*eV 1 2.585*eV 1 2.64*eV 1 2.697*eV 1 2.757*eV 1 2.82*eV 1 2.885*eV 1 2.954*eV 1 3.026*eV 1 3.102*eV 1 3.181*eV 1 3.265*eV 1 3.353*eV 1 3.446*eV 1 3.545*eV 1 3.649*eV 1 3.76*eV 1 3.877*eV 1 4.002*eV 1 4.136*eV 1 5.0*eV 1 6.0*eV 1 7.0*eV 1 8.0*eV 1 9.0*eV 1 9.0*eV 1 10.0*eV 1 11.0*eV 1 11.6*eV 1" />
+        <matrix coldim="2" name="EFFICIENCY" values="2.034*eV 1 2.068*eV 1 2.103*eV 1 2.139*eV 1 2.177*eV 1 2.216*eV 1 2.256*eV 1 2.298*eV 1 2.341*eV 1 2.386*eV 1 2.433*eV 1 2.481*eV 1 2.532*eV 1 2.585*eV 1 2.64*eV 1 2.697*eV 1 2.757*eV 1 2.82*eV 1 2.885*eV 1 2.954*eV 1 3.026*eV 1 3.102*eV 1 3.181*eV  1 3.265*eV 1 3.353*eV 1 3.446*eV 1 3.545*eV 1 3.649*eV 1 3.76*eV 1 3.877*eV 1 4.002*eV 1 4.136*eV 1 5.0*eV 1 6.0*eV 1 7.0*eV 1 8.0*eV 1 9.0*eV 1 9.0*eV 1 10.0*eV 1 11.0*eV 1 11.6*eV 1" />
+        <matrix coldim="2" name="AirRINDEX" values="2.034*eV 1 2.068*eV 1 2.103*eV 1 2.139*eV 1 2.177*eV 1 2.216*eV 1 2.256*eV 1 2.298*eV 1 2.341*eV 1 2.386*eV 1 2.433*eV 1 2.481*eV 1 2.532*eV 1 2.585*eV 1 2.64*eV 1 2.697*eV 1 2.757*eV 1 2.82*eV 1 2.885*eV 1 2.954*eV 1 3.026*eV 1 3.102*eV 1 3.181*eV 1 3.265*eV 1 3.353*eV 1 3.446*eV 1 3.545*eV 1 3.649*eV 1 3.76*eV 1 3.877*eV 1 4.002*eV 1 4.136*eV 1 5.0*eV 1 6.0*eV 1 7.0*eV 1 8.0*eV 1 9.0*eV 1 9.0*eV 1 10.0*eV 1 11.0*eV 1 11.6*eV 1" />
+    </define>
+    <materials>
+        <material name="liquidAr">
+            <D value="1.40" unit="g/cm3" />
+            <fraction n="1.0000" ref="G4_Ar" />
+            <property name="RINDEX" ref="RINDEXLAR" />
+            <property name="ABSLENGTH" ref="ABSLENGTHLAR" />
+            <property name="RAYLEIGH" ref="RAYLEIGHLAR" />
+            <!--
+            <property name="SCINTILLATIONYIELD" ref="SY" />
+            <property name="SCINTILLATIONYIELD1" ref="RY1" />
+            <property name="SCINTILLATIONYIELD2" ref="RY2" />
+            <property name="SCINTILLATIONCOMPONENT1" ref="SCINTLAR" />
+            <property name="SCINTILLATIONCOMPONENT2" ref="SCINTLAR" />
+            <property name="RESOLUTIONSCALE" ref="RS" />
+            <property name="SCINTILLATIONTIMECONSTANT1" ref="FTC" />
+            <property name="SCINTILLATIONTIMECONSTANT2" ref="STC" />
+            -->
+            <property name="FASTCOMPONENT" ref="SCINTLAR"/>
+            <property name="SLOWCOMPONENT" ref="SCINTLAR"/>
+            <property name="REEMISSIONPROB" ref="SCINTLAR"/>
+            <property name="SCINTILLATIONYIELD" ref="SY" />
+            <property name="RESOLUTIONSCALE" ref="RS" />
+            <property name="SLOWTIMECONSTANT" ref="STC" />
+            <property name="FASTTIMECONSTANT" ref="FTC" />
+            <property name="YIELDRATIO" ref="YR" />
+        </material>
+        <material name="Air">
+            <D value="1.290" unit="mg/cm3" />
+            <fraction n="1." ref="G4_AIR" />
+            <property name="RINDEX" ref="AirRINDEX" />
+        </material>
+        <material name="Glass" state="solid">
+            <property name="RINDEX" ref="RINDEXLAR" />
+            <D unit="g/cm3" value="1.032" />
+            <fraction n="1." ref="G4_Pyrex_Glass" />
+        </material>
+    </materials>
+    <solids>
+        <tube name="GlassPlate" rmax="3" z="0.5" deltaphi="360" aunit="deg" lunit="cm" />
+        <box lunit="mm" name="Obj" x="1000" y="1000" z="2000" />
+        <opticalsurface finish="0" model="0" name="ScintWrap" type="0" value="1">
+            <property name="REFLECTIVITY" ref="REFLECTIVITY" />
+            <property name="EFFICIENCY" ref="EFFICIENCY" />
+        </opticalsurface>
+        <box lunit="mm" name="World" x="2000" y="2000" z="2000" />
+    </solids>
+    <structure>
+        <volume name="Det">
+            <materialref ref="Glass" />
+            <solidref ref="GlassPlate" />
+            <colorref ref="red" />
+            <auxiliary auxtype="Solid" auxvalue="True" />
+            <auxiliary auxtype="SensDet" auxvalue="PhotonDetector" />
+        </volume>
+        <volume name="Obj">
+            <materialref ref="liquidAr" />
+            <solidref ref="Obj" />
+            <colorref ref="blue" />
+            <auxiliary auxtype="StepLimit" auxvalue="0.4" auxunit="mm" />
+            <auxiliary auxtype="SensDet" auxvalue="Radiator" />
+            <physvol name="Det1">
+                <volumeref ref="Det" />
+                <position name="Det1" unit="mm" x="497.5" y="0" z="0" />
+                <rotationref ref="rPMTRotation1" />
+            </physvol>
+            <physvol name="Det2">
+                <volumeref ref="Det" />
+                <position name="Det2" unit="mm" x="497.5" y="450" z="950" />
+                <rotationref ref="rPMTRotation1" />
+            </physvol>
+            <physvol name="Det3">
+                <volumeref ref="Det" />
+                <position name="Det3" unit="mm" x="497.5" y="450" z="-950" />
+                <rotationref ref="rPMTRotation1" />
+            </physvol>
+            <physvol name="Det4">
+                <volumeref ref="Det" />
+                <position name="Det4" unit="mm" x="497.5" y="-450" z="950" />
+                <rotationref ref="rPMTRotation1" />
+            </physvol>
+            <physvol name="Det5">
+                <volumeref ref="Det" />
+                <position name="Det5" unit="mm" x="497.5" y="-450" z="-950" />
+                <rotationref ref="rPMTRotation1" />
+            </physvol>
+        </volume>
+        <volume name="World">
+            <materialref ref="Air" />
+            <solidref ref="World" />
+            <physvol name="Obj">
+                <volumeref ref="Obj" />
+            </physvol>
+        </volume>
+        <bordersurface name="ScintWrap1" surfaceproperty="ScintWrap">
+            <physvolref ref="Obj" />
+            <physvolref ref="Det1" />
+        </bordersurface>
+        <bordersurface name="ScintWrap2" surfaceproperty="ScintWrap">
+            <physvolref ref="Obj" />
+            <physvolref ref="Det2" />
+        </bordersurface>
+        <bordersurface name="ScintWrap3" surfaceproperty="ScintWrap">
+            <physvolref ref="Obj" />
+            <physvolref ref="Det3" />
+        </bordersurface>
+        <bordersurface name="ScintWrap4" surfaceproperty="ScintWrap">
+            <physvolref ref="Obj" />
+            <physvolref ref="Det4" />
+        </bordersurface>
+        <bordersurface name="ScintWrap5" surfaceproperty="ScintWrap">
+            <physvolref ref="Obj" />
+            <physvolref ref="Det5" />
+        </bordersurface>
+    </structure>
+    <setup name="Default" version="1.0">
+        <world ref="World" />
+    </setup>
+</gdml_simple_extension>
