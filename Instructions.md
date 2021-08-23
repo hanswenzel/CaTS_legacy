@@ -62,6 +62,9 @@ https://root.cern/install/build_from_source/
 check the output for any error, install any development packages that might be necessary. 
 
 
+    . ../root-install/bin/thisroot.sh
+    root
+    
 
 # Installing CUDA
 
@@ -118,7 +121,8 @@ to CMAKE_PREFIX_PATH envvar so that we can point to the directories where the li
 
     cat > setup_opticks.sh << +EOF
     # ----------------------------------------------------------------------------------------------------------------------
-    # ---you need to modify the following environmental variable so that point to the specific directories on your system
+    # --- you need to modify the following environmental variables so that point to the specific directories on your system
+    # --- 
     export WORK_DIR=/data2/wenzel/gputest_10.7.p02
     export OptiX_INSTALL_DIR=/home/wenzel/NVIDIA-OptiX-SDK-6.5.0-linux64
     export OPTICKS_COMPUTE_CAPABILITY=75
@@ -237,7 +241,6 @@ to CMAKE_PREFIX_PATH envvar so that we can point to the directories where the li
 scan the log file or any errors and correct them.
 
     cd ${WORK_DIR}
-    echo $G4INSTALL
     opticks-full  >& install_full.log &
 
 scan the log file or any errors and correct them. Before you run     opticks-t you want to to create the geocache using e.g. one of the gdml files provided by CaTS
