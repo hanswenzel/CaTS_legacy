@@ -46,7 +46,7 @@ check the output for any error, install any development packages that might be n
 Instructions how to build ROOT from ssource can be found at:
 https://root.cern/install/build_from_source/
 
-    cd  to the diretory where you want to install root
+    # cd  to the diretory where you want to install root
     git clone --branch latest-stable https://github.com/root-project/root.git root_src
     mkdir root-build
     cd root-build
@@ -79,7 +79,7 @@ The NVIDIA hpc-sdk kit provides an interesting set of tools e.g. nvc++ which all
 
 A good way to check that things are working properly is to build the cuda samples and execute them
 
-    cd to the directory where you want to build the cuda samples
+    # cd to the directory where you want to build the cuda samples. E.g. the commands deviceQueryDrv and deviceQuery provide useful information. 
     mkdir cuda-test
     cd cuda-test
     cp -r /usr/local/cuda-11.3/samples .
@@ -94,6 +94,19 @@ A good way to check that things are working properly is to build the cuda sample
 # Installing Optix (6.5)
 
 https://developer.nvidia.com/designworks/optix/download
+
+Optix comes with precompiled samples and one might want to try them:
+
+    # cd to the Optix installation directory
+    cd SDK-precompiled-samples
+    export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH
+    # execute e.g.:
+    ./optixMDLSphere
+    ./optixSphere
+    ./optixTutorial
+    # etc.
+
+
 
 
 
