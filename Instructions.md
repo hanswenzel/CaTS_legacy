@@ -135,7 +135,7 @@ to CMAKE_PREFIX_PATH envvar so that we can point to the directories where the li
     export PATH=${LOCAL_BASE}/bin:${PATH}
     export OPTICKS_PREFIX=${WORK_DIR}/local/opticks                            
     export OPTICKS_INSTALL_PREFIX=$LOCAL_BASE/opticks
-    export OPTICKS_OPTIX_PREFIX=/home/wenzel/NVIDIA-OptiX-SDK-6.5.0-linux64/
+    export OPTICKS_OPTIX_PREFIX=${OptiX_INSTALL_DIR}
     export OPTICKS_CUDA_PREFIX=${CUDA_INSTALL_DIR}
     export OPTICKS_EMBEDDED_COMMANDLINE_EXTRA="--rngmax 10 --rtx 1"
     opticks-(){ . ${OPTICKS_HOME}/opticks.bash && opticks-env $* ; }
@@ -185,11 +185,6 @@ to CMAKE_PREFIX_PATH envvar so that we can point to the directories where the li
         *:"$new":*)  ;;
         *) PATH="$new:$PATH"  ;;
     esac
-    #new=${CUDA_INSTALL_DIR}/NsightCompute-2019.3
-    #case ":${PATH:=$new}:" in
-    #    *:"$new":*)  ;;
-    #    *) PATH="$new:$PATH"  ;;
-    #esac
     new=${OPTICKS_HOME}/bin/
     case ":${PATH:=$new}:" in
         *:"$new":*)  ;;
