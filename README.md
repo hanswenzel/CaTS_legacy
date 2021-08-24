@@ -46,12 +46,10 @@ To get started :
 git clone https://github.com/hanswenzel/CaTS.git
 cd CaTS/
 
-# now have a look at set_env_lq.sh and change the variables on the top to point to the opticks installation you want to use and change it accordingly.
-# The provided set_env_lq.sh gives an example.
-# After you changed it:
+# to setup the opticks environment source the setup_opticks.sh file described in:  https://github.com/hanswenzel/CaTS/blob/master/Instructions.md
 
-cp set_env_lq.sh set_env.sh
-source setup_opticks.sh 
+
+source (pathe to opticks WORK_DIR)/setup_opticks.sh 
 cd ../
 mkdir CaTS-build
 cd CaTS-build
@@ -68,8 +66,7 @@ cmake -DCMAKE_BUILD_TYPE=Debug \
 
 make install
 cd ../CaTS-install/bin
-export OPTICKS_EMBEDDED_COMMANDLINE_EXTRA="--rngmax 10 --rtx 1"
-time ./CaTS -g  simpleLArTPC.gdml -pl 'FTFP_BERT+OPTICAL+STEPLIMIT'  -macro time.mac
+time ./CaTS -g  simpleLArTPC.gdml -pl 'FTFP_BERT+OPTICAL+STEPLIMIT'  -m time.mac
 
 Only the -g command line variable is mandatory! If you don't specify the macro file interactive mode is assumed:
 
