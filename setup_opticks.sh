@@ -2,28 +2,22 @@
 #SETUPDIR="/home/wenzel/gputest" 
 #source /home/wenzel/gputest/set_env.sh
 #------------------------------------------------------------------------------------
-export WORK_DIR=/data2/wenzel/gputest5
-
+export WORK_DIR=/data2/wenzel/gputest_10.7.p02
 export OptiX_INSTALL_DIR=/home/wenzel/NVIDIA-OptiX-SDK-6.5.0-linux64
 export OPTICKS_COMPUTE_CAPABILITY=75
-export CUDA_INSTALL_DIR=/usr/local/cuda-11.0
-export CUDA_SAMPLES=/usr/local/cuda-11.0/samples
-#export G4INSTALL=/data2/wenzel/geant4.10.07-install 
-#export G4_INSTALL=/data2/wenzel/geant4.10.07-install
-export G4INSTALL=/home/wenzel/geant4.10.06.p03_clhep-install
-export G4_INSTALL=/home/wenzel/geant4.10.06.p03_clhep-install
+export CUDA_INSTALL_DIR=/usr/local/cuda-11.3
+export CUDA_SAMPLES=${CUDA_INSTALL_DIR}/samples
+export G4INSTALL=/data2/wenzel/geant4.10.07.p02_install
 export LOCAL_BASE=${WORK_DIR}/local
-export CMAKE_PREFIX_PATH=${G4_INSTALL}:${LOCAL_BASE}/opticks/externals:${OptiX_INSTALL_DIR}:${WORK_DIR}/opticks/cmake/Modules/:${WORK_DIR}/local/opticks:${WORK_DIR}/local/opticks:${WORK_DIR}/local/opticks/externals/
+export CMAKE_PREFIX_PATH=${G4INSTALL}:${LOCAL_BASE}/opticks/externals:${OptiX_INSTALL_DIR}:${WORK_DIR}/opticks/cmake/Modules/:${WORK_DIR}/local/opticks:${WORK_DIR}/local/opticks:${WORK_DIR}/local/opticks/externals/
 export PYTHONPATH=$WORK_DIR
 export OPTICKS_HOME=${WORK_DIR}/opticks
 export PATH=${LOCAL_BASE}/bin:${PATH}
 export OPTICKS_PREFIX=${WORK_DIR}/local/opticks                            
 export OPTICKS_INSTALL_PREFIX=$LOCAL_BASE/opticks
 export OPTICKS_OPTIX_PREFIX=/home/wenzel/NVIDIA-OptiX-SDK-6.5.0-linux64/
-export OPTICKS_CUDA_PREFIX=/usr/local/cuda-11.0
-#export G4OPTICKS_DEBUG='--rngmax 10'
-export OPTICKS_EMBEDDED_COMMANDLINE_EXTRA="--rngmax 100"
-#source /home/wenzel/setup/root_setup.sh
+export OPTICKS_CUDA_PREFIX=${CUDA_INSTALL_DIR}
+export OPTICKS_EMBEDDED_COMMANDLINE_EXTRA="--rngmax 10 --rtx 1 --skipaheadstep 10000"
 opticks-(){ . ${OPTICKS_HOME}/opticks.bash && opticks-env $* ; }
 op(){ op.sh $* ; }
 o(){ cd $(opticks-home) ; hg st ; }
@@ -65,9 +59,8 @@ case ":${LD_LIBRARY_PATH:=$new}:" in
     *:"$new":*)  ;;
     *) LD_LIBRARY_PATH="$new:$LD_LIBRARY_PATH"  ;;
 esac
-. ${G4_INSTALL}/bin/geant4.sh
+. ${G4INSTALL}/bin/geant4.sh
 . /data2/wenzel/root_install/bin/thisroot.sh
-
 opticks-
 new=${CUDA_INSTALL_DIR}/bin
 case ":${PATH:=$new}:" in
@@ -116,5 +109,4 @@ dinfo-(){
     nvidia-smi;
     ${CUDA_SAMPLES}/bin/x86_64/linux/release/deviceQuery
 }
-#export OPTICKS_KEY=OKX4Test.X4PhysicalVolume.World_PV.b7ef5072d1d43f5b529c0c24d5432671
-export OPTICKS_KEY=G4OpticksTest.X4PhysicalVolume.World_PV.f2f063d9ea288eeab99e0b1617699755
+export OPTICKS_KEY=CaTS.X4PhysicalVolume.World_PV.8bf2e3a1e2eb9062d0d6b8a2a45c4cf3
