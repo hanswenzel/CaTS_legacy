@@ -89,7 +89,8 @@ RootIO* RootIO::GetInstance() {
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void RootIO::Write(Event* fevent) {
-    G4cout << "writing Event: " << fevent->GetEventNumber() << G4endl;
+    if (ConfigurationManager::getInstance()->isEnable_verbose()) G4cout << "writing Event: " << fevent->GetEventNumber() << G4endl;
+    if ((fevent->GetEventNumber()) % 1000 == 0) G4cout << "writing Event: " << fevent->GetEventNumber() << G4endl;
     if (!evtinitialized) {
         Int_t bufsize = 64000;
         fevtbranch = ftree->Branch("event.", &fevent, bufsize, 0);

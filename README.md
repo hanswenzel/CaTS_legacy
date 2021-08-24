@@ -44,8 +44,7 @@ use the following external packages and versions thereof:
 - nvidia Optix 6.5
 - nvidia cuda 11.0
 - nvidia driver 460.27.04
-- geant4 10.7.ref03/ref04 
-- boost 1.71.0
+- geant4 10.7.p02
 - xercesc 3.2.2
 - openmesh 6.3
 - glew 1.13.0

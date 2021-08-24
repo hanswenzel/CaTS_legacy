@@ -66,7 +66,7 @@
 #include "OpticksGenstep.h"
 #include "OpticksFlags.hh"
 #include "G4OpticksHit.hh"
-#include "OpticksVersion.hh"
+#include "CaTS_Version.hh"
 #endif
 // project headers
 #include "RadiatorSD.hh"

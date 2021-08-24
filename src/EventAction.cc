@@ -134,16 +134,18 @@ void EventAction::EndOfEventAction(const G4Event* event) {
                 }
             }
         }
-        std::cout << "*******************************************************************************************************************" << std::endl;
-        std::cout << " EndOfEventAction: numphotons:   " << g4ok->getNumPhotons() << " Gensteps: " << g4ok->getNumGensteps() << "  Maxgensteps:  " << g4ok->getMaxGensteps() << std::endl;
-        std::cout << " EndOfEventAction: num_hits: " << g4ok->getNumHit() << std::endl;
-        std::cout << g4ok->dbgdesc() << std::endl;
-        g4ok->reset();
-        std::cout << "========================== After reset: " << std::endl;
-        std::cout << " EndOfEventAction: numphotons:   " << g4ok->getNumPhotons() << " Gensteps: " << g4ok->getNumGensteps() << "  Maxgensteps:  " << g4ok->getMaxGensteps() << std::endl;
-        std::cout << "EndOfEventAction: num_hits: " << g4ok->getNumHit() << std::endl;
-        std::cout << g4ok->dbgdesc() << std::endl;
-        std::cout << "*******************************************************************************************************************" << std::endl;
+        if (verbose) {
+            std::cout << "*******************************************************************************************************************" << std::endl;
+            std::cout << " EndOfEventAction: numphotons:   " << g4ok->getNumPhotons() << " Gensteps: " << g4ok->getNumGensteps() << "  Maxgensteps:  " << g4ok->getMaxGensteps() << std::endl;
+            std::cout << " EndOfEventAction: num_hits: " << g4ok->getNumHit() << std::endl;
+            std::cout << g4ok->dbgdesc() << std::endl;
+            g4ok->reset();
+            std::cout << "========================== After reset: " << std::endl;
+            std::cout << " EndOfEventAction: numphotons:   " << g4ok->getNumPhotons() << " Gensteps: " << g4ok->getNumGensteps() << "  Maxgensteps:  " << g4ok->getMaxGensteps() << std::endl;
+            std::cout << "EndOfEventAction: num_hits: " << g4ok->getNumHit() << std::endl;
+            std::cout << g4ok->dbgdesc() << std::endl;
+            std::cout << "*******************************************************************************************************************" << std::endl;
+        }
     }// end isEnable_opticks
 #endif  //end   WITH_G4OPTICKS
     //

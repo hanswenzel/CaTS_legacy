@@ -47,6 +47,7 @@
 #include "OPTICKS_LOG.hh"
 #endif
 // project headers:
+#include "CaTS_Version.hh"
 #include "ActionInitialization.hh"
 #include "DetectorConstruction.hh"
 #include "OpNoviceDetectorConstruction.hh"
@@ -84,6 +85,24 @@ int main(int argc, char** argv) {
         G4cout << G4endl;
         return -1;
     }
+    G4cout << G4endl
+            << "---------------------------------------------------------------------" << G4endl
+            << "*            |\\___/|                                                *" << G4endl
+            << "*            )     (                                                *" << G4endl
+            << "*           =\\     /=                                               *" << G4endl
+            << "*             )===(      Welcome to:                                *" << G4endl
+            << "*            /     \\     CaTS: Calorimeter and Tracker Simulation   *" << G4endl
+            << "*            |     |     a flexible and extend-able framework       *" << G4endl
+            << "*           /       \\    for the simulation of various detector     *" << G4endl
+            << "*	    \\       /    systems                                    *" << G4endl
+            << "*            \\__  _/     https://github.com/hanswenzel/CaTS         *" << G4endl
+            << "*              ( (                                                  *" << G4endl
+            << "*	        ) )      Version: " << CaTSVersion << "                          *" << G4endl
+            << "*              (_(       Date:    " << CaTSDate << "                  *" << G4endl
+            << "---------------------------------------------------------------------" << G4endl
+            << G4endl;
+
+
     if (physicsconf == "") {
         G4cout << "Warning! no physics configuration specified!" << G4endl;
         G4cout << "Using default FTFP_BERT+OPTICAL+STEPLIMIT" << G4endl;
@@ -101,8 +120,13 @@ int main(int argc, char** argv) {
         G4cout << "Usage:  CaTS -pl physicsconfiguration" << G4endl;
         G4cout << G4endl;
     }
+
     G4Timer *eventTimer = new G4Timer;
     eventTimer->Start();
+
+
+
+
 
     OPTICKS_LOG(argc, argv);
     G4VModularPhysicsList* phys = PhysicsConfigurator::getInstance()->Construct(physicsconf);
