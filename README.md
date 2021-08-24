@@ -62,9 +62,6 @@ cmake -DCMAKE_BUILD_TYPE=Debug \
   -DCMAKE_INSTALL_PREFIX=../CaTS-install \
   ../CaTS
 
-
-
-
 make install
 cd ../CaTS-install/bin
 time ./CaTS -g  simpleLArTPC.gdml -pl 'FTFP_BERT+OPTICAL+STEPLIMIT'  -m time.mac
