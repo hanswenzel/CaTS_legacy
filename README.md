@@ -38,19 +38,7 @@ Sensitive Detectors:        (+ corresponding Hit classes)
 
 
 
-This requires the opticks environment to be set up properly.  At the moment we
-use the following external packages and versions thereof:  
-
-- nvidia Optix 6.5
-- nvidia cuda 11.0
-- nvidia driver 460.27.04
-- geant4 10.7.p02
-- xercesc 3.2.2
-- openmesh 6.3
-- glew 1.13.0
-- glfw 3.1.1
-- cmake 3.18.4
-- ROOT 6.22/06
+This requires the opticks environment to be set up properly (see  https://github.com/hanswenzel/CaTS/blob/master/Instructions.md)
 
 To get started : 
 
