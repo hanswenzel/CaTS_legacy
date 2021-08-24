@@ -119,8 +119,16 @@ This are instructions how to build opticks making use of preinstalled libraries 
 For geant 4 we use the current version at the time of writing which is Geant4.10.7.p2. We make use of the fact that the om-cmake function of om.bash is sensitive
 to CMAKE_PREFIX_PATH envvar so that we can point to the directories where the libraries are installed and void having to rebuild them.  In principle just cut and paste the following line to a file change the envars of the different directories to match your system and source the resulting script.
 
-    cd to the directory where you want to install Opticks (this will be the WORK_DIR environmental directory)
+    cd to the directory where you want to install Opticks (the WORK_DIR environmental variable will point to this directory)
     git clone https://bitbucket.org/simoncblyth/opticks.git
+
+change opticks/optickscore/OpticksSwitches.h
+
+so that:
+
+    #define WITH_SKIPAHEAD 1
+
+is set. 
 
     cat > setup_opticks.sh << +EOF
     # ----------------------------------------------------------------------------------------------------------------------
@@ -145,7 +153,7 @@ to CMAKE_PREFIX_PATH envvar so that we can point to the directories where the li
     export OPTICKS_INSTALL_PREFIX=$LOCAL_BASE/opticks
     export OPTICKS_OPTIX_PREFIX=${OptiX_INSTALL_DIR}
     export OPTICKS_CUDA_PREFIX=${CUDA_INSTALL_DIR}
-    export OPTICKS_EMBEDDED_COMMANDLINE_EXTRA="--rngmax 10 --rtx 1"
+    export OPTICKS_EMBEDDED_COMMANDLINE_EXTRA="--rngmax 10 --rtx 1 --skipaheadstep 10000"
     opticks-(){ . ${OPTICKS_HOME}/opticks.bash && opticks-env $* ; }
     op(){ op.sh $* ; }
     o(){ cd $(opticks-home) ; hg st ; }
