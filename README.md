@@ -46,10 +46,11 @@ To get started :
 git clone https://github.com/hanswenzel/CaTS.git
 cd CaTS/
 
-# to setup the opticks environment source the setup_opticks.sh file described in:  https://github.com/hanswenzel/CaTS/blob/master/Instructions.md
+# to setup the opticks environment source the setup_opticks.sh file described in:
+# https://github.com/hanswenzel/CaTS/blob/master/Instructions.md
 
 
-source (pathe to opticks WORK_DIR)/setup_opticks.sh 
+source (path to opticks WORK_DIR)/setup_opticks.sh 
 cd ../
 mkdir CaTS-build
 cd CaTS-build
