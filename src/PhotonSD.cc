@@ -117,14 +117,14 @@ G4bool PhotonSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     theTrack->SetTrackStatus(fStopAndKill);
     return true;
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void PhotonSD::EndOfEvent(G4HCofThisEvent*) {
-    G4int NbHits = fPhotonHitsCollection->entries();
-    if (verbose) G4cout << " PhotonSD::EndOfEvent Number of PhotonHits:  " << NbHits << G4endl;
+    if (verbose) {
+        G4int NbHits = fPhotonHitsCollection->entries();
+        G4cout << " PhotonSD::EndOfEvent Number of PhotonHits:  " << NbHits << G4endl;
+    }
 }
-
 #ifdef WITH_G4OPTICKS
 
 void PhotonSD::AddOpticksHits() {
@@ -135,7 +135,7 @@ void PhotonSD::AddOpticksHits() {
     G4OpticksHit hit;
     G4OpticksHitExtra hit_extra;
     G4OpticksHitExtra* hit_extra_ptr = way_enabled ? &hit_extra : NULL;
-     for (unsigned i = 0; i < num_hits; i++) {
+    for (unsigned i = 0; i < num_hits; i++) {
         g4ok->getHit(i, &hit, hit_extra_ptr);
         PhotonHit* newHit = new PhotonHit(
                 i,

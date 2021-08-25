@@ -45,14 +45,12 @@
 //
 #pragma once
 #include "G4UserEventAction.hh"
-class Ctx;
 class Event;
 
 class EventAction : public G4UserEventAction {
 public:
-    EventAction(Ctx* ctx_);
+    EventAction();
     ~EventAction();
     virtual void BeginOfEventAction(const G4Event* anEvent);
     virtual void EndOfEventAction(const G4Event* anEvent);
-    Ctx* ctx;
 };

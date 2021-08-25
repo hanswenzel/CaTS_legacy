@@ -48,28 +48,22 @@
 #include "RunAction.hh"
 #include "StackingAction.hh"
 #include "EventAction.hh"
-#include "SteppingAction.hh"
-#include "TrackingAction.hh"
-#include "Ctx.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
 ActionInitialization::ActionInitialization() : G4VUserActionInitialization() {
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-ActionInitialization::~ActionInitialization() =default;
+ActionInitialization::~ActionInitialization() = default;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
 void ActionInitialization::BuildForMaster() const {
     SetUserAction(new RunAction);
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
 void ActionInitialization::Build() const {
-    SetUserAction(new PrimaryGeneratorAction);
-    SetUserAction(new RunAction);
-    SetUserAction(new StackingAction);
-    Ctx* ctx = new Ctx();
-    EventAction* eventAction = new EventAction(ctx);
-    TrackingAction* ta = new TrackingAction(ctx);
-    SteppingAction* sa = new SteppingAction(ctx);
-    SetUserAction(eventAction);
-    SetUserAction(ta);
-    SetUserAction(sa);
+    SetUserAction(new PrimaryGeneratorAction());
+    SetUserAction(new RunAction());
+    SetUserAction(new StackingAction());
+    SetUserAction( new EventAction());
 }

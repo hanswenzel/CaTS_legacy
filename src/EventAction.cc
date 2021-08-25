@@ -52,7 +52,6 @@
 // Project headers:
 //
 #include "EventAction.hh"
-#include "Ctx.hh"
 #include "ConfigurationManager.hh"
 #include "RunAction.hh"
 #include "Event.hh"
@@ -70,7 +69,6 @@
 //
 // stl headers:
 //
-#include <cassert>
 #include <string>
 #include <vector>
 
@@ -94,15 +92,13 @@ std::vector<std::string> split(const std::string &s, char delim) {
     return split(s, delim, elems);
 }
 
-EventAction::EventAction(Ctx* ctx_)
-: G4UserEventAction(),
-ctx(ctx_) {
+EventAction::EventAction() : G4UserEventAction() {
 }
+
 
 EventAction::~EventAction() = default;
 
 void EventAction::BeginOfEventAction(const G4Event* anEvent) {
-    ctx->setEvent(anEvent);
 }
 
 void EventAction::EndOfEventAction(const G4Event* event) {
@@ -110,7 +106,6 @@ void EventAction::EndOfEventAction(const G4Event* event) {
     if (verbose) G4cout << "EventAction::EndOfEventAction Event:   " << event->GetEventID() << G4endl;
     G4HCofThisEvent* HCE = event->GetHCofThisEvent();
     if (HCE == nullptr) return;
-    // assert(HCE);
 #ifdef WITH_ROOT
     Event* CaTSEvt = new Event();
     CaTSEvt->SetEventNr(event->GetEventID());
@@ -139,7 +134,9 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             std::cout << " EndOfEventAction: numphotons:   " << g4ok->getNumPhotons() << " Gensteps: " << g4ok->getNumGensteps() << "  Maxgensteps:  " << g4ok->getMaxGensteps() << std::endl;
             std::cout << " EndOfEventAction: num_hits: " << g4ok->getNumHit() << std::endl;
             std::cout << g4ok->dbgdesc() << std::endl;
-            g4ok->reset();
+        }
+        g4ok->reset();
+        if (verbose) {
             std::cout << "========================== After reset: " << std::endl;
             std::cout << " EndOfEventAction: numphotons:   " << g4ok->getNumPhotons() << " Gensteps: " << g4ok->getNumGensteps() << "  Maxgensteps:  " << g4ok->getMaxGensteps() << std::endl;
             std::cout << "EndOfEventAction: num_hits: " << g4ok->getNumHit() << std::endl;
@@ -154,7 +151,6 @@ void EventAction::EndOfEventAction(const G4Event* event) {
     if (verbose) G4cout << "Number of collections:  " << HCE->GetNumberOfCollections() << G4endl;
 #ifdef WITH_ROOT
     if (ConfigurationManager::getInstance()->isWriteHits()) {
-        //RunAction::getInstance()->getIOTimer()->resume();
         for (int i = 0; i < HCE->GetNumberOfCollections(); i++) {
             G4VHitsCollection* hc = HCE->GetHC(i);
             G4String hcname = hc->GetName();
@@ -228,8 +224,6 @@ void EventAction::EndOfEventAction(const G4Event* event) {
         RootIO::GetInstance()->Write(CaTSEvt);
         CaTSEvt->Reset();
         delete CaTSEvt;
-
-        // RunAction::getInstance()->getIOTimer()->stop();
     } // end enableio
 #endif
 }
