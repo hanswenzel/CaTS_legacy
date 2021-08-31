@@ -101,8 +101,6 @@ int main(int argc, char** argv) {
             << "*              (_(       Date:    " << CaTSDate << "                  *" << G4endl
             << "---------------------------------------------------------------------" << G4endl
             << G4endl;
-
-
     if (physicsconf == "") {
         G4cout << "Warning! no physics configuration specified!" << G4endl;
         G4cout << "Using default FTFP_BERT+OPTICAL+STEPLIMIT" << G4endl;

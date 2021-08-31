@@ -44,6 +44,7 @@
 #include "TKey.h"
 #include "TTree.h"
 #include "TH1.h"
+#include <string>
 //
 #include "Event.hh"
 #include "MscHit.hh"
@@ -54,25 +55,27 @@ int main(int argc, char** argv) {
     // initialize ROOT
     TSystem ts;
     gSystem->Load("libCaTSClassesDict");
-    if (argc < 3) {
-        G4cout << "Program requires 2 arguments: name of input file, name of output file" << G4endl;
+    if (argc < 4) {
+        G4cout << "Program requires 3 arguments: name of input file, name of output file, Volume that sensitive detector is attached to" << G4endl;
         exit(1);
     }
     TFile* outfile = new TFile(argv[2], "RECREATE");
-    outfile->cd();
     TFile fo(argv[1]);
-    fo.GetListOfKeys()->Print();
+//    fo.GetListOfKeys()->Print();
     Event *event = new Event();
     TTree *Tevt = (TTree*) fo.Get("Events");
     Tevt->SetBranchAddress("event.", &event);
     TBranch* fevtbranch = Tevt->GetBranch("event.");
     Int_t nevent = fevtbranch->GetEntries();
+    outfile->cd();
     TH1F* theta = new TH1F("angle", "angle", 100, 0.0, 0.15);
+    string CollectionName = argv[3];
+    CollectionName = CollectionName + "_Msc_HC";
     for (Int_t i = 0; i < nevent; i++) {
         fevtbranch->GetEntry(i);
         auto *hcmap = event->GetHCMap();
         for (const auto ele : *hcmap) {
-            if (ele.first == "volTarget_Msc_HC") {
+            if (ele.first.compare(CollectionName)==0) {
                 auto hits = ele.second;
                 G4int NbHits = hits.size();
                 for (G4int ii = 0; ii < NbHits; ii++) {
