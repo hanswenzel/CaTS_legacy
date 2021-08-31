@@ -119,8 +119,21 @@ This are instructions how to build opticks making use of preinstalled libraries 
 For geant 4 we use the current version at the time of writing which is Geant4.10.7.p2. We make use of the fact that the om-cmake function of om.bash is sensitive
 to CMAKE_PREFIX_PATH envvar so that we can point to the directories where the libraries are installed and void having to rebuild them.  In principle just cut and paste the following line to a file change the envars of the different directories to match your system and source the resulting script.
 
-    cd to the directory where you want to install Opticks (the WORK_DIR environmental variable will point to this directory)
+    cd to the directory where you want to install Opticks (the WORK_DIR environmental variable will point to this directory). 
+    
+    
+Here we are using a tagged snapshot of Opticks which can be found in github:
+
+    git clone https://github.com/simoncblyth/opticks.git
+    cd opticks
+    git checkout tags/v0.1.2 -b v0.1.2-branch
+    git status
+    
+The development version (a. k. a. the latest and greatest) can be found in the following repository 
+
     git clone https://bitbucket.org/simoncblyth/opticks.git
+    
+    
 
 change opticks/optickscore/OpticksSwitches.h
 
