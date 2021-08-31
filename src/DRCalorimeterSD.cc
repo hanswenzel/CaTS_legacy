@@ -56,6 +56,7 @@
 #include "G4Cerenkov.hh"
 #include<iomanip>
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
 DRCalorimeterSD::DRCalorimeterSD(G4String name)
 : G4VSensitiveDetector(name), fDRCalorimeterHitsCollection(0), fHCID(0) {
     G4String HCname = name + "_HC";
@@ -92,11 +93,11 @@ G4bool DRCalorimeterSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     const G4VTouchable* touch = aStep->GetPreStepPoint()->GetTouchable();
     G4ThreeVector cellpos = touch->GetTranslation();
     unsigned int ID = aStep->GetPreStepPoint()->GetPhysicalVolume()->GetCopyNo();
-    //std::cout<<"ID:  "<<ID<<"  Edep:  "<< edep<<std::endl;
+    //std::cout << "ID:  " << ID << "  Edep:  " << edep << std::endl;
     G4Track* theTrack = aStep->GetTrack();
     G4String particleType = theTrack->GetDefinition()->GetParticleName();
     unsigned int NCerenPhotons = 0;
-    
+
     G4SteppingManager* fpSteppingManager = G4EventManager::GetEventManager()
             ->GetTrackingManager()->GetSteppingManager();
     G4StepStatus stepStatus = fpSteppingManager->GetfStepStatus();
@@ -104,7 +105,7 @@ G4bool DRCalorimeterSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
         G4ProcessVector* procPost = fpSteppingManager->GetfPostStepDoItVector();
         size_t MAXofPostStepLoops = fpSteppingManager->GetMAXofPostStepLoops();
         for (size_t i3 = 0; i3 < MAXofPostStepLoops; i3++) {
-
+            //std::cout << (*procPost)[i3]->GetProcessName() << std::endl;
             if ((*procPost)[i3]->GetProcessName() == "Cerenkov") {
                 G4Cerenkov* proc = (G4Cerenkov*) (*procPost)[i3];
                 NCerenPhotons += proc->GetNumPhotons();
@@ -118,7 +119,7 @@ G4bool DRCalorimeterSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
         DRCalorimeterHit* aPreviousHit = (*fDRCalorimeterHitsCollection)[j];
         if (ID == aPreviousHit->GetId()) {
             aPreviousHit->SetEdep(aStep->GetTotalEnergyDeposit() + aPreviousHit->GetEdep());
-            aPreviousHit->SetNceren(aPreviousHit->GetNceren()+NCerenPhotons);
+            aPreviousHit->SetNceren(aPreviousHit->GetNceren() + NCerenPhotons);
             if ((particleType == "e+") || (particleType == "gamma") || (particleType == "e-")) {
                 aPreviousHit->SetEm_Edep(edep + aPreviousHit->GetEm_Edep());
             }
@@ -130,9 +131,9 @@ G4bool DRCalorimeterSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     //
     DRCalorimeterHit* newHit;
     if ((particleType == "e+") || (particleType == "gamma") || (particleType == "e-")) {
-        newHit = new DRCalorimeterHit(ID, edep, edep, NCerenPhotons,time, cellpos);
+        newHit = new DRCalorimeterHit(ID, edep, edep, NCerenPhotons, time, cellpos);
     } else {
-        newHit = new DRCalorimeterHit(ID, edep, 0.0, time, NCerenPhotons,cellpos);
+        newHit = new DRCalorimeterHit(ID, edep, 0.0, time, NCerenPhotons, cellpos);
     }
     fDRCalorimeterHitsCollection->insert(newHit);
     return true;

@@ -43,23 +43,58 @@
 //* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
 //---------------------------------------------------------------------
 //
-#include "G4VHit.hh"
-#include "lArTPCHit.hh"
-#include "PhotonHit.hh"
-#include "InteractionHit.hh"
-#include "CalorimeterHit.hh"
-#include "DRCalorimeterHit.hh"
-#include "TrackerHit.hh"
-#include "MscHit.hh"
-#include "Event.hh"
-Event e;
-std::vector<PhotonHit*>p;
-std::vector<InteractionHit*>i;
-std::vector<lArTPCHit*>a;
-std::vector<CalorimeterHit*>c;
-std::vector<DRCalorimeterHit*>d;
-std::vector<TrackerHit*>t;
-std::vector<MscHit*>m;
-std::vector<G4VHit*>vh;
-std::map<G4String, std::vector<G4VHit*> > hm; // map of Hit Collections
-#undef __G4String
+#include "MscSD.hh"
+#include "G4HCofThisEvent.hh"
+#include "G4Step.hh"
+#include "G4SDManager.hh"
+#include "G4Event.hh"
+#include "G4UnitsTable.hh"
+#include "G4SystemOfUnits.hh"
+#include "ConfigurationManager.hh"
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+MscSD::MscSD(G4String name)
+: G4VSensitiveDetector(name) {
+    G4String HCname = name + "_HC";
+    collectionName.insert(HCname);
+    G4cout << collectionName.size() << "   MscSD name:  " << name << " collection Name: "
+            << HCname << G4endl;
+    fHCID = -1;
+    verbose = ConfigurationManager::getInstance()->isEnable_verbose();
+}
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void MscSD::Initialize(G4HCofThisEvent* hce) {
+    fMscHitsCollection = new MscHitsCollection(SensitiveDetectorName, collectionName[0]);
+    if (fHCID < 0) {
+        if (verbose) G4cout << "MscSD::Initialize:  " << SensitiveDetectorName << "   "
+                << collectionName[0] << G4endl;
+        fHCID = G4SDManager::GetSDMpointer()->GetCollectionID(collectionName[0]);
+    }
+    hce->AddHitsCollection(fHCID, fMscHitsCollection);
+    done = false;
+}
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+MscSD::~MscSD() = default;
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+G4bool MscSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
+    if (!done) {
+        if (aStep->GetTrack()->GetParentID() == 0) // only care about the primary particle 
+        {
+            const G4StepPoint* postStep = aStep->GetPostStepPoint();
+            if (postStep->GetStepStatus() == fGeomBoundary) {
+                MscHit* newHit = new MscHit(postStep->GetKineticEnergy(), postStep->GetMomentum());
+                fMscHitsCollection->insert(newHit);
+                done = true;
+            }
+        }
+    }
+    return true;
+}
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void MscSD::EndOfEvent(G4HCofThisEvent*) {
+    G4int NbHits = fMscHitsCollection->entries();
+    if (verbose) G4cout << " Number of MscHits:  " << NbHits << G4endl;
+}

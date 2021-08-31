@@ -15,6 +15,8 @@
 <class name="std::vector<DRCalorimeterHit*>"/>
 <class name="TrackerHit"/>
 <class name="std::vector<TrackerHit*>"/>
+<class name="MscHit"/>
+<class name="std::vector<MscHit*>"/>
 <class name="G4ThreeVector"/>
 <class name="CLHEP::Hep3Vector"/>
 <class name="std::map<G4String, std::vector<G4VHit*> >"/>

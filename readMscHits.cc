@@ -44,10 +44,10 @@
 #include "TKey.h"
 #include "TTree.h"
 #include "TH1.h"
-#include "TH2.h"
 //
 #include "Event.hh"
-#include "DRCalorimeterHit.hh"
+#include "MscHit.hh"
+#include "G4ThreeVector.hh"
 using namespace std;
 
 int main(int argc, char** argv) {
@@ -67,57 +67,23 @@ int main(int argc, char** argv) {
     Tevt->SetBranchAddress("event.", &event);
     TBranch* fevtbranch = Tevt->GetBranch("event.");
     Int_t nevent = fevtbranch->GetEntries();
-    cout << " Nr. of Events:  " << nevent << endl;
-    double max = 0.;
-    double min = 1000000;
-    double nmax = 0.;
-    double nmin = 1000000000;
-
-
+    TH1F* theta = new TH1F("angle", "angle", 100, 0.0, 0.15);
     for (Int_t i = 0; i < nevent; i++) {
         fevtbranch->GetEntry(i);
         auto *hcmap = event->GetHCMap();
         for (const auto ele : *hcmap) {
-            cout << " Volume: "<<ele.first <<endl;
-            if (ele.first == "CalorimeterVolume_DRCalorimeter_HC") {
+            if (ele.first == "volTarget_Msc_HC") {
                 auto hits = ele.second;
                 G4int NbHits = hits.size();
-                cout << "Event: " << i << "  Number of Hits:  " << NbHits << endl;
                 for (G4int ii = 0; ii < NbHits; ii++) {
-                    DRCalorimeterHit* drcaloHit = dynamic_cast<DRCalorimeterHit*> (hits.at(ii));
-                    const double ed = drcaloHit->GetEdep();
-                    cout << ed << endl;
-                    if (ed > max) max = ed;
-                    if (ed < min) min = ed;
-                   const unsigned int nceren = drcaloHit->GetNceren();
-                    if (nceren > nmax) nmax = nceren;
-                    if (nceren < nmin) nmin = nceren;
+                    MscHit* mscHit = dynamic_cast<MscHit*> (hits.at(ii));
+                    G4ThreeVector invec(0, 0, 1.);
+                    cout << setprecision(12)<<mscHit->GetKinE() << " " << setprecision(12)<< mscHit->GetMomentum().getX() << " " << setprecision(12)<< mscHit->GetMomentum().getY() << " " << setprecision(12)<< mscHit->GetMomentum().getZ() << endl;
+                    theta->Fill(invec.angle(mscHit->GetMomentum())*57.3);
                 }
             }
         }
     }
-    cout << min << "  " << max << "  " << nmin << "  " << nmax << endl;
- //   outfile->cd();
-    TH1F* hedep = new TH1F("energy", "edep", 100, min, max);
-    TH1F* hnceren = new TH1F("nceren", "nceren", 100, nmin, nmax);
-    for (Int_t i = 0; i < nevent; i++) {
-        fevtbranch->GetEntry(i);
-        auto *hcmap = event->GetHCMap();
-        for (const auto ele : *hcmap) {
-            if (ele.first == "CalorimeterVolume_DRCalorimeter_HC") {
-                auto hits = ele.second;
-                G4int NbHits = hits.size();
-                cout << "Event: " << i << "  Number of Hits:  " << NbHits << endl;
-                for (G4int ii = 0; ii < NbHits; ii++) {
-                    DRCalorimeterHit* drcaloHit = dynamic_cast<DRCalorimeterHit*> (hits.at(ii));
-                    hedep->Fill(drcaloHit->GetEdep());
-                    hnceren->Fill(drcaloHit->GetNceren());
-                }
-            }
-        }
-    }
-    //hedep->Fit("gaus");
-    //hnceren->Fit("gaus");
     outfile->Write();
 }
 

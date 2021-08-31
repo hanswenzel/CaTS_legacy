@@ -47,7 +47,11 @@
 #include "TH2.h"
 //
 #include "Event.hh"
+#include "lArTPCHit.hh"
+#include "PhotonHit.hh"
+#include "CalorimeterHit.hh"
 #include "DRCalorimeterHit.hh"
+#include "InteractionHit.hh"
 using namespace std;
 
 int main(int argc, char** argv) {
@@ -59,7 +63,7 @@ int main(int argc, char** argv) {
         exit(1);
     }
     TFile* outfile = new TFile(argv[2], "RECREATE");
-    outfile->cd();
+
     TFile fo(argv[1]);
     fo.GetListOfKeys()->Print();
     Event *event = new Event();
@@ -70,54 +74,42 @@ int main(int argc, char** argv) {
     cout << " Nr. of Events:  " << nevent << endl;
     double max = 0.;
     double min = 1000000;
-    double nmax = 0.;
-    double nmin = 1000000000;
-
-
     for (Int_t i = 0; i < nevent; i++) {
         fevtbranch->GetEntry(i);
         auto *hcmap = event->GetHCMap();
         for (const auto ele : *hcmap) {
-            cout << " Volume: "<<ele.first <<endl;
-            if (ele.first == "CalorimeterVolume_DRCalorimeter_HC") {
+            if (ele.first == "CalorimeterVolume_Calorimeter_HC") {
                 auto hits = ele.second;
                 G4int NbHits = hits.size();
                 cout << "Event: " << i << "  Number of Hits:  " << NbHits << endl;
                 for (G4int ii = 0; ii < NbHits; ii++) {
-                    DRCalorimeterHit* drcaloHit = dynamic_cast<DRCalorimeterHit*> (hits.at(ii));
+                    CalorimeterHit* drcaloHit = dynamic_cast<CalorimeterHit*> (hits.at(ii));
                     const double ed = drcaloHit->GetEdep();
                     cout << ed << endl;
                     if (ed > max) max = ed;
                     if (ed < min) min = ed;
-                   const unsigned int nceren = drcaloHit->GetNceren();
-                    if (nceren > nmax) nmax = nceren;
-                    if (nceren < nmin) nmin = nceren;
                 }
             }
         }
     }
-    cout << min << "  " << max << "  " << nmin << "  " << nmax << endl;
- //   outfile->cd();
-    TH1F* hedep = new TH1F("energy", "edep", 100, min, max);
-    TH1F* hnceren = new TH1F("nceren", "nceren", 100, nmin, nmax);
+    outfile->cd();
+    TH1F* hedep = new TH1F("energy", "edep", 100, min-0.1*min, max+0.1*max);
     for (Int_t i = 0; i < nevent; i++) {
         fevtbranch->GetEntry(i);
         auto *hcmap = event->GetHCMap();
         for (const auto ele : *hcmap) {
-            if (ele.first == "CalorimeterVolume_DRCalorimeter_HC") {
+            if (ele.first == "CalorimeterVolume_Calorimeter_HC") {
                 auto hits = ele.second;
                 G4int NbHits = hits.size();
                 cout << "Event: " << i << "  Number of Hits:  " << NbHits << endl;
                 for (G4int ii = 0; ii < NbHits; ii++) {
-                    DRCalorimeterHit* drcaloHit = dynamic_cast<DRCalorimeterHit*> (hits.at(ii));
+                    CalorimeterHit* drcaloHit = dynamic_cast<CalorimeterHit*> (hits.at(ii));
                     hedep->Fill(drcaloHit->GetEdep());
-                    hnceren->Fill(drcaloHit->GetNceren());
                 }
             }
         }
     }
     //hedep->Fit("gaus");
-    //hnceren->Fit("gaus");
     outfile->Write();
 }
 

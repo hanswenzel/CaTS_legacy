@@ -43,23 +43,28 @@
 //* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
 //---------------------------------------------------------------------
 //
-#include "G4VHit.hh"
-#include "lArTPCHit.hh"
-#include "PhotonHit.hh"
-#include "InteractionHit.hh"
-#include "CalorimeterHit.hh"
-#include "DRCalorimeterHit.hh"
-#include "TrackerHit.hh"
+#ifndef MscSD_h
+#define MscSD_h 1
+#pragma once
+#include "G4VSensitiveDetector.hh"
 #include "MscHit.hh"
-#include "Event.hh"
-Event e;
-std::vector<PhotonHit*>p;
-std::vector<InteractionHit*>i;
-std::vector<lArTPCHit*>a;
-std::vector<CalorimeterHit*>c;
-std::vector<DRCalorimeterHit*>d;
-std::vector<TrackerHit*>t;
-std::vector<MscHit*>m;
-std::vector<G4VHit*>vh;
-std::map<G4String, std::vector<G4VHit*> > hm; // map of Hit Collections
-#undef __G4String
+class G4Step;
+class G4HCofThisEvent;
+class MscHitCollection;
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+class MscSD : public G4VSensitiveDetector {
+public:
+    MscSD(G4String);
+    ~MscSD();
+    void Initialize(G4HCofThisEvent*);
+    G4bool ProcessHits(G4Step*, G4TouchableHistory*);
+    virtual void EndOfEvent(G4HCofThisEvent* hitCollection);
+private:
+    MscHitsCollection* fMscHitsCollection{nullptr};
+    G4int fHCID{0};
+    bool verbose{false};
+    G4bool done{false};
+};
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+#endif

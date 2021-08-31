@@ -43,23 +43,63 @@
 //* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
 //---------------------------------------------------------------------
 //
+#ifndef MSCHIT_HH
+#define MSCHIT_HH
+#pragma once
 #include "G4VHit.hh"
-#include "lArTPCHit.hh"
-#include "PhotonHit.hh"
-#include "InteractionHit.hh"
-#include "CalorimeterHit.hh"
-#include "DRCalorimeterHit.hh"
-#include "TrackerHit.hh"
-#include "MscHit.hh"
-#include "Event.hh"
-Event e;
-std::vector<PhotonHit*>p;
-std::vector<InteractionHit*>i;
-std::vector<lArTPCHit*>a;
-std::vector<CalorimeterHit*>c;
-std::vector<DRCalorimeterHit*>d;
-std::vector<TrackerHit*>t;
-std::vector<MscHit*>m;
-std::vector<G4VHit*>vh;
-std::map<G4String, std::vector<G4VHit*> > hm; // map of Hit Collections
-#undef __G4String
+#include "G4THitsCollection.hh"
+#include "G4Allocator.hh"
+#include "G4ThreeVector.hh"
+
+class MscHit : public G4VHit {
+    // Default constructor
+public:
+    MscHit();
+    ~MscHit();
+    MscHit(const MscHit&);
+    const MscHit& operator=(const MscHit&);
+    G4bool operator==(const MscHit&) const;
+    inline void* operator new(size_t);
+    inline void operator delete(void*);
+    virtual void Draw();
+    //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+    inline virtual void Print() {
+        G4cout << "MscHit KinE: " << kinE
+                << " Px: " << momentum.getX()
+                << " Py: " << momentum.getY()
+                << " Pz: " << momentum.getZ() << G4endl;
+    }
+
+    MscHit(double kinE, G4ThreeVector momentum);
+    void SetKinE(double kinE);
+    double GetKinE() const;
+    void SetMomentum(G4ThreeVector momentum);
+    G4ThreeVector GetMomentum() const;
+
+
+private:
+    double kinE{0};
+    G4ThreeVector momentum{0};
+};
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+using MscHitsCollection = G4THitsCollection<MscHit>;
+extern G4ThreadLocal G4Allocator<MscHit>* MscHitAllocator;
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+inline void* MscHit::operator new(size_t){
+    if (!MscHitAllocator) {
+        MscHitAllocator = new G4Allocator<MscHit>;
+    }
+    return (void *) MscHitAllocator->MallocSingle();
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+inline void MscHit::operator delete(void *aHit) {
+    MscHitAllocator->FreeSingle((MscHit*) aHit);
+}
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+#endif

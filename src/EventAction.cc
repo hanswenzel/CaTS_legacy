@@ -61,6 +61,7 @@
 #include "InteractionHit.hh"
 #include "lArTPCHit.hh"
 #include "TrackerHit.hh"
+#include "MscHit.hh"
 #include "CalorimeterHit.hh"
 #include "DRCalorimeterHit.hh"
 #ifdef WITH_ROOT
@@ -194,6 +195,16 @@ void EventAction::EndOfEventAction(const G4Event* event) {
                     G4VHit* hit = hc->GetHit(ii);
                     TrackerHit* tHit = dynamic_cast<TrackerHit*> (hit);
                     hitsVector.push_back(tHit);
+                }
+                hcmap->insert(std::make_pair(hcname, hitsVector));
+            } else if (Classname == "Msc") {
+                std::vector<G4VHit*> hitsVector;
+                G4int NbHits = hc->GetSize();
+                if (verbose) G4cout << "Msc size: " << hc->GetSize() << G4endl;
+                for (G4int ii = 0; ii < NbHits; ii++) {
+                    G4VHit* hit = hc->GetHit(ii);
+                    MscHit* mscHit = dynamic_cast<MscHit*> (hit);
+                    hitsVector.push_back(mscHit);
                 }
                 hcmap->insert(std::make_pair(hcname, hitsVector));
             } else if (Classname == "Calorimeter") {

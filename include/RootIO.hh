@@ -48,21 +48,8 @@
 #ifdef WITH_ROOT
 // Include files
 #pragma once
-
 #include "TROOT.h"
 
- /* #include "TSystem.h"
-#include "TFile.h"
-#include "TTree.h"
-
-#include "PhotonHit.hh"
-#include "InteractionHit.hh"
-#include "lArTPCHit.hh"
-#include "TrackerHit.hh"
-#include "CalorimeterHit.hh"
-#include "DRCalorimeterHit.hh"
-#include "Event.hh"
-*/
 class TFile;
 class TTree;
 class TBranch;

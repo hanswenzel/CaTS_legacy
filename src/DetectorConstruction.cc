@@ -70,6 +70,7 @@
 #include "ConfigurationManager.hh"
 #include "DetectorConstruction.hh"
 #include "TrackerSD.hh"
+#include "MscSD.hh"
 #include "lArTPCSD.hh"
 #include "CalorimeterSD.hh"
 #include "DRCalorimeterSD.hh"
@@ -80,8 +81,8 @@
 using namespace std;
 
 DetectorConstruction::DetectorConstruction(G4String fname)
-: G4VUserDetectorConstruction(), gdmlFile(fname){
-//    gdmlFile = fname;
+: G4VUserDetectorConstruction(), gdmlFile(fname) {
+    //    gdmlFile = fname;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -124,7 +125,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
         if (ifile) {
             G4cout << "****************************************************" << G4endl;
             G4cout << ConfigurationManager::getInstance()->getGDMLFileName() << " already exists!!!" << G4endl;
-            G4cout << "No new gdml dump created!!!"<< G4endl;
+            G4cout << "No new gdml dump created!!!" << G4endl;
             G4cout << "****************************************************" << G4endl;
         } else {
             G4cout << "Writing: " << ConfigurationManager::getInstance()->getGDMLFileName() << G4endl;
@@ -182,6 +183,15 @@ void DetectorConstruction::ConstructSDandField() {
                     TrackerSD* aTrackerSD = new TrackerSD(name);
                     SDman->AddNewDetector(aTrackerSD);
                     ((*iter).first)->SetSensitiveDetector(aTrackerSD);
+                    if (verbose) {
+                        std::cout << "Attaching sensitive Detector: " << (*vit).value
+                                << " to Volume:  " << ((*iter).first)->GetName() << std::endl;
+                    }
+                } else if ((*vit).value == "Msc") {
+                    G4String name = ((*iter).first)->GetName() + "_Msc";
+                    MscSD* aMscSD = new MscSD(name);
+                    SDman->AddNewDetector(aMscSD);
+                    ((*iter).first)->SetSensitiveDetector(aMscSD);
                     if (verbose) {
                         std::cout << "Attaching sensitive Detector: " << (*vit).value
                                 << " to Volume:  " << ((*iter).first)->GetName() << std::endl;
