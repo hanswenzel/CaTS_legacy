@@ -61,7 +61,6 @@ int main(int argc, char** argv) {
     }
     TFile* outfile = new TFile(argv[2], "RECREATE");
     TFile fo(argv[1]);
-//    fo.GetListOfKeys()->Print();
     Event *event = new Event();
     TTree *Tevt = (TTree*) fo.Get("Events");
     Tevt->SetBranchAddress("event.", &event);

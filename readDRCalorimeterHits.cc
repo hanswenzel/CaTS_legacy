@@ -54,8 +54,8 @@ int main(int argc, char** argv) {
     // initialize ROOT
     TSystem ts;
     gSystem->Load("libCaTSClassesDict");
-    if (argc < 3) {
-        G4cout << "Program requires 2 arguments: name of input file, name of output file" << G4endl;
+    if (argc < 4) {
+        G4cout << "Program requires 3 arguments: name of input file, name of output file, Volume that sensitive detector is attached to" << G4endl;
         exit(1);
     }
     TFile* outfile = new TFile(argv[2], "RECREATE");
@@ -72,39 +72,35 @@ int main(int argc, char** argv) {
     double min = 1000000;
     double nmax = 0.;
     double nmin = 1000000000;
-
-
+    string CollectionName = argv[3];
+    CollectionName = CollectionName + "_DRCalorimeter_HC";
     for (Int_t i = 0; i < nevent; i++) {
         fevtbranch->GetEntry(i);
         auto *hcmap = event->GetHCMap();
         for (const auto ele : *hcmap) {
-            cout << " Volume: "<<ele.first <<endl;
-            if (ele.first == "CalorimeterVolume_DRCalorimeter_HC") {
+            if (ele.first.compare(CollectionName) == 0) {
                 auto hits = ele.second;
                 G4int NbHits = hits.size();
-                cout << "Event: " << i << "  Number of Hits:  " << NbHits << endl;
                 for (G4int ii = 0; ii < NbHits; ii++) {
                     DRCalorimeterHit* drcaloHit = dynamic_cast<DRCalorimeterHit*> (hits.at(ii));
                     const double ed = drcaloHit->GetEdep();
-                    cout << ed << endl;
                     if (ed > max) max = ed;
                     if (ed < min) min = ed;
-                   const unsigned int nceren = drcaloHit->GetNceren();
+                    const unsigned int nceren = drcaloHit->GetNceren();
                     if (nceren > nmax) nmax = nceren;
                     if (nceren < nmin) nmin = nceren;
                 }
             }
         }
     }
-    cout << min << "  " << max << "  " << nmin << "  " << nmax << endl;
- //   outfile->cd();
+    outfile->cd();
     TH1F* hedep = new TH1F("energy", "edep", 100, min, max);
     TH1F* hnceren = new TH1F("nceren", "nceren", 100, nmin, nmax);
     for (Int_t i = 0; i < nevent; i++) {
         fevtbranch->GetEntry(i);
         auto *hcmap = event->GetHCMap();
         for (const auto ele : *hcmap) {
-            if (ele.first == "CalorimeterVolume_DRCalorimeter_HC") {
+            if (ele.first.compare(CollectionName) == 0) {
                 auto hits = ele.second;
                 G4int NbHits = hits.size();
                 cout << "Event: " << i << "  Number of Hits:  " << NbHits << endl;

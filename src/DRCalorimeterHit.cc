@@ -52,24 +52,31 @@
 
 G4ThreadLocal G4Allocator<DRCalorimeterHit>* DRCalorimeterHitAllocator = nullptr;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-DRCalorimeterHit::DRCalorimeterHit(): G4VHit(){}
+
+DRCalorimeterHit::DRCalorimeterHit() : G4VHit() {
+}
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
 void DRCalorimeterHit::SetNceren(unsigned int Nceren) {
     this->Nceren = Nceren;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
 unsigned int DRCalorimeterHit::GetNceren() const {
     return Nceren;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
 void DRCalorimeterHit::SetEm_Edep(double em_Edep) {
     this->em_Edep = em_Edep;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
 double DRCalorimeterHit::GetEm_Edep() const {
     return em_Edep;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
 DRCalorimeterHit::DRCalorimeterHit(unsigned int i,
         G4double e,
         G4double em,
@@ -84,8 +91,9 @@ DRCalorimeterHit::DRCalorimeterHit(unsigned int i,
     position = p;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-DRCalorimeterHit::~DRCalorimeterHit()=default;
+DRCalorimeterHit::~DRCalorimeterHit() = default;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
 DRCalorimeterHit::DRCalorimeterHit(const DRCalorimeterHit& right)
 : G4VHit() {
     this->id = right.id;
@@ -96,6 +104,7 @@ DRCalorimeterHit::DRCalorimeterHit(const DRCalorimeterHit& right)
     this->position = right.position;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
 const DRCalorimeterHit& DRCalorimeterHit::operator=(const DRCalorimeterHit& right) {
     this->id = right.id;
     this->Edep = right.Edep;
@@ -111,6 +120,7 @@ G4bool DRCalorimeterHit::operator==(const DRCalorimeterHit& right) const {
     return (this == &right) ? true : false;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
 void DRCalorimeterHit::Draw() {
     G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();
     if (pVVisManager) {

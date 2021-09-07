@@ -88,16 +88,13 @@ void DRCalorimeterSD::Initialize(G4HCofThisEvent* hce) {
 G4bool DRCalorimeterSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     double edep = aStep->GetTotalEnergyDeposit() / CLHEP::MeV;
     if (edep == 0.) return false;
-    //  if (aStep->GetTrack()->GetDynamicParticle()->GetCharge() == 0) return false;
     double time = aStep->GetPreStepPoint()->GetGlobalTime() / CLHEP::ns;
     const G4VTouchable* touch = aStep->GetPreStepPoint()->GetTouchable();
     G4ThreeVector cellpos = touch->GetTranslation();
     unsigned int ID = aStep->GetPreStepPoint()->GetPhysicalVolume()->GetCopyNo();
-    //std::cout << "ID:  " << ID << "  Edep:  " << edep << std::endl;
     G4Track* theTrack = aStep->GetTrack();
     G4String particleType = theTrack->GetDefinition()->GetParticleName();
     unsigned int NCerenPhotons = 0;
-
     G4SteppingManager* fpSteppingManager = G4EventManager::GetEventManager()
             ->GetTrackingManager()->GetSteppingManager();
     G4StepStatus stepStatus = fpSteppingManager->GetfStepStatus();

@@ -103,7 +103,6 @@ CMS TN / 95-184. December 1995.
 					       1.60186*eV 2.21581
 					       1.60394*eV 2.21593
 					       1.60601*eV 2.21604
-					       1.6081*eV 2.21616
 					       1.61018*eV 2.21627
 					       1.61228*eV 2.21639
 					       1.61438*eV 2.2165
@@ -592,7 +591,7 @@ CMS TN / 95-184. December 1995.
       <volume name="CalorimeterVolume">
          <materialref ref="PbWO4"/>
          <solidref ref="CalorimeterCell"/>
-	 <auxiliary auxtype="SensDet" auxvalue="Calorimeter"/>
+	 <auxiliary auxtype="SensDet" auxvalue="DRCalorimeter"/>
          <colorref ref="green"/>
       </volume>
     
