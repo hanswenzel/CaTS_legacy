@@ -105,6 +105,6 @@ root [1] TBrowser b
 
 ![alt text](https://github.com/hanswenzel/CaTS/blob/master/images/position.png)
 
-For compariso one might want to disable Opticks and use Geant4 to generate and propagate optical photons:
+For comparison one might want to disable Opticks and use Geant4 to generate and propagate optical photons:
     
     time ./CaTS -g  simpleLArTPC.gdml -pl 'FTFP_BERT+OPTICAL+STEPLIMIT'  -m time_G4.mac
