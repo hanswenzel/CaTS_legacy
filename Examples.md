@@ -1,5 +1,5 @@
 # Examples
-Here we provide examples for running CaTS. The examples consist of a gdml file to define the detector configuration. 
+Here we provide examples for running CaTS (without Opticks). The examples consist of a gdml file to define the detector configuration. 
 
 ## homogeneous Crystal Calorimeter
 Here we just read out the energy deposited in a huge Crystal.
