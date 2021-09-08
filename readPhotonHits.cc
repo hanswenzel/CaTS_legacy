@@ -63,8 +63,8 @@ int main(int argc, char** argv) {
     // initialize ROOT
     TSystem ts;
     gSystem->Load("libCaTSClassesDict");
-    if (argc < 3) {
-        G4cout << "Program requires 2 arguments: name of input file, name of output file" << G4endl;
+    if (argc < 4) {
+        G4cout << "Program requires 3 arguments: name of input file, name of output file, Volume that sensitive detector is attached to" << G4endl;
         exit(1);
     }
     TFile* outfile = new TFile(argv[2], "RECREATE");
@@ -84,12 +84,14 @@ int main(int argc, char** argv) {
     TBranch* fevtbranch = Tevt->GetBranch("event.");
     Int_t nevent = fevtbranch->GetEntries();
     cout << "Nr. of Events:  " << nevent << endl;
+    string CollectionName = argv[3];
+    CollectionName = CollectionName + "_Photondetector_HC";
     for (Int_t i = 0; i < nevent; i++) {
         fevtbranch->GetEntry(i);
         auto *hcmap = event->GetHCMap();
         for (const auto ele : *hcmap) {
             auto hits = ele.second;
-            if (ele.first == "Det_Photondetector_HC") {
+            if (ele.first.compare(CollectionName) == 0) {
                 auto hits = ele.second;
                 G4int NbHits = hits.size();
                 cout << "Event: " << i << "  Number of Hits:  " << NbHits << endl;

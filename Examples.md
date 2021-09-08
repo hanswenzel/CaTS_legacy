@@ -18,5 +18,12 @@ Here in addtion to the deposited energy in the calorimeter cell we readout the n
     ./CaTS -g crystalcal_pbwo.gdml -pl 'FTFP_BERT+OPTICAL'  -m pip_IO_DR.mac 
     ./readDRCalorimeterHits  DRCaloHits_Run0.root DRCaloHhstos.root CalorimeterVolume
 
+## multiple scattering at a thin Diamond layer
+
+In this example we register the momentum of a particle as it undergaos multiple scatering in a thin Diamond layer. 
+
+    ./CaTS -g DiamondTarget.gdml -pl 'FTFP_BERT' -m msc.mac
+    ./readMscHits  Msc_Run0.root ms_histos.root 'volTarget'
+
 
 

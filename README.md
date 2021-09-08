@@ -82,9 +82,10 @@ is used
 ```bash
 to look at the hit collection and make a few histograms:
 
-./readHits  NewHits_Run0.root histos.root
+./readPhotonHits NewHits_point_Run0.root PhotonHistos.root Det
 
-on can the use root to look  at the plots:
+The 3 arguments here are: name of input file (hits), name of output file for the histograms and the logical Volume that sensitive detector (PhotonSD)is attached to.
+One can then use root to look at the plots:
 
 root histos.root
    ------------------------------------------------------------------
