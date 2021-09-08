@@ -26,4 +26,6 @@ In this example we register the momentum of a particle as it undergaos multiple 
     ./readMscHits  Msc_Run0.root ms_histos.root 'volTarget'
 
 
+The created histogram can then be looked at using ROOT
 
+![alt text](https://github.com/hanswenzel/CaTS/blob/master/images/mscHistos.png)
