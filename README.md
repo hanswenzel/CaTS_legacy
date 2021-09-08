@@ -28,13 +28,16 @@ Physics Lists:                  choice of all Reference Physics Lists
                 
 Sensitive Detectors:        (+ corresponding Hit classes)        
 
-    TrackerSD(Hit)  
-    CalorimeterSD(Hit)
-    DRCalorimeterSD(Hit) (besides registering energy deposit counts produced Cerenkov photons)
-    StoppingCalorimeterSD (registers total energy of entering particle and kills the particle afterwards to avoid further tracking)
-    PhotonSD(Hit): sensitive detector that  registers optical photons.
+    TrackerSD(Hit)  registers the step points of charged particles.
+    CalorimeterSD(Hit) registering energy deposit
+    DRCalorimeterSD(Hit) besides registering energy deposit counts produced Cerenkov photons
+    MsCSD(Hit) used to study multiple scattering on a thin layer
+    PhotonSD(Hit) sensitive detector that registers optical photons.
+    lArTPCSD(Hit) sensitive detector that registers ionization and collects Gensteps (Scintillation and Cerenkov) to be processed by Opticks.
 
 
+
+    RadiatorSD no Hits just collection of Gensteps  (Scintillation and Cerenkov) to be processed by Opticks.
 
 
 
@@ -101,3 +104,6 @@ root [1] TBrowser b
 
 ![alt text](https://github.com/hanswenzel/CaTS/blob/master/images/position.png)
 
+For compariso one might want to disable Opticks and use Geant4 to generate and propagate optical photons:
+    
+    time ./CaTS -g  simpleLArTPC.gdml -pl 'FTFP_BERT+OPTICAL+STEPLIMIT'  -m timeG4.mac
