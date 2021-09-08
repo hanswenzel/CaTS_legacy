@@ -103,7 +103,6 @@ int main(int argc, char** argv) {
             if (ele.first.compare(CollectionName) == 0) {
                 auto hits = ele.second;
                 G4int NbHits = hits.size();
-                cout << "Event: " << i << "  Number of Hits:  " << NbHits << endl;
                 for (G4int ii = 0; ii < NbHits; ii++) {
                     DRCalorimeterHit* drcaloHit = dynamic_cast<DRCalorimeterHit*> (hits.at(ii));
                     hedep->Fill(drcaloHit->GetEdep());

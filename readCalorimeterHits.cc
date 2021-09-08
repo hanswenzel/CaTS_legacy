@@ -74,18 +74,18 @@ int main(int argc, char** argv) {
     cout << " Nr. of Events:  " << nevent << endl;
     double max = 0.;
     double min = 1000000;
+    string CollectionName = argv[3];
+    CollectionName = CollectionName + "_Calorimeter_HC";
     for (Int_t i = 0; i < nevent; i++) {
         fevtbranch->GetEntry(i);
         auto *hcmap = event->GetHCMap();
         for (const auto ele : *hcmap) {
-            if (ele.first == "CalorimeterVolume_Calorimeter_HC") {
+            if (ele.first.compare(CollectionName) == 0) {
                 auto hits = ele.second;
                 G4int NbHits = hits.size();
-                cout << "Event: " << i << "  Number of Hits:  " << NbHits << endl;
                 for (G4int ii = 0; ii < NbHits; ii++) {
                     CalorimeterHit* drcaloHit = dynamic_cast<CalorimeterHit*> (hits.at(ii));
                     const double ed = drcaloHit->GetEdep();
-                    cout << ed << endl;
                     if (ed > max) max = ed;
                     if (ed < min) min = ed;
                 }
@@ -93,15 +93,14 @@ int main(int argc, char** argv) {
         }
     }
     outfile->cd();
-    TH1F* hedep = new TH1F("energy", "edep", 100, min-0.1*min, max+0.1*max);
+    TH1F* hedep = new TH1F("energy", "edep", 100, min - 0.1 * min, max + 0.1 * max);
     for (Int_t i = 0; i < nevent; i++) {
         fevtbranch->GetEntry(i);
         auto *hcmap = event->GetHCMap();
         for (const auto ele : *hcmap) {
-            if (ele.first == "CalorimeterVolume_Calorimeter_HC") {
+            if (ele.first.compare(CollectionName) == 0) {
                 auto hits = ele.second;
                 G4int NbHits = hits.size();
-                cout << "Event: " << i << "  Number of Hits:  " << NbHits << endl;
                 for (G4int ii = 0; ii < NbHits; ii++) {
                     CalorimeterHit* drcaloHit = dynamic_cast<CalorimeterHit*> (hits.at(ii));
                     hedep->Fill(drcaloHit->GetEdep());
