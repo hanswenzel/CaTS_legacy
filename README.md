@@ -73,20 +73,20 @@ Only the -g command line variable is mandatory! If you don't specify the macro f
 
 ./CaTS -g simpleLArTPC.gdml -pl 'FTFP_BERT+OPTICAL+STEPLIMIT'
 
+```
 if you don't provide the -pl argument the default physics list configuration:
 'FTFP_BERT+OPTICAL+STEPLIMIT'
 is used
 
-```
 ![alt text](https://github.com/hanswenzel/CaTS/blob/master/images/display.png)
-```bash
 to look at the hit collection and make a few histograms:
 
-./readPhotonHits NewHits_point_Run0.root PhotonHistos.root Det
+    ./readPhotonHits NewHits_point_Run0.root PhotonHistos.root Det
 
 The 3 arguments here are: name of input file (hits), name of output file for the histograms and the logical Volume that sensitive detector (PhotonSD)is attached to.
 One can then use root to look at the plots:
 
+```bash
 root histos.root
    ------------------------------------------------------------------
   | Welcome to ROOT 6.22/06                        https://root.cern |
