@@ -106,4 +106,4 @@ root [1] TBrowser b
 
 For compariso one might want to disable Opticks and use Geant4 to generate and propagate optical photons:
     
-    time ./CaTS -g  simpleLArTPC.gdml -pl 'FTFP_BERT+OPTICAL+STEPLIMIT'  -m timeG4.mac
+    time ./CaTS -g  simpleLArTPC.gdml -pl 'FTFP_BERT+OPTICAL+STEPLIMIT'  -m time_G4.mac
