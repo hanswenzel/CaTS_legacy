@@ -7,6 +7,8 @@ Her we just read out the energy deposited in a huge Crystal.
     time ./CaTS -g homogeneous_pbwo_crystalcal.gdml  -pl 'FTFP_BERT'  -m pip_IO_Calo.mac
     time ./readCalorimeterHits CaloHits_Run0.root CaloHistos.root CalorimeterVolume
 
+The created histogram can then be looked at using ROOT
+
 ![alt text](https://github.com/hanswenzel/CaTS/blob/master/images/CaloHistos.png)
 
 ## Dual Read out Crystal Calorimeter
