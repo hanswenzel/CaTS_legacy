@@ -153,9 +153,7 @@ private:
     G4ThreeVector direction{0};
     G4ThreeVector polarization{0};
 };
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 using PhotonHitsCollection = G4THitsCollection<PhotonHit>;
 extern G4ThreadLocal G4Allocator<PhotonHit>* PhotonHitAllocator;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

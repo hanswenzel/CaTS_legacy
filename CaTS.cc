@@ -50,10 +50,10 @@
 #include "CaTS_Version.hh"
 #include "ActionInitialization.hh"
 #include "DetectorConstruction.hh"
-#include "OpNoviceDetectorConstruction.hh"
 #include "PhysicsConfigurator.hh"
 #include "ConfigurationManager.hh"
 // Geant4 headers:
+#include "G4RunManagerFactory.hh"
 #include "G4RunManager.hh"
 #include "G4UImanager.hh"
 #include "G4Timer.hh"
@@ -118,15 +118,11 @@ int main(int argc, char** argv) {
         G4cout << "Usage:  CaTS -pl physicsconfiguration" << G4endl;
         G4cout << G4endl;
     }
-
     G4Timer *eventTimer = new G4Timer;
     eventTimer->Start();
-
-
-
-
-
+#ifdef WITH_G4OPTICKS  
     OPTICKS_LOG(argc, argv);
+#endif
     G4VModularPhysicsList* phys = PhysicsConfigurator::getInstance()->Construct(physicsconf);
     G4String DumpFilename = gdmlfile + "_G4";
     G4cout << "**********************************************************" << G4endl;
@@ -134,20 +130,23 @@ int main(int argc, char** argv) {
     G4cout << "**********************************************************" << G4endl;
     ConfigurationManager::getInstance()->setGDMLFileName(DumpFilename);
     DetectorConstruction* dc = new DetectorConstruction(gdmlfile);
-    //OpNoviceDetectorConstruction* dc = new OpNoviceDetectorConstruction();
-    G4RunManager* rm = new G4RunManager();
+    // Run manager
+    //auto* rm = G4RunManagerFactory::CreateRunManager(G4RunManagerType::SerialOnly);
+
+//    auto* runManager = G4RunManagerFactory::CreateRunManager(G4RunManagerType::Default);
+    auto* rm = G4RunManagerFactory::CreateRunManager();
+    G4int nThreads = 10;
+    rm -> SetNumberOfThreads(nThreads);
+
+    //    auto* rm = new G4RunManager();
     rm->SetUserInitialization(dc);
     rm->SetUserInitialization(phys);
     ActionInitialization* actionInitialization = new ActionInitialization();
     rm->SetUserInitialization(actionInitialization);
-    //
-    //   rm->Initialize();
     G4UImanager* UImanager = G4UImanager::GetUIpointer();
-
     if (interactive) {
         G4VisManager* visManager = new G4VisExecutive;
         visManager->Initialize();
-        //get the pointer to the User Interface manager
         UImanager->ApplyCommand("/control/execute init_vis.mac");
         ui->SessionStart();
         delete ui;
@@ -155,14 +154,10 @@ int main(int argc, char** argv) {
     } else {
         // batch mode
         G4String command = "/control/execute ";
-        //        G4String fileName = argv[2];
         UImanager->ApplyCommand(command + macrofile);
         delete ui;
-        //       delete rm;
     }
-
     eventTimer->Stop();
-
     double totalCPUTime = eventTimer->GetUserElapsed() + eventTimer->GetSystemElapsed();
     G4int precision_t = G4cout.precision(3);
     std::ios::fmtflags flags_t = G4cout.flags();

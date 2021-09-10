@@ -65,5 +65,5 @@ void ActionInitialization::Build() const {
     SetUserAction(new PrimaryGeneratorAction());
     SetUserAction(new RunAction());
     SetUserAction(new StackingAction());
-    SetUserAction( new EventAction());
+    SetUserAction(new EventAction());
 }
