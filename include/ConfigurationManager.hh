@@ -65,9 +65,9 @@ private:
     bool enable_opticks; // use opticks if available
     unsigned int MaxPhotons;
 #endif
-    bool enable_verbose; // switch on/off diagnostic printouts
-    bool dumpgdml; // write out Detector to gdml file
-    G4String GDMLFileName;
+    bool fenable_verbose{false}; // switch on/off diagnostic printouts
+    bool fdumpgdml{false}; // write out Detector to gdml file
+    G4String fGDMLFileName{"dump.gdml_G4"};
     ConfigurationManagerMessenger* confMessenger;
     ConfigurationManager();
 public:
@@ -127,28 +127,28 @@ public:
 #endif  
     void Print();
 
-    inline void setEnable_verbose(bool enable_verbose) {
-        this->enable_verbose = enable_verbose;
+    inline void setEnable_verbose(bool fenable_verbose) {
+        this->fenable_verbose = fenable_verbose;
     };
 
     inline bool isEnable_verbose() const {
-        return enable_verbose;
+        return fenable_verbose;
     };
 
-    inline void setGDMLFileName(G4String GDMLFileName) {
-        this->GDMLFileName = GDMLFileName;
+    inline void setGDMLFileName(G4String fGDMLFileName) {
+        this->fGDMLFileName = fGDMLFileName;
     }
 
     inline G4String getGDMLFileName() const {
-        return GDMLFileName;
+        return fGDMLFileName;
     }
 
-    inline void setDumpgdml(bool dumpgdml) {
-        this->dumpgdml = dumpgdml;
+    inline void setDumpgdml(bool fdumpgdml) {
+        this->fdumpgdml = fdumpgdml;
     }
 
     inline bool isDumpgdml() const {
-        return dumpgdml;
+        return fdumpgdml;
     }
 
 #ifdef WITH_G4OPTICKS 

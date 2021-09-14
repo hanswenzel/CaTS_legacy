@@ -66,9 +66,9 @@ ConfigurationManager::ConfigurationManager() {
     enable_opticks = true; // by default we use opticks
     MaxPhotons = 1000000;
 #endif 
-    enable_verbose = false; // by default we run quiet 
-    dumpgdml = false; // by default we don't write out Detector to gdml file
-    GDMLFileName = "dump.gdml_G4";
+    //enable_verbose = false; // by default we run quiet 
+    //dumpgdml = false; // by default we don't write out Detector to gdml file
+    //GDMLFileName = "dump.gdml_G4";
 }
 
 ConfigurationManager::~ConfigurationManager() {
@@ -91,9 +91,9 @@ void ConfigurationManager::Print() {
     G4cout << "CaTS configuration: " << G4endl;
     G4cout << "====================" << G4endl;
     G4cout << G4endl;
-    G4cout << "enable_verbose:   " << enable_verbose << G4endl;
-    G4cout << "dumpgdml:         " << dumpgdml << G4endl;
-    G4cout << "GDMLFileName:     " << GDMLFileName << G4endl;
+    G4cout << "fenable_verbose:   " << fenable_verbose << G4endl;
+    G4cout << "fdumpgdml:         " << fdumpgdml << G4endl;
+    G4cout << "fGDMLFileName:     " << fGDMLFileName << G4endl;
 #ifdef WITH_ROOT 
     G4cout << "doAnalysis:       " << doAnalysis << G4endl;
     G4cout << "HistoFileName:    " << HistoFileName << G4endl;

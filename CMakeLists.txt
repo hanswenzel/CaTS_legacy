@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
 set(name CaTS)
+#add_compile_options(-std=c++17)
+#set(CMAKE_CXX_STANDARD 17)
 project(${name} VERSION 0.1.0)
 
 #----------------------------------------------------------------------------
@@ -24,13 +26,10 @@ if(NOT Geant4_shared_FOUND)
   message(FATAL_ERROR "CaTS must use shared libraries")
 endif()
 
-find_package(Boost REQUIRED COMPONENTS timer)
-if(NOT BOOST_FOUND)
-message(STATUS "${name} BOOST package not found. --> ${name} disabled")
-  return()
-endif()
 
-
+#target_compile_definitions(CaTS PRIVATE  WITH_G4OPTICKS=ON)
+#add_compile_definitions(WITH_G4OPTICKS=1)
+#add_definitions(WITH_G4OPTICKS "Build example with OPTICKS" ON)
 option(WITH_ROOT "Build example with ROOT" ON)
 option(WITH_G4OPTICKS "Build example with OPTICKS" ON)
 option(G4ANALYSIS_USE "Build example with Analysis" ON)
@@ -40,8 +39,12 @@ endif()
 if(WITH_G4OPTICKS)
 include(OpticksBuildOptions)
 find_package( G4OK CONFIG REQUIRED )
+else()
+message(STATUS "WITH_G4OPTICKS is not set")
+include(CaTSCXXFlags)
 endif()
-
+#set(CMAKE_CXX_STANDARD 17)
+#set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if(WITH_ROOT)
   find_package(ROOT REQUIRED)
 # ROOT version 6 required
@@ -66,8 +69,7 @@ if(WITH_ROOT)
 #
 include_directories(${PROJECT_SOURCE_DIR}/include
                     ${Geant4_INCLUDE_DIR}
-                    ${ROOT_INCLUDE_DIRS}
-		    ${Boost_INCLUDE_DIRS})
+                    ${ROOT_INCLUDE_DIRS})
 #----------------------------------------------------------------------------
 # Generate dictionaries, add ROOT libraries properties
 #
@@ -79,11 +81,10 @@ set_target_properties(CaTSClassesDict PROPERTIES ${ROOT_LIBRARY_PROPERTIES})
 
 #set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
-target_link_libraries(CaTSClassesDict  ${Geant4_LIBRARIES} ${ROOT_LIBRARIES} Boost::timer)
+target_link_libraries(CaTSClassesDict  ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
 else()
 include_directories(${PROJECT_SOURCE_DIR}/include
-  ${Geant4_INCLUDE_DIR}
-  ${Boost_INCLUDE_DIRS} )
+  ${Geant4_INCLUDE_DIR})
 endif()
 
 file(GLOB detectors ${PROJECT_SOURCE_DIR}/gdml/*.gdml)
@@ -96,15 +97,18 @@ file(GLOB runscripts ${PROJECT_SOURCE_DIR}/scripts/run.sh  ${PROJECT_SOURCE_DIR}
 
 add_executable(${name} ${name}.cc ${sources} ${headers})
 target_compile_definitions( ${name} PRIVATE WITH_G4OPTICKS WITH_ROOT)
-target_link_libraries(${name}  CaTSClassesDict Opticks::G4OK ${Geant4_LIBRARIES} ${ROOT_LIBRARIES} Boost::timer )
-
+if(WITH_G4OPTICKS)
+target_link_libraries(${name}  CaTSClassesDict Opticks::G4OK ${Geant4_LIBRARIES} ${ROOT_LIBRARIES}  )
+else()
+target_link_libraries(${name}  CaTSClassesDict ${Geant4_LIBRARIES} ${ROOT_LIBRARIES} )
+endif()
 if(WITH_ROOT)
 add_executable(readPhotonHits readPhotonHits.cc  ${sources} ${headers})
-target_link_libraries(readPhotonHits CaTSClassesDict  ${Geant4_LIBRARIES} ${ROOT_LIBRARIES} Boost::timer)
+target_link_libraries(readPhotonHits CaTSClassesDict  ${Geant4_LIBRARIES} ${ROOT_LIBRARIES} )
 add_executable(readCalorimeterHits  readCalorimeterHits.cc   ${sources} ${headers})
-target_link_libraries(readCalorimeterHits CaTSClassesDict  ${Geant4_LIBRARIES} ${ROOT_LIBRARIES} Boost::timer)
+target_link_libraries(readCalorimeterHits CaTSClassesDict  ${Geant4_LIBRARIES} ${ROOT_LIBRARIES} )
 add_executable(readMscHits readMscHits.cc  ${sources} ${headers})
-target_link_libraries(readMscHits CaTSClassesDict  ${Geant4_LIBRARIES} ${ROOT_LIBRARIES} Boost::timer)
+target_link_libraries(readMscHits CaTSClassesDict  ${Geant4_LIBRARIES} ${ROOT_LIBRARIES} )
 add_executable(readDRCalorimeterHits  readDRCalorimeterHits.cc   ${sources} ${headers})
 target_link_libraries(readDRCalorimeterHits CaTSClassesDict  ${Geant4_LIBRARIES} ${ROOT_LIBRARIES} )
 link_directories( ${ROOT_LIBRARY_DIR} )

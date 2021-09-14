@@ -66,15 +66,15 @@ InteractionSD::InteractionSD(G4String name)
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 InteractionSD::~InteractionSD() {
-    if (fFirstInter) delete fFirstInter;
-    if (fOtherInter) delete fOtherInter;
+    delete fFirstInter;
+    delete fOtherInter;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void InteractionSD::Initialize(G4HCofThisEvent* HCE) {
     G4cout << "Hits Collection capacity:  " << HCE->GetCapacity() << G4endl;
-    fInteractionHitsCollection= new InteractionHitsCollection
+    fInteractionHitsCollection = new InteractionHitsCollection
             (SensitiveDetectorName, collectionName[0]);
     if (HCID < 0) {
         G4cout << "InteractionSD::Initialize:  " << SensitiveDetectorName << "   " << collectionName[0] << G4endl;
@@ -132,7 +132,7 @@ G4bool InteractionSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     //G4cout << "888888888888888888888888888888:   " << typeid (G4RunManager::GetRunManager()->GetUserPrimaryGeneratorAction()).name() << G4endl;
     G4int NSec = fFirstInter->GetNumberOfSecondaries();
     if (NSec > 0) {
-          G4cout << " 0000000000000000000  Nr of secs. :  " << fFirstInter ->GetNumberOfSecondaries() << G4endl;
+        G4cout << " 0000000000000000000  Nr of secs. :  " << fFirstInter ->GetNumberOfSecondaries() << G4endl;
         //  G4cout << "Edep: " << aStep->GetTotalEnergyDeposit()
         //          << " Name:  " << aStep->GetTrack()->GetParticleDefinition()->GetParticleName()
         //          << "  kinetic E:  " << aStep->GetTrack()->GetKineticEnergy()

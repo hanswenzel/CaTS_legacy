@@ -115,8 +115,6 @@ public:
     unsigned int GetNceren() const;
     void SetEm_Edep(double em_Edep);
     double GetEm_Edep() const;
-    ;
-
 private:
     unsigned int id{0};
     double Edep{0};

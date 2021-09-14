@@ -74,15 +74,16 @@ void CalorimeterSD::Initialize(G4HCofThisEvent* hce) {
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 G4bool CalorimeterSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
-    double edep = aStep->GetTotalEnergyDeposit() / CLHEP::MeV;
+    // auto can be used for all results from retrieving functions
+    auto edep = aStep->GetTotalEnergyDeposit() / CLHEP::MeV;
     if (edep == 0.) return false;
-    double time = aStep->GetPreStepPoint()->GetGlobalTime() / CLHEP::ns;
-    const G4VTouchable* touch = aStep->GetPreStepPoint()->GetTouchable();
-    G4ThreeVector cellpos = touch->GetTranslation();
+    auto time = aStep->GetPreStepPoint()->GetGlobalTime() / CLHEP::ns;
+    auto touch = aStep->GetPreStepPoint()->GetTouchable();
+    auto cellpos = touch->GetTranslation();
     unsigned int ID = aStep->GetPreStepPoint()->GetPhysicalVolume()->GetCopyNo();
     //std::cout<<"ID:  "<<ID<<"  Edep:  "<< edep<<std::endl;
-    G4Track* theTrack = aStep->GetTrack();
-    G4String particleType = theTrack->GetDefinition()->GetParticleName();
+    auto theTrack = aStep->GetTrack();
+    auto particleType = theTrack->GetDefinition()->GetParticleName();
     //
     //  check if this cell has been hit before
     //fCalorimeterHitsCollection

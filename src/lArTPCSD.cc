@@ -208,8 +208,8 @@ G4bool lArTPCSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
         tCphotons += Cphotons;
 
         //   unsigned opticks_photon_offset = 0;
-        const G4DynamicParticle* aParticle = aTrack->GetDynamicParticle();
-        const G4ParticleDefinition* definition = aParticle->GetDefinition();
+        //const G4DynamicParticle* aParticle = aTrack->GetDynamicParticle();
+        //const G4ParticleDefinition* definition = aParticle->GetDefinition();
         G4ThreeVector deltaPosition = aStep->GetDeltaPosition();
         G4double ScintillationTime = 0. * ns;
         //    G4double ScintillationRiseTime = 0. * ns;
@@ -220,7 +220,7 @@ G4bool lArTPCSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
         //   G4StepPoint* pPostStepPoint = aStep->GetPostStepPoint();
         G4ThreeVector x0 = pPreStepPoint->GetPosition();
         G4ThreeVector p0 = aStep->GetDeltaPosition().unit();
-        G4double t0 = pPreStepPoint->GetGlobalTime();
+        //G4double t0 = pPreStepPoint->GetGlobalTime();
         //
         // harvest the Scintillation photon gensteps:
         //

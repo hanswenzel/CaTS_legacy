@@ -74,9 +74,16 @@ Only the -g command line variable is mandatory! If you don't specify the macro f
 ./CaTS -g simpleLArTPC.gdml -pl 'FTFP_BERT+OPTICAL+STEPLIMIT'
 
 ```
+
+to compile CaTS without Opticks do:
+
+```bash
+cmake -DCMAKE_BUILD_TYPE=Debug   -DWITH_G4OPTICKS=OFF      -DCMAKE_MODULE_PATH="../CaTS/cmake/Modules"   -DCMAKE_INSTALL_PREFIX=../CaTS-install   ../CaTS
+```
 if you don't provide the -pl argument the default physics list configuration:
 'FTFP_BERT+OPTICAL+STEPLIMIT'
 is used
+
 
 ![alt text](https://github.com/hanswenzel/CaTS/blob/master/images/display.png)
 to look at the hit collection and make a few histograms:

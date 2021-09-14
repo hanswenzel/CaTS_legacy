@@ -43,9 +43,6 @@
 //* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
 //---------------------------------------------------------------------
 //
-#ifdef WITH_G4OPTICKS
-#include "OPTICKS_LOG.hh"
-#endif
 // project headers:
 #include "CaTS_Version.hh"
 #include "ActionInitialization.hh"
@@ -61,7 +58,9 @@
 #include "G4VisExecutive.hh"
 #include "G4VModularPhysicsList.hh"
 #include "G4Version.hh"
-
+#ifdef WITH_G4OPTICKS
+  #include "OPTICKS_LOG.hh"
+#endif
 int main(int argc, char** argv) {
     bool interactive = false;
     G4String physicsconf = "";
@@ -120,7 +119,7 @@ int main(int argc, char** argv) {
     }
     G4Timer *eventTimer = new G4Timer;
     eventTimer->Start();
-#ifdef WITH_G4OPTICKS  
+#ifdef WITH_G4OPTICKS
     OPTICKS_LOG(argc, argv);
 #endif
     G4VModularPhysicsList* phys = PhysicsConfigurator::getInstance()->Construct(physicsconf);

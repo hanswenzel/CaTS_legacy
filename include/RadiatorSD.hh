@@ -53,6 +53,7 @@
 class G4Step;
 class G4HCofThisEvent;
 class G4MaterialPropertiesTable;
+class G4PhysicsOrderedFreeVector;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 class RadiatorSD : public G4VSensitiveDetector {
@@ -66,6 +67,10 @@ public:
     virtual void EndOfEvent(G4HCofThisEvent* hitCollection);
 
 private:
+    // Clang warning
+    // /Users/ivana/work/packages/geant4/geant4-dev/examples/extended/CaTS/include/RadiatorSD.hh:70:11: warning: private field 'materialIndex' is not used [-Wunused-private-field]
+    //     G4int materialIndex;
+    //           ^
     G4int materialIndex;
     const G4Material* aMaterial;
     G4MaterialPropertiesTable* aMaterialPropertiesTable;

@@ -1,6 +1,5 @@
 #ifndef CATSVERSION_HH
 #define CATSVERSION_HH 1
-
 // Numbering rule for "CATSVERSION_NUMBER":
 // - The number is consecutive (i.e. 71) as an integer.
 // - The meaning of each digit is as follows;
@@ -12,7 +11,6 @@
 #ifndef CATSVERSION_NUMBER
   #define CATSVERSION_NUMBER 10
 #endif
-
 #ifndef CATSVERSION_TAG
   #define CATSVERSION_TAG "CaTS_1_0"
 #endif

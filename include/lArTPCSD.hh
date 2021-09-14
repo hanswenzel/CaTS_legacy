@@ -53,6 +53,8 @@
 class G4Step;
 class G4HCofThisEvent;
 class G4MaterialPropertiesTable;
+// Missinf - compilation error
+class G4PhysicsOrderedFreeVector;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 class lArTPCSD : public G4VSensitiveDetector {

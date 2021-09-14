@@ -61,7 +61,7 @@ private:
     G4String currentGeneratorName;
     std::map<G4String, G4VPrimaryGenerator*> gentypeMap;
     PrimaryGeneratorActionMessenger* gunMessenger;
-    static PrimaryGeneratorAction* instance;
+    // static PrimaryGeneratorAction* instance;
 
 public:
     PrimaryGeneratorAction();
@@ -71,7 +71,8 @@ public:
     void SetGenerator(G4String genname);
     G4VPrimaryGenerator* GetGenerator() const;
     G4String GetGeneratorName() const;
-    static PrimaryGeneratorAction* getInstance();
+    // Not needed; if used, should be thread local
+    // static PrimaryGeneratorAction* getInstance();
 };
 // ====================================================================
 // inline functions

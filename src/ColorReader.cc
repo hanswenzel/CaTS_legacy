@@ -57,10 +57,17 @@ ColorReader::ColorReader()
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 ColorReader::~ColorReader() {
+    // For c++ std14:
     std::map<G4String, G4VisAttributes*>::iterator pos;
     for (pos = fAttribs.begin(); pos != fAttribs.end(); pos++) {
         delete pos->second;
     }
+    // Range based for loop (C++11) + structured bindings (C++17)
+    /*
+    for ( auto [name, attribute] : fAttribs ) {
+       delete attribute;    
+    }
+     */
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

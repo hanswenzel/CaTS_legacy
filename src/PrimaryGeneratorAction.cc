@@ -53,12 +53,12 @@
 // Project headers:
 #include "PrimaryGeneratorAction.hh"
 #include "PrimaryGeneratorActionMessenger.hh"
-PrimaryGeneratorAction* PrimaryGeneratorAction::instance = 0;
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-PrimaryGeneratorAction* PrimaryGeneratorAction::getInstance() {
-    if (instance == 0) instance = new PrimaryGeneratorAction();
-    return instance;
-}
+// PrimaryGeneratorAction* PrimaryGeneratorAction::instance = 0;
+// //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+// PrimaryGeneratorAction* PrimaryGeneratorAction::getInstance() {
+//     if (instance == 0) instance = new PrimaryGeneratorAction();
+//     return instance;
+// }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 PrimaryGeneratorAction::PrimaryGeneratorAction() {
     const char* filename = "pythia_event.data";
@@ -78,15 +78,24 @@ PrimaryGeneratorAction::PrimaryGeneratorAction() {
     gunMessenger = new PrimaryGeneratorActionMessenger(this);
     currentGenerator = gentypeMap["particleGun"];
     currentGeneratorName = "particleGun";
-    instance = this;
+    // instance = this;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 PrimaryGeneratorAction::~PrimaryGeneratorAction() {
     delete gunMessenger;
+    // for c++ std 14:
     for (std::map<G4String, G4VPrimaryGenerator*>::iterator ii = gentypeMap.begin(); ii != gentypeMap.end(); ++ii) {
         delete (*ii).second;
         gentypeMap.erase((*ii).first);
     }
+    //for c++ std 17 
+    // Range based for loop (C++11) + structured bindings (C++17)
+    /*
+    for (auto [genType, generator] : gentypeMap ) {
+        delete generator;
+        gentypeMap.erase(genType);
+    }
+     */ 
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {

@@ -71,19 +71,21 @@ CalorimeterHit::~CalorimeterHit() = default;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 CalorimeterHit::CalorimeterHit(const CalorimeterHit& right)
 : G4VHit() {
-    this->id = right.id;
-    this->Edep = right.Edep;
-    this->em_Edep = right.em_Edep;
-    this->time = right.time;
-    this->position = right.position;
+    // No need to call class member functions via this->
+    id = right.id;
+    Edep = right.Edep;
+    em_Edep = right.em_Edep;
+    time = right.time;
+    position = right.position;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 const CalorimeterHit& CalorimeterHit::operator=(const CalorimeterHit& right) {
-    this->id = right.id;
-    this->Edep = right.Edep;
-    this->em_Edep = right.em_Edep;
-    this->time = right.time;
-    this->position = right.position;
+    // No need to call class member functions via this->
+    id = right.id;
+    Edep = right.Edep;
+    em_Edep = right.em_Edep;
+    time = right.time;
+    position = right.position;
     return *this;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
