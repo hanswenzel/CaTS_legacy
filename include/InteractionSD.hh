@@ -44,28 +44,24 @@
 //---------------------------------------------------------------------
 //
 #ifndef INTERACTIONSD_HH
-#define	INTERACTIONSD_HH
-
+#define INTERACTIONSD_HH
 #include "G4VSensitiveDetector.hh"
 #include "ParticleChange.hh"
 #include "InteractionHit.hh"
-
 class G4Step;
 class G4HCofThisEvent;
+class InteractionSD : public G4VSensitiveDetector
+{
+ public:
+  InteractionSD(G4String);
+  ~InteractionSD();
+  void Initialize(G4HCofThisEvent*);
+  G4bool ProcessHits(G4Step*, G4TouchableHistory*);
 
-
-class InteractionSD : public G4VSensitiveDetector {
-public:
-    InteractionSD(G4String);
-    ~InteractionSD();
-
-    void Initialize(G4HCofThisEvent*);
-    G4bool ProcessHits(G4Step*, G4TouchableHistory*);
-
-private:
-    G4int HCID;
-    ParticleChange* fFirstInter;
-    ParticleChange* fOtherInter;
-    InteractionHitsCollection* fInteractionHitsCollection;
+ private:
+  G4int HCID;
+  ParticleChange* fFirstInter;
+  ParticleChange* fOtherInter;
+  InteractionHitsCollection* fInteractionHitsCollection;
 };
-#endif	/* INTERACTIONSD_HH */
+#endif /* INTERACTIONSD_HH */

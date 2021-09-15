@@ -59,56 +59,69 @@
 #include "InteractionHit.hh"
 using namespace std;
 
-int main(int argc, char** argv) {
-    // initialize ROOT
-    TSystem ts;
-    gSystem->Load("libCaTSClassesDict");
-    if (argc < 4) {
-        G4cout << "Program requires 3 arguments: name of input file, name of output file, Volume that sensitive detector is attached to" << G4endl;
-        exit(1);
-    }
-    TFile* outfile = new TFile(argv[2], "RECREATE");
-    outfile->cd();
-    TH2F* pos2 = new TH2F("pposition", "position of Photon Hits", 400, -1000., 1000., 400, -500, 500);
-    TH1F* time = new TH1F("time", "timing of photon hits", 1000, 0., 250.);
-    TH1F* time0 = new TH1F("time0", "timing of photon hits", 1000, 0., 250.);
-    TH1F* time1 = new TH1F("time1", "timing of photon hits", 1000, 0., 250.);
-    TH1F* time2 = new TH1F("time2", "timing of photon hits", 1000, 0., 250.);
-    TH1F* wl = new TH1F("wl", "wavelength of detected photons", 1000, 0., 250.);
-    TH1F* np = new TH1F("np", "number of detected photons", 100, 0., 50.);
-    TFile fo(argv[1]);
-    fo.GetListOfKeys()->Print();
-    Event *event = new Event();
-    TTree *Tevt = (TTree*) fo.Get("Events");
-    Tevt->SetBranchAddress("event.", &event);
-    TBranch* fevtbranch = Tevt->GetBranch("event.");
-    Int_t nevent = fevtbranch->GetEntries();
-    cout << "Nr. of Events:  " << nevent << endl;
-    string CollectionName = argv[3];
-    CollectionName = CollectionName + "_Photondetector_HC";
-    for (Int_t i = 0; i < nevent; i++) {
-        fevtbranch->GetEntry(i);
-        auto *hcmap = event->GetHCMap();
-        for (const auto ele : *hcmap) {
-            auto hits = ele.second;
-            if (ele.first.compare(CollectionName) == 0) {
-                auto hits = ele.second;
-                G4int NbHits = hits.size();
-                cout << "Event: " << i << "  Number of Hits:  " << NbHits << endl;
-                np->Fill(NbHits);
-                for (G4int ii = 0; ii < NbHits; ii++) {
-                    PhotonHit* photonHit = dynamic_cast<PhotonHit*> (hits.at(ii));
-                    time->Fill(photonHit->GetTime());
-                    wl->Fill(photonHit->GetWavelength());
-                    if (photonHit->GetPosition().getZ()<-100.) time0->Fill(photonHit->GetTime());
-                    if (photonHit->GetPosition().getZ()>-100. && photonHit->GetPosition().getZ() < 100) time1->Fill(photonHit->GetTime());
-                    if (photonHit->GetPosition().getZ() < 100.) time2->Fill(photonHit->GetTime());
-                    pos2->Fill(photonHit->GetPosition().getZ(), photonHit->GetPosition().getY());
-                }
-            }
+int main(int argc, char** argv)
+{
+  // initialize ROOT
+  TSystem ts;
+  gSystem->Load("libCaTSClassesDict");
+  if(argc < 4)
+  {
+    G4cout << "Program requires 3 arguments: name of input file, name of "
+              "output file, Volume that sensitive detector is attached to"
+           << G4endl;
+    exit(1);
+  }
+  TFile* outfile = new TFile(argv[2], "RECREATE");
+  outfile->cd();
+  TH2F* pos2  = new TH2F("position", "position of Photon Hits", 400, -1000.,
+                        1000., 400, -500, 500);
+  TH1F* time  = new TH1F("time", "timing of photon hits", 1000, 0., 250.);
+  TH1F* time0 = new TH1F("time0", "timing of photon hits", 1000, 0., 250.);
+  TH1F* time1 = new TH1F("time1", "timing of photon hits", 1000, 0., 250.);
+  TH1F* time2 = new TH1F("time2", "timing of photon hits", 1000, 0., 250.);
+  TH1F* wl = new TH1F("wl", "wavelength of detected photons", 1000, 0., 250.);
+  TH1F* np = new TH1F("np", "number of detected photons", 100, 0., 50.);
+  TFile fo(argv[1]);
+  fo.GetListOfKeys()->Print();
+  Event* event = new Event();
+  TTree* Tevt  = (TTree*) fo.Get("Events");
+  Tevt->SetBranchAddress("event.", &event);
+  TBranch* fevtbranch = Tevt->GetBranch("event.");
+  Int_t nevent        = fevtbranch->GetEntries();
+  cout << "Nr. of Events:  " << nevent << endl;
+  string CollectionName = argv[3];
+  CollectionName        = CollectionName + "_Photondetector_HC";
+  for(Int_t i = 0; i < nevent; i++)
+  {
+    fevtbranch->GetEntry(i);
+    auto* hcmap = event->GetHCMap();
+    for(const auto ele : *hcmap)
+    {
+      auto hits = ele.second;
+      if(ele.first.compare(CollectionName) == 0)
+      {
+        auto hits    = ele.second;
+        G4int NbHits = hits.size();
+        cout << "Event: " << i << "  Number of Hits:  " << NbHits << endl;
+        np->Fill(NbHits);
+        for(G4int ii = 0; ii < NbHits; ii++)
+        {
+          PhotonHit* photonHit = dynamic_cast<PhotonHit*>(hits.at(ii));
+          time->Fill(photonHit->GetTime());
+          wl->Fill(photonHit->GetWavelength());
+          if(photonHit->GetPosition().getZ() < -100.)
+            time0->Fill(photonHit->GetTime());
+          if(photonHit->GetPosition().getZ() > -100. &&
+             photonHit->GetPosition().getZ() < 100)
+            time1->Fill(photonHit->GetTime());
+          if(photonHit->GetPosition().getZ() < 100.)
+            time2->Fill(photonHit->GetTime());
+          pos2->Fill(photonHit->GetPosition().getZ(),
+                     photonHit->GetPosition().getY());
         }
+      }
     }
-    outfile->cd();
-    outfile->Write();
+  }
+  outfile->cd();
+  outfile->Write();
 }
-

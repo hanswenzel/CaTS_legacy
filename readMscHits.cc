@@ -22,20 +22,20 @@
 // * use  in  resulting  scientific  publications,  and indicate your *
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
-// 
+//
 /* ------------------------------------------------------------------------
-            |\___/|       
-            )     (    
+            |\___/|
+            )     (
            =\     /=
              )===(
             /     \         CaTS: Calorimeter and Tracker Simulation
-            |     |         CaTS is a flexible and extend-able framework 
-           /       \        for the simulation of calorimeter and tracking detectors. 
-           \       /        https://github.com/hanswenzel/CaTS
-            \__  _/         CaTS also serves as an Example that demonstrates how to 
-              ( (           use opticks from within Geant4 for the creation and propagation 
-               ) )          of optical photons. 
-              (_(           (see https://bitbucket.org/simoncblyth/opticks.git). 
+            |     |         CaTS is a flexible and extend-able framework
+           /       \        for the simulation of calorimeter and tracking
+detectors. \       /        https://github.com/hanswenzel/CaTS
+            \__  _/         CaTS also serves as an Example that demonstrates how
+to ( (           use opticks from within Geant4 for the creation and propagation
+               ) )          of optical photons.
+              (_(           (see https://bitbucket.org/simoncblyth/opticks.git).
 -------------------------------------------------------------------------*/
 // Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html
 #include "TROOT.h"
@@ -51,41 +51,51 @@
 #include "G4ThreeVector.hh"
 using namespace std;
 
-int main(int argc, char** argv) {
-    // initialize ROOT
-    TSystem ts;
-    gSystem->Load("libCaTSClassesDict");
-    if (argc < 4) {
-        G4cout << "Program requires 3 arguments: name of input file, name of output file, Volume that sensitive detector is attached to" << G4endl;
-        exit(1);
-    }
-    TFile* outfile = new TFile(argv[2], "RECREATE");
-    TFile fo(argv[1]);
-    Event *event = new Event();
-    TTree *Tevt = (TTree*) fo.Get("Events");
-    Tevt->SetBranchAddress("event.", &event);
-    TBranch* fevtbranch = Tevt->GetBranch("event.");
-    Int_t nevent = fevtbranch->GetEntries();
-    outfile->cd();
-    TH1F* theta = new TH1F("angle", "angle", 100, 0.0, 0.15);
-    string CollectionName = argv[3];
-    CollectionName = CollectionName + "_Msc_HC";
-    for (Int_t i = 0; i < nevent; i++) {
-        fevtbranch->GetEntry(i);
-        auto *hcmap = event->GetHCMap();
-        for (const auto ele : *hcmap) {
-            if (ele.first.compare(CollectionName)==0) {
-                auto hits = ele.second;
-                G4int NbHits = hits.size();
-                for (G4int ii = 0; ii < NbHits; ii++) {
-                    MscHit* mscHit = dynamic_cast<MscHit*> (hits.at(ii));
-                    G4ThreeVector invec(0, 0, 1.);
-                    cout << setprecision(12)<<mscHit->GetKinE() << " " << setprecision(12)<< mscHit->GetMomentum().getX() << " " << setprecision(12)<< mscHit->GetMomentum().getY() << " " << setprecision(12)<< mscHit->GetMomentum().getZ() << endl;
-                    theta->Fill(invec.angle(mscHit->GetMomentum())*57.3);
-                }
-            }
+int main(int argc, char** argv)
+{
+  // initialize ROOT
+  TSystem ts;
+  gSystem->Load("libCaTSClassesDict");
+  if(argc < 4)
+  {
+    G4cout << "Program requires 3 arguments: name of input file, name of "
+              "output file, Volume that sensitive detector is attached to"
+           << G4endl;
+    exit(1);
+  }
+  TFile* outfile = new TFile(argv[2], "RECREATE");
+  TFile fo(argv[1]);
+  Event* event = new Event();
+  TTree* Tevt  = (TTree*) fo.Get("Events");
+  Tevt->SetBranchAddress("event.", &event);
+  TBranch* fevtbranch = Tevt->GetBranch("event.");
+  Int_t nevent        = fevtbranch->GetEntries();
+  outfile->cd();
+  TH1F* theta           = new TH1F("angle", "angle", 100, 0.0, 0.15);
+  string CollectionName = argv[3];
+  CollectionName        = CollectionName + "_Msc_HC";
+  for(Int_t i = 0; i < nevent; i++)
+  {
+    fevtbranch->GetEntry(i);
+    auto* hcmap = event->GetHCMap();
+    for(const auto ele : *hcmap)
+    {
+      if(ele.first.compare(CollectionName) == 0)
+      {
+        auto hits    = ele.second;
+        G4int NbHits = hits.size();
+        for(G4int ii = 0; ii < NbHits; ii++)
+        {
+          MscHit* mscHit = dynamic_cast<MscHit*>(hits.at(ii));
+          G4ThreeVector invec(0, 0, 1.);
+          cout << setprecision(12) << mscHit->GetKinE() << " "
+               << setprecision(12) << mscHit->GetMomentum().getX() << " "
+               << setprecision(12) << mscHit->GetMomentum().getY() << " "
+               << setprecision(12) << mscHit->GetMomentum().getZ() << endl;
+          theta->Fill(invec.angle(mscHit->GetMomentum()) * 57.3);
         }
+      }
     }
-    outfile->Write();
+  }
+  outfile->Write();
 }
-

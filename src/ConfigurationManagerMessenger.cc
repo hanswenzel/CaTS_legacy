@@ -54,112 +54,127 @@
 #include "ConfigurationManager.hh"
 using namespace std;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-ConfigurationManagerMessenger::ConfigurationManagerMessenger(ConfigurationManager * mgr1)
-: mgr(mgr1) {
-    testDir = new G4UIdirectory("/CaTS/");
-    testDir->SetGuidance("Configuring CaTS");
-
+ConfigurationManagerMessenger::ConfigurationManagerMessenger(
+  ConfigurationManager* mgr1)
+  : mgr(mgr1)
+{
+  testDir = new G4UIdirectory("/CaTS/");
+  testDir->SetGuidance("Configuring CaTS");
 #ifdef WITH_ROOT
-    //
-    FileNameCmd = new G4UIcmdWithAString("/CaTS/FileName", this);
-    FileNameCmd->SetGuidance("Enter file name for Hits collections ");
-    FileNameCmd->SetParameterName("FileName", true);
-    FileNameCmd->SetDefaultValue("hist.root");
-    FileNameCmd->AvailableForStates(G4State_PreInit, G4State_Init, G4State_Idle);
-    //
-    writeHitsCmd = new G4UIcmdWithABool("/CaTS/writeHits", this);
-    writeHitsCmd->SetGuidance("Set flag for writing hits");
-    writeHitsCmd->SetParameterName("writeHits", true);
-    writeHitsCmd->SetDefaultValue(true);
-    writeHitsCmd->AvailableForStates(G4State_PreInit, G4State_Init, G4State_Idle);
-    //
-    HistoFileNameCmd = new G4UIcmdWithAString("/CaTS/FileName", this);
-    HistoFileNameCmd->SetGuidance("Enter file name for Hits collections (note: _RunID and  .root extension will be added automatically");
-    HistoFileNameCmd->SetParameterName("FileName", true);
-    HistoFileNameCmd->SetDefaultValue("hits");
-    HistoFileNameCmd->AvailableForStates(G4State_PreInit, G4State_Init, G4State_Idle);
-    //
-    doAnalysisCmd = new G4UIcmdWithABool("/CaTS/doAnalysis", this);
-    doAnalysisCmd->SetGuidance("Set flag for making some analysis histograms");
-    doAnalysisCmd->SetParameterName("doAnalysis", false);
-    doAnalysisCmd->SetDefaultValue(false);
-    doAnalysisCmd->AvailableForStates(G4State_PreInit, G4State_Init, G4State_Idle);
-#endif   
-
-#ifdef WITH_G4OPTICKS
-    //
-    enable_opticksCmd = new G4UIcmdWithABool("/CaTS/enable_opticks", this);
-    enable_opticksCmd->SetGuidance("Set flag for enabling opticks");
-    enable_opticksCmd->SetParameterName("enable_opticks", true);
-    enable_opticksCmd->SetDefaultValue(true);
-    enable_opticksCmd->AvailableForStates(G4State_PreInit,G4State_Init,G4State_Idle);
-    //
-    MaxPhotonsCmd = new G4UIcmdWithAnInteger("/CaTS/MaxPhotons", this);
-    MaxPhotonsCmd->SetGuidance("Maximum number of Photons to collect before calling Opticks");
-    MaxPhotonsCmd->SetParameterName("MaxPhotons", 1000000);
-    MaxPhotonsCmd->SetDefaultValue(1000000);
-    MaxPhotonsCmd->AvailableForStates(G4State_PreInit);
+  //
+  FileNameCmd = new G4UIcmdWithAString("/CaTS/FileName", this);
+  FileNameCmd->SetGuidance("Enter file name for Hits collections ");
+  FileNameCmd->SetParameterName("FileName", true);
+  FileNameCmd->SetDefaultValue("hist.root");
+  FileNameCmd->AvailableForStates(G4State_PreInit, G4State_Init, G4State_Idle);
+  //
+  writeHitsCmd = new G4UIcmdWithABool("/CaTS/writeHits", this);
+  writeHitsCmd->SetGuidance("Set flag for writing hits");
+  writeHitsCmd->SetParameterName("writeHits", true);
+  writeHitsCmd->SetDefaultValue(true);
+  writeHitsCmd->AvailableForStates(G4State_PreInit, G4State_Init, G4State_Idle);
+  //
+  HistoFileNameCmd = new G4UIcmdWithAString("/CaTS/FileName", this);
+  HistoFileNameCmd->SetGuidance(
+    "Enter file name for Hits collections (note: _RunID and  .root extension "
+    "will be added automatically");
+  HistoFileNameCmd->SetParameterName("FileName", true);
+  HistoFileNameCmd->SetDefaultValue("hits");
+  HistoFileNameCmd->AvailableForStates(G4State_PreInit, G4State_Init,
+                                       G4State_Idle);
+  //
+  doAnalysisCmd = new G4UIcmdWithABool("/CaTS/doAnalysis", this);
+  doAnalysisCmd->SetGuidance("Set flag for making some analysis histograms");
+  doAnalysisCmd->SetParameterName("doAnalysis", false);
+  doAnalysisCmd->SetDefaultValue(false);
+  doAnalysisCmd->AvailableForStates(G4State_PreInit, G4State_Init,
+                                    G4State_Idle);
 #endif
-    //
-    listCmd = new G4UIcmdWithoutParameter("/CaTS/list", this);
-    listCmd->SetGuidance("List all configuration parameters");
-    //
-    enable_verboseCmd = new G4UIcmdWithABool("/CaTS/enable_verbose", this);
-    enable_verboseCmd->SetGuidance("Set flag for enabling verbose diagnostic printout");
-    enable_verboseCmd->SetParameterName("enable_verbose", false);
-    enable_verboseCmd->SetDefaultValue(false);
-    enable_verboseCmd->AvailableForStates(G4State_PreInit, G4State_Init, G4State_Idle);
-
-    dumpgdmlCmd = new G4UIcmdWithABool("/CaTS/dumpgdml", this);
-    dumpgdmlCmd->SetGuidance("Set flag for enabling dumping the detector to a gdml file");
-    dumpgdmlCmd->SetParameterName("dumpgdml", false);
-    dumpgdmlCmd->SetDefaultValue(false);
-    dumpgdmlCmd->AvailableForStates(G4State_PreInit);
-
-    GDMLFileNameCmd = new G4UIcmdWithAString("/CaTS/GDMLFileName", this);
-    GDMLFileNameCmd->SetGuidance("Enter file name for Hits collections ");
-    GDMLFileNameCmd->SetParameterName("GDMLFileName", true);
-    GDMLFileNameCmd->SetDefaultValue("G4dump.gdml");
-    GDMLFileNameCmd->AvailableForStates(G4State_PreInit);
+#ifdef WITH_G4OPTICKS
+  //
+  enable_opticksCmd = new G4UIcmdWithABool("/CaTS/enable_opticks", this);
+  enable_opticksCmd->SetGuidance("Set flag for enabling opticks");
+  enable_opticksCmd->SetParameterName("enable_opticks", true);
+  enable_opticksCmd->SetDefaultValue(true);
+  enable_opticksCmd->AvailableForStates(G4State_PreInit, G4State_Init,
+                                        G4State_Idle);
+  //
+  MaxPhotonsCmd = new G4UIcmdWithAnInteger("/CaTS/MaxPhotons", this);
+  MaxPhotonsCmd->SetGuidance(
+    "Maximum number of Photons to collect before calling Opticks");
+  MaxPhotonsCmd->SetParameterName("MaxPhotons", 1000000);
+  MaxPhotonsCmd->SetDefaultValue(1000000);
+  MaxPhotonsCmd->AvailableForStates(G4State_PreInit);
+#endif
+  //
+  listCmd = new G4UIcmdWithoutParameter("/CaTS/list", this);
+  listCmd->SetGuidance("List all configuration parameters");
+  //
+  enable_verboseCmd = new G4UIcmdWithABool("/CaTS/enable_verbose", this);
+  enable_verboseCmd->SetGuidance(
+    "Set flag for enabling verbose diagnostic printout");
+  enable_verboseCmd->SetParameterName("enable_verbose", false);
+  enable_verboseCmd->SetDefaultValue(false);
+  enable_verboseCmd->AvailableForStates(G4State_PreInit, G4State_Init,
+                                        G4State_Idle);
+  dumpgdmlCmd = new G4UIcmdWithABool("/CaTS/dumpgdml", this);
+  dumpgdmlCmd->SetGuidance(
+    "Set flag for enabling dumping the detector to a gdml file");
+  dumpgdmlCmd->SetParameterName("dumpgdml", false);
+  dumpgdmlCmd->SetDefaultValue(false);
+  dumpgdmlCmd->AvailableForStates(G4State_PreInit);
+  GDMLFileNameCmd = new G4UIcmdWithAString("/CaTS/GDMLFileName", this);
+  GDMLFileNameCmd->SetGuidance("Enter file name for Hits collections ");
+  GDMLFileNameCmd->SetParameterName("GDMLFileName", true);
+  GDMLFileNameCmd->SetDefaultValue("G4dump.gdml");
+  GDMLFileNameCmd->AvailableForStates(G4State_PreInit);
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-ConfigurationManagerMessenger::~ConfigurationManagerMessenger() {
-    delete testDir;
+ConfigurationManagerMessenger::~ConfigurationManagerMessenger()
+{
+  delete testDir;
 #ifdef WITH_ROOT
-    delete writeHitsCmd;
-    delete doAnalysisCmd;
-    delete FileNameCmd;
-    delete HistoFileNameCmd;
+  delete writeHitsCmd;
+  delete doAnalysisCmd;
+  delete FileNameCmd;
+  delete HistoFileNameCmd;
 #endif
 #ifdef WITH_G4OPTICKS
-    delete enable_opticksCmd;
-    delete MaxPhotonsCmd;
+  delete enable_opticksCmd;
+  delete MaxPhotonsCmd;
 #endif
-    delete listCmd;
-    delete enable_verboseCmd;
-    delete dumpgdmlCmd;
-    delete GDMLFileNameCmd;
+  delete listCmd;
+  delete enable_verboseCmd;
+  delete dumpgdmlCmd;
+  delete GDMLFileNameCmd;
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void ConfigurationManagerMessenger::SetNewValue(G4UIcommand* command, G4String newValue) {
+void ConfigurationManagerMessenger::SetNewValue(G4UIcommand* command,
+                                                G4String newValue)
+{
 #ifdef WITH_ROOT
-    if (command == writeHitsCmd) mgr->setWriteHits(writeHitsCmd->GetNewBoolValue(newValue));
-    if (command == FileNameCmd) mgr->setFileName(newValue);
-    if (command == doAnalysisCmd) mgr->setdoAnalysis(doAnalysisCmd->GetNewBoolValue(newValue));
-    if (command == HistoFileNameCmd) mgr->setHistoFileName(newValue);
+  if(command == writeHitsCmd)
+    mgr->setWriteHits(writeHitsCmd->GetNewBoolValue(newValue));
+  if(command == FileNameCmd)
+    mgr->setFileName(newValue);
+  if(command == doAnalysisCmd)
+    mgr->setdoAnalysis(doAnalysisCmd->GetNewBoolValue(newValue));
+  if(command == HistoFileNameCmd)
+    mgr->setHistoFileName(newValue);
 #endif
 #ifdef WITH_G4OPTICKS
-    if (command == enable_opticksCmd) mgr->setEnable_opticks(enable_opticksCmd->GetNewBoolValue(newValue));
-    if (command == MaxPhotonsCmd) mgr->setEnable_opticks(MaxPhotonsCmd->GetNewIntValue(newValue));
+  if(command == enable_opticksCmd)
+    mgr->setEnable_opticks(enable_opticksCmd->GetNewBoolValue(newValue));
+  if(command == MaxPhotonsCmd)
+    mgr->setEnable_opticks(MaxPhotonsCmd->GetNewIntValue(newValue));
 #endif
-    if (command == listCmd) mgr->Print();
-    if (command == enable_verboseCmd) mgr->setEnable_verbose(enable_verboseCmd->GetNewBoolValue(newValue));
-    if (command == dumpgdmlCmd) mgr->setDumpgdml(dumpgdmlCmd->GetNewBoolValue(newValue));
-    if (command == GDMLFileNameCmd) mgr->setGDMLFileName(newValue);
+  if(command == listCmd)
+    mgr->Print();
+  if(command == enable_verboseCmd)
+    mgr->setEnable_verbose(enable_verboseCmd->GetNewBoolValue(newValue));
+  if(command == dumpgdmlCmd)
+    mgr->setDumpgdml(dumpgdmlCmd->GetNewBoolValue(newValue));
+  if(command == GDMLFileNameCmd)
+    mgr->setGDMLFileName(newValue);
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

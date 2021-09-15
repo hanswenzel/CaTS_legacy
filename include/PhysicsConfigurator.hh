@@ -48,13 +48,15 @@
 #pragma once
 class G4String;
 class G4VModularPhysicsList;
-class PhysicsConfigurator {
-private:
-    static PhysicsConfigurator* instance;
-public:
-    PhysicsConfigurator();
-    G4VModularPhysicsList* Construct(G4String physName);
-    ~PhysicsConfigurator();
-    static PhysicsConfigurator* getInstance();
+class PhysicsConfigurator
+{
+ private:
+  static PhysicsConfigurator* instance;
+
+ public:
+  PhysicsConfigurator();
+  G4VModularPhysicsList* Construct(G4String physName);
+  ~PhysicsConfigurator();
+  static PhysicsConfigurator* getInstance();
 };
 #endif

@@ -52,19 +52,20 @@ class G4Step;
 class G4HCofThisEvent;
 class MscHitCollection;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+class MscSD : public G4VSensitiveDetector
+{
+ public:
+  MscSD(G4String);
+  ~MscSD();
+  void Initialize(G4HCofThisEvent*);
+  G4bool ProcessHits(G4Step*, G4TouchableHistory*);
+  virtual void EndOfEvent(G4HCofThisEvent* hitCollection);
 
-class MscSD : public G4VSensitiveDetector {
-public:
-    MscSD(G4String);
-    ~MscSD();
-    void Initialize(G4HCofThisEvent*);
-    G4bool ProcessHits(G4Step*, G4TouchableHistory*);
-    virtual void EndOfEvent(G4HCofThisEvent* hitCollection);
-private:
-    MscHitsCollection* fMscHitsCollection{nullptr};
-    G4int fHCID{0};
-    bool verbose{false};
-    G4bool done{false};
+ private:
+  MscHitsCollection* fMscHitsCollection{ nullptr };
+  G4int fHCID{ 0 };
+  bool verbose{ false };
+  G4bool done{ false };
 };
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 #endif

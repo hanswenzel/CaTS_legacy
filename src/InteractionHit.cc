@@ -50,49 +50,43 @@
 #include "G4Circle.hh"
 #include "G4Colour.hh"
 #include "G4VisAttributes.hh"
-
-//G4Allocator<InteractionHit> InteractionHitAllocator;
+// G4Allocator<InteractionHit> InteractionHitAllocator;
 G4ThreadLocal G4Allocator<InteractionHit>* InteractionHitAllocator = nullptr;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-InteractionHit::InteractionHit() : G4VHit() {
+InteractionHit::InteractionHit()
+  : G4VHit()
+{}
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+InteractionHit::InteractionHit(G4String pn, G4double p, G4double e, G4double t)
+  : G4VHit()
+{
+  pname = pn;  // name of secondary particle
+  pmom  = p;   // momentum of secondary particle
+  Ekin  = e;   // kinetic energy of secondary particle
+  theta = t;   // theta of secondary particle
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-InteractionHit::InteractionHit(G4String pn, G4double p, G4double e, G4double t) : G4VHit() {
-    pname = pn; // name of secondary particle
-    pmom = p; // momentum of secondary particle
-    Ekin = e; // kinetic energy of secondary particle
-    theta = t; // theta of secondary particle 
-}
+InteractionHit::~InteractionHit() {}
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-InteractionHit::~InteractionHit() {
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 InteractionHit::InteractionHit(const InteractionHit& right)
-: G4VHit() {
-
-    pname = right.pname;
-    pmom = right.pmom;
-    Ekin = right.Ekin;
-    theta = right.theta;
+  : G4VHit()
+{
+  pname = right.pname;
+  pmom  = right.pmom;
+  Ekin  = right.Ekin;
+  theta = right.theta;
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-const InteractionHit& InteractionHit::operator=(const InteractionHit& right) {
-    pname = right.pname;
-    pmom = right.pmom;
-    Ekin = right.Ekin;
-    theta = right.theta;
-    return *this;
+const InteractionHit& InteractionHit::operator=(const InteractionHit& right)
+{
+  pname = right.pname;
+  pmom  = right.pmom;
+  Ekin  = right.Ekin;
+  theta = right.theta;
+  return *this;
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-G4int InteractionHit::operator==(const InteractionHit& right) const {
-    return (this == &right) ? 1 : 0;
+G4int InteractionHit::operator==(const InteractionHit& right) const
+{
+  return (this == &right) ? 1 : 0;
 }

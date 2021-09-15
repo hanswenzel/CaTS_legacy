@@ -52,64 +52,65 @@
 G4ThreadLocal G4Allocator<PhotonHit>* PhotonHitAllocator = nullptr;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 PhotonHit::PhotonHit()
-: G4VHit() {
-}
+  : G4VHit()
+{}
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-PhotonHit::PhotonHit(unsigned iid,
-        unsigned ipid,
-        G4double iwavelength,
-        G4double itime,
-        G4ThreeVector iposition,
-        G4ThreeVector idirection,
-        G4ThreeVector ipolarization) : G4VHit() {
-    id = iid;
-    pid = ipid;
-    wavelength = iwavelength;
-    time = itime;
-    position = iposition;
-    direction = idirection;
-    polarization = ipolarization;
+PhotonHit::PhotonHit(unsigned iid, unsigned ipid, G4double iwavelength,
+                     G4double itime, G4ThreeVector iposition,
+                     G4ThreeVector idirection, G4ThreeVector ipolarization)
+  : G4VHit()
+{
+  id           = iid;
+  pid          = ipid;
+  wavelength   = iwavelength;
+  time         = itime;
+  position     = iposition;
+  direction    = idirection;
+  polarization = ipolarization;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 PhotonHit::~PhotonHit() = default;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 PhotonHit::PhotonHit(const PhotonHit& right)
-: G4VHit() {
-    id = right.id;
-    pid = right.pid;
-    wavelength = right.wavelength;
-    time = right.time;
-    position = right.position;
-    direction = right.direction;
-    polarization = right.polarization;
+  : G4VHit()
+{
+  id           = right.id;
+  pid          = right.pid;
+  wavelength   = right.wavelength;
+  time         = right.time;
+  position     = right.position;
+  direction    = right.direction;
+  polarization = right.polarization;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-const PhotonHit& PhotonHit::operator=(const PhotonHit& right) {
-    id = right.id;
-    pid = right.pid;
-    wavelength = right.wavelength;
-    time = right.time;
-    position = right.position;
-    direction = right.direction;
-    polarization = right.polarization;
-    return *this;
+const PhotonHit& PhotonHit::operator=(const PhotonHit& right)
+{
+  id           = right.id;
+  pid          = right.pid;
+  wavelength   = right.wavelength;
+  time         = right.time;
+  position     = right.position;
+  direction    = right.direction;
+  polarization = right.polarization;
+  return *this;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-G4bool PhotonHit::operator==(const PhotonHit& right) const {
-    return (this == &right) ? true : false;
+G4bool PhotonHit::operator==(const PhotonHit& right) const
+{
+  return (this == &right) ? true : false;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void PhotonHit::Draw() {
-    G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();
-
-    if (pVVisManager) {
-        G4Circle circle(position);
-        circle.SetScreenSize(2.);
-        circle.SetFillStyle(G4Circle::filled);
-        G4Colour colour(1., 0., 0.);
-        G4VisAttributes attribs(colour);
-        circle.SetVisAttributes(attribs);
-        pVVisManager->Draw(circle);
-    }
-
+void PhotonHit::Draw()
+{
+  G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();
+  if(pVVisManager)
+  {
+    G4Circle circle(position);
+    circle.SetScreenSize(2.);
+    circle.SetFillStyle(G4Circle::filled);
+    G4Colour colour(1., 0., 0.);
+    G4VisAttributes attribs(colour);
+    circle.SetVisAttributes(attribs);
+    pVVisManager->Draw(circle);
+  }
 }

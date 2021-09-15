@@ -47,33 +47,30 @@
 #define DetectorConstruction_h 1
 #include "G4VUserDetectorConstruction.hh"
 #include "Event.hh"
-
 class ColorReader;
 class G4GDMLParser;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+class DetectorConstruction : public G4VUserDetectorConstruction
+{
+ public:
+  DetectorConstruction(G4String fname);
+  ~DetectorConstruction() override;
+  // Prefer deleted functions to private undefined ones.
+  DetectorConstruction& operator=(const DetectorConstruction& right) = delete;
+  DetectorConstruction(const DetectorConstruction&)                  = delete;
+  void ReadGDML();
+  // Prefer to declare virtual functions with override,
+  // virtual keyword can be then ommitted
+  G4VPhysicalVolume* Construct() override;
+  void ConstructSDandField() override;
+  void UpdateGeometry();
 
-class DetectorConstruction : public G4VUserDetectorConstruction {
-public:
-
-    DetectorConstruction(G4String fname);
-    ~DetectorConstruction() override;
-    // Prefer deleted functions to private undefined ones.
-    DetectorConstruction & operator=(const DetectorConstruction &right) = delete;
-    DetectorConstruction(const DetectorConstruction&) = delete;
-
-    void ReadGDML();
-    // Prefer to declare virtual functions with override,
-    // virtual keyword can be then ommitted
-    G4VPhysicalVolume* Construct() override;
-    void ConstructSDandField() override;
-    void UpdateGeometry();
-
-private:
-    G4String gdmlFile;
-    // Data members were not initialized
-    G4GDMLParser* parser{nullptr};
-    ColorReader* fReader{nullptr};
-    bool verbose{false};
+ private:
+  G4String gdmlFile;
+  // Data members were not initialized
+  G4GDMLParser* parser{ nullptr };
+  ColorReader* fReader{ nullptr };
+  bool verbose{ false };
 };
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo.....
 #endif

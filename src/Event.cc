@@ -44,10 +44,11 @@
 //---------------------------------------------------------------------
 //
 #include "Event.hh"
-void Event::Reset() {
-      std::map<G4String, std::vector<G4VHit*>>::iterator it; 
-       for (it = hcmap.begin(); it != hcmap.end(); it++)
-       {
-            (it->second).clear();
-       }
+void Event::Reset()
+{
+  std::map<G4String, std::vector<G4VHit*>>::iterator it;
+  for(it = hcmap.begin(); it != hcmap.end(); it++)
+  {
+    (it->second).clear();
+  }
 }

@@ -49,21 +49,21 @@
 #include "StackingAction.hh"
 #include "EventAction.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-ActionInitialization::ActionInitialization() : G4VUserActionInitialization() {
-}
+ActionInitialization::ActionInitialization()
+  : G4VUserActionInitialization()
+{}
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 ActionInitialization::~ActionInitialization() = default;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void ActionInitialization::BuildForMaster() const {
-    SetUserAction(new RunAction);
+void ActionInitialization::BuildForMaster() const
+{
+  SetUserAction(new RunAction);
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void ActionInitialization::Build() const {
-    SetUserAction(new PrimaryGeneratorAction());
-    SetUserAction(new RunAction());
-    SetUserAction(new StackingAction());
-    SetUserAction(new EventAction());
+void ActionInitialization::Build() const
+{
+  SetUserAction(new PrimaryGeneratorAction());
+  SetUserAction(new RunAction());
+  SetUserAction(new StackingAction());
+  SetUserAction(new EventAction());
 }

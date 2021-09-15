@@ -44,129 +44,163 @@
 //---------------------------------------------------------------------
 //
 // project headers:
-#include "CaTS_Version.hh"
 #include "ActionInitialization.hh"
+#include "CaTS_Version.hh"
+#include "ConfigurationManager.hh"
 #include "DetectorConstruction.hh"
 #include "PhysicsConfigurator.hh"
-#include "ConfigurationManager.hh"
 // Geant4 headers:
-#include "G4RunManagerFactory.hh"
 #include "G4RunManager.hh"
-#include "G4UImanager.hh"
+#include "G4RunManagerFactory.hh"
 #include "G4Timer.hh"
 #include "G4UIExecutive.hh"
-#include "G4VisExecutive.hh"
+#include "G4UImanager.hh"
 #include "G4VModularPhysicsList.hh"
 #include "G4Version.hh"
+#include "G4VisExecutive.hh"
 #ifdef WITH_G4OPTICKS
-  #include "OPTICKS_LOG.hh"
+#  include "OPTICKS_LOG.hh"
 #endif
-int main(int argc, char** argv) {
-    bool interactive = false;
-    G4String physicsconf = "";
-    G4String gdmlfile = "";
-    G4String macrofile = "";
-    G4UIExecutive* ui = nullptr;
-    for (G4int i = 1; i < argc; i = i + 2) {
-        if (G4String(argv[i]) == "-g") {
-            gdmlfile = argv[i + 1];
-        } else if (G4String(argv[i]) == "-pl") {
-            physicsconf = G4String(argv[i + 1]);
-        } else if (G4String(argv[i]) == "-m") {
-            macrofile = G4String(argv[i + 1]);
-        }
+
+int main(int argc, char** argv)
+{
+  bool interactive     = false;
+  G4String physicsconf = "";
+  G4String gdmlfile    = "";
+  G4String macrofile   = "";
+  G4UIExecutive* ui    = nullptr;
+  for(G4int i = 1; i < argc; i = i + 2)
+  {
+    if(G4String(argv[i]) == "-g")
+    {
+      gdmlfile = argv[i + 1];
     }
-    if (gdmlfile == "") {
-        G4cout << "Error! Mandatory input file is not specified!" << G4endl;
-        G4cout << G4endl;
-        G4cout << G4endl;
-        G4cout << "Usage:  CaTS -g input_gdml_file:mandatory" << G4endl;
-        G4cout << G4endl;
-        return -1;
+    else if(G4String(argv[i]) == "-pl")
+    {
+      physicsconf = G4String(argv[i + 1]);
     }
-    G4cout << G4endl
-            << "---------------------------------------------------------------------" << G4endl
-            << "*            |\\___/|                                                *" << G4endl
-            << "*            )     (                                                *" << G4endl
-            << "*           =\\     /=                                               *" << G4endl
-            << "*             )===(      Welcome to:                                *" << G4endl
-            << "*            /     \\     CaTS: Calorimeter and Tracker Simulation   *" << G4endl
-            << "*            |     |     a flexible and extend-able framework       *" << G4endl
-            << "*           /       \\    for the simulation of various detector     *" << G4endl
-            << "*	    \\       /    systems                                    *" << G4endl
-            << "*            \\__  _/     https://github.com/hanswenzel/CaTS         *" << G4endl
-            << "*              ( (                                                  *" << G4endl
-            << "*	        ) )      Version: " << CaTSVersion << "                          *" << G4endl
-            << "*              (_(       Date:    " << CaTSDate << "                  *" << G4endl
-            << "---------------------------------------------------------------------" << G4endl
-            << G4endl;
-    if (physicsconf == "") {
-        G4cout << "Warning! no physics configuration specified!" << G4endl;
-        G4cout << "Using default FTFP_BERT+OPTICAL+STEPLIMIT" << G4endl;
-        physicsconf = "FTFP_BERT+OPTICAL+STEPLIMIT";
-        G4cout << "Usage:  CaTS -pl physicsconfiguration" << G4endl;
-        G4cout << G4endl;
+    else if(G4String(argv[i]) == "-m")
+    {
+      macrofile = G4String(argv[i + 1]);
     }
-    if (macrofile == "") {
-        G4cout << "Warning! no macro specified!" << G4endl;
-        G4cout << "assume interactive mode" << G4endl;
-        interactive = true;
-        ui = new G4UIExecutive(argc, argv);
-        G4cout << G4endl;
-        G4cout << G4endl;
-        G4cout << "Usage:  CaTS -pl physicsconfiguration" << G4endl;
-        G4cout << G4endl;
-    }
-    G4Timer *eventTimer = new G4Timer;
-    eventTimer->Start();
+  }
+  if(gdmlfile == "")
+  {
+    G4cout << "Error! Mandatory input file is not specified!" << G4endl;
+    G4cout << G4endl;
+    G4cout << G4endl;
+    G4cout << "Usage:  CaTS -g input_gdml_file:mandatory" << G4endl;
+    G4cout << G4endl;
+    return -1;
+  }
+  G4cout
+    << G4endl
+    << "---------------------------------------------------------------------"
+    << G4endl
+    << "*            |\\___/|                                                "
+       "*"
+    << G4endl
+    << "*            )     (                                                *"
+    << G4endl
+    << "*           =\\     /=                                               "
+       "*"
+    << G4endl
+    << "*             )===(      Welcome to:                                *"
+    << G4endl
+    << "*            /     \\     CaTS: Calorimeter and Tracker Simulation   "
+       "*"
+    << G4endl
+    << "*            |     |     a flexible and extend-able framework       *"
+    << G4endl
+    << "*           /       \\    for the simulation of various detector     "
+       "*"
+    << G4endl
+    << "*	    \\       /    systems                                    *"
+    << G4endl
+    << "*            \\__  _/     https://github.com/hanswenzel/CaTS         "
+       "*"
+    << G4endl
+    << "*              ( (                                                  *"
+    << G4endl << "*	        ) )      Version: " << CaTSVersion
+    << "                          *" << G4endl
+    << "*              (_(       Date:    " << CaTSDate << "                  *"
+    << G4endl
+    << "---------------------------------------------------------------------"
+    << G4endl << G4endl;
+  if(physicsconf == "")
+  {
+    G4cout << "Warning! no physics configuration specified!" << G4endl;
+    G4cout << "Using default FTFP_BERT+OPTICAL+STEPLIMIT" << G4endl;
+    physicsconf = "FTFP_BERT+OPTICAL+STEPLIMIT";
+    G4cout << "Usage:  CaTS -pl physicsconfiguration" << G4endl;
+    G4cout << G4endl;
+  }
+  if(macrofile == "")
+  {
+    G4cout << "Warning! no macro specified!" << G4endl;
+    G4cout << "assume interactive mode" << G4endl;
+    interactive = true;
+    ui          = new G4UIExecutive(argc, argv);
+    G4cout << G4endl;
+    G4cout << G4endl;
+    G4cout << "Usage:  CaTS -pl physicsconfiguration" << G4endl;
+    G4cout << G4endl;
+  }
+  G4Timer* eventTimer = new G4Timer;
+  eventTimer->Start();
 #ifdef WITH_G4OPTICKS
-    OPTICKS_LOG(argc, argv);
+  OPTICKS_LOG(argc, argv);
 #endif
-    G4VModularPhysicsList* phys = PhysicsConfigurator::getInstance()->Construct(physicsconf);
-    G4String DumpFilename = gdmlfile + "_G4";
-    G4cout << "**********************************************************" << G4endl;
-    G4cout << DumpFilename << G4endl;
-    G4cout << "**********************************************************" << G4endl;
-    ConfigurationManager::getInstance()->setGDMLFileName(DumpFilename);
-    DetectorConstruction* dc = new DetectorConstruction(gdmlfile);
-    // Run manager
-    //auto* rm = G4RunManagerFactory::CreateRunManager(G4RunManagerType::SerialOnly);
-
-//    auto* runManager = G4RunManagerFactory::CreateRunManager(G4RunManagerType::Default);
-    auto* rm = G4RunManagerFactory::CreateRunManager();
-    G4int nThreads = 10;
-    rm -> SetNumberOfThreads(nThreads);
-
-    //    auto* rm = new G4RunManager();
-    rm->SetUserInitialization(dc);
-    rm->SetUserInitialization(phys);
-    ActionInitialization* actionInitialization = new ActionInitialization();
-    rm->SetUserInitialization(actionInitialization);
-    G4UImanager* UImanager = G4UImanager::GetUIpointer();
-    if (interactive) {
-        G4VisManager* visManager = new G4VisExecutive;
-        visManager->Initialize();
-        UImanager->ApplyCommand("/control/execute init_vis.mac");
-        ui->SessionStart();
-        delete ui;
-        delete visManager;
-    } else {
-        // batch mode
-        G4String command = "/control/execute ";
-        UImanager->ApplyCommand(command + macrofile);
-        delete ui;
-    }
-    eventTimer->Stop();
-    double totalCPUTime = eventTimer->GetUserElapsed() + eventTimer->GetSystemElapsed();
-    G4int precision_t = G4cout.precision(3);
-    std::ios::fmtflags flags_t = G4cout.flags();
-    G4cout.setf(std::ios::fixed, std::ios::floatfield);
-    G4cout << "TimeTotal> " << eventTimer->GetRealElapsed() << " " << totalCPUTime << G4endl;
-    G4cout.setf(flags_t);
-    G4cout.precision(precision_t);
-    delete eventTimer;
-    delete rm;
-    return 0;
+  G4VModularPhysicsList* phys =
+    PhysicsConfigurator::getInstance()->Construct(physicsconf);
+  G4String DumpFilename = gdmlfile + "_G4";
+  G4cout << "**********************************************************"
+         << G4endl;
+  G4cout << DumpFilename << G4endl;
+  G4cout << "**********************************************************"
+         << G4endl;
+  ConfigurationManager::getInstance()->setGDMLFileName(DumpFilename);
+  DetectorConstruction* dc = new DetectorConstruction(gdmlfile);
+  // Run manager
+  auto* rm =
+    G4RunManagerFactory::CreateRunManager(G4RunManagerType::SerialOnly);
+  //    auto* runManager =
+  //    G4RunManagerFactory::CreateRunManager(G4RunManagerType::Default);
+  //  auto *rm = G4RunManagerFactory::CreateRunManager();
+  //  G4int nThreads = 10;
+  //  rm->SetNumberOfThreads(nThreads);
+  rm->SetUserInitialization(dc);
+  rm->SetUserInitialization(phys);
+  ActionInitialization* actionInitialization = new ActionInitialization();
+  rm->SetUserInitialization(actionInitialization);
+  G4UImanager* UImanager = G4UImanager::GetUIpointer();
+  if(interactive)
+  {
+    G4VisManager* visManager = new G4VisExecutive;
+    visManager->Initialize();
+    UImanager->ApplyCommand("/control/execute init_vis.mac");
+    ui->SessionStart();
+    delete ui;
+    delete visManager;
+  }
+  else
+  {
+    // batch mode
+    G4String command = "/control/execute ";
+    UImanager->ApplyCommand(command + macrofile);
+    delete ui;
+  }
+  eventTimer->Stop();
+  double totalCPUTime =
+    eventTimer->GetUserElapsed() + eventTimer->GetSystemElapsed();
+  G4int precision_t          = G4cout.precision(3);
+  std::ios::fmtflags flags_t = G4cout.flags();
+  G4cout.setf(std::ios::fixed, std::ios::floatfield);
+  G4cout << "TimeTotal> " << eventTimer->GetRealElapsed() << " " << totalCPUTime
+         << G4endl;
+  G4cout.setf(flags_t);
+  G4cout.precision(precision_t);
+  delete eventTimer;
+  delete rm;
+  return 0;
 }
-
-

@@ -60,46 +60,53 @@
 //     return instance;
 // }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-PrimaryGeneratorAction::PrimaryGeneratorAction() {
-    const char* filename = "pythia_event.data";
-    gentypeMap["HEPEvt"] = new G4HEPEvtInterface(filename);
-    G4int n_particle = 1;
-    G4ParticleGun* fParticleGun = new G4ParticleGun(n_particle);
-    G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
-    G4String particleName;
-    G4ParticleDefinition* particle = particleTable->FindParticle(particleName = "mu+");
-    fParticleGun->SetParticleDefinition(particle);
-    fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0., 0., 1.));
-    fParticleGun->SetParticleEnergy(10. * CLHEP::GeV);
-    fParticleGun->SetParticlePosition(G4ThreeVector(0. * CLHEP::cm, 0. * CLHEP::cm, -130. * CLHEP::cm));
-    gentypeMap["particleGun"] = fParticleGun;
-    gentypeMap["GPS"] = new G4GeneralParticleSource;
-    //create a messenger for this class
-    gunMessenger = new PrimaryGeneratorActionMessenger(this);
-    currentGenerator = gentypeMap["particleGun"];
-    currentGeneratorName = "particleGun";
-    // instance = this;
+PrimaryGeneratorAction::PrimaryGeneratorAction()
+{
+  const char* filename           = "pythia_event.data";
+  gentypeMap["HEPEvt"]           = new G4HEPEvtInterface(filename);
+  G4int n_particle               = 1;
+  G4ParticleGun* fParticleGun    = new G4ParticleGun(n_particle);
+  G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
+  G4String particleName;
+  G4ParticleDefinition* particle =
+    particleTable->FindParticle(particleName = "mu+");
+  fParticleGun->SetParticleDefinition(particle);
+  fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0., 0., 1.));
+  fParticleGun->SetParticleEnergy(10. * CLHEP::GeV);
+  fParticleGun->SetParticlePosition(
+    G4ThreeVector(0. * CLHEP::cm, 0. * CLHEP::cm, -130. * CLHEP::cm));
+  gentypeMap["particleGun"] = fParticleGun;
+  gentypeMap["GPS"]         = new G4GeneralParticleSource;
+  // create a messenger for this class
+  gunMessenger         = new PrimaryGeneratorActionMessenger(this);
+  currentGenerator     = gentypeMap["particleGun"];
+  currentGeneratorName = "particleGun";
+  // instance = this;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-PrimaryGeneratorAction::~PrimaryGeneratorAction() {
-    delete gunMessenger;
-    // for c++ std 14:
-    for (std::map<G4String, G4VPrimaryGenerator*>::iterator ii = gentypeMap.begin(); ii != gentypeMap.end(); ++ii) {
-        delete (*ii).second;
-        gentypeMap.erase((*ii).first);
-    }
-    //for c++ std 17 
-    // Range based for loop (C++11) + structured bindings (C++17)
-    /*
-    for (auto [genType, generator] : gentypeMap ) {
-        delete generator;
-        gentypeMap.erase(genType);
-    }
-     */ 
+PrimaryGeneratorAction::~PrimaryGeneratorAction()
+{
+  delete gunMessenger;
+  // for c++ std 14:
+  for(std::map<G4String, G4VPrimaryGenerator*>::iterator ii =
+        gentypeMap.begin();
+      ii != gentypeMap.end(); ++ii)
+  {
+    delete(*ii).second;
+    gentypeMap.erase((*ii).first);
+  }
+  // for c++ std 17
+  // Range based for loop (C++11) + structured bindings (C++17)
+  /*
+  for (auto [genType, generator] : gentypeMap ) {
+      delete generator;
+      gentypeMap.erase(genType);
+  }
+   */
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
-    currentGenerator->GeneratePrimaryVertex(anEvent);
+void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
+{
+  currentGenerator->GeneratePrimaryVertex(anEvent);
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

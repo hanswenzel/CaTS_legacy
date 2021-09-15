@@ -56,46 +56,46 @@ class G4MaterialPropertiesTable;
 // Missinf - compilation error
 class G4PhysicsOrderedFreeVector;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+class lArTPCSD : public G4VSensitiveDetector
+{
+ public:
+  lArTPCSD(G4String name);
+  virtual ~lArTPCSD();
+  // methods from base class
+  virtual void Initialize(G4HCofThisEvent* hitCollection);
+  virtual G4bool ProcessHits(G4Step* step, G4TouchableHistory* history);
+  virtual void EndOfEvent(G4HCofThisEvent* hitCollection);
 
-class lArTPCSD : public G4VSensitiveDetector {
-public:
-    lArTPCSD(G4String name);
-    virtual ~lArTPCSD();
-    // methods from base class
-    virtual void Initialize(G4HCofThisEvent* hitCollection);
-    virtual G4bool ProcessHits(G4Step* step, G4TouchableHistory* history);
-    virtual void EndOfEvent(G4HCofThisEvent* hitCollection);
-
-private:
-    G4int materialIndex;
-    const G4Material* aMaterial;
-    G4MaterialPropertiesTable* aMaterialPropertiesTable;
-    //
-    // properties related to Scintillation
-    //
-    G4MaterialPropertyVector* Fast_Intensity{nullptr};
-    G4MaterialPropertyVector* Slow_Intensity{nullptr};
-    G4double YieldRatio{0}; // slowerRatio,
-    G4double FastTimeConstant{0}; // TimeConstant,
-    G4double SlowTimeConstant{0}; //slowerTimeConstant,
-    G4ScintillationType ScintillationType;
-    //
-    // properties related to Cerenkov
-    //
-    G4MaterialPropertyVector* Rindex{nullptr};
-    G4PhysicsOrderedFreeVector* CerenkovAngleIntegrals{nullptr};
-    const G4PhysicsTable* thePhysicsTable{0};
-    G4double Pmin{0};
-    G4double Pmax{0};
-    G4double dp{0};
-    G4double nMax{0};
-    bool first{false};
-    bool verbose{false};
-    int tCphotons{0};
-    int tSphotons{0};
-    double NumElectrons(double e, double ds);
-    lArTPCHitsCollection* flArTPCHitsCollection{nullptr};
-    G4int fHCID{0};
+ private:
+  G4int materialIndex;
+  const G4Material* aMaterial;
+  G4MaterialPropertiesTable* aMaterialPropertiesTable;
+  //
+  // properties related to Scintillation
+  //
+  G4MaterialPropertyVector* Fast_Intensity{ nullptr };
+  G4MaterialPropertyVector* Slow_Intensity{ nullptr };
+  G4double YieldRatio{ 0 };        // slowerRatio,
+  G4double FastTimeConstant{ 0 };  // TimeConstant,
+  G4double SlowTimeConstant{ 0 };  // slowerTimeConstant,
+  G4ScintillationType ScintillationType;
+  //
+  // properties related to Cerenkov
+  //
+  G4MaterialPropertyVector* Rindex{ nullptr };
+  G4PhysicsOrderedFreeVector* CerenkovAngleIntegrals{ nullptr };
+  const G4PhysicsTable* thePhysicsTable{ 0 };
+  G4double Pmin{ 0 };
+  G4double Pmax{ 0 };
+  G4double dp{ 0 };
+  G4double nMax{ 0 };
+  bool first{ false };
+  bool verbose{ false };
+  int tCphotons{ 0 };
+  int tSphotons{ 0 };
+  double NumElectrons(double e, double ds);
+  lArTPCHitsCollection* flArTPCHitsCollection{ nullptr };
+  G4int fHCID{ 0 };
 };
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 #endif

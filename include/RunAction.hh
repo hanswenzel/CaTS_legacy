@@ -45,15 +45,15 @@
 //
 #pragma once
 #include "G4UserRunAction.hh"
+class RunAction : public G4UserRunAction
+{
+ private:
+  bool geo_initialized{ false };
+  static RunAction* instance;
 
-class RunAction : public G4UserRunAction {
-private:
-    bool geo_initialized;
-    static RunAction* instance;
-public:
-    RunAction();
-    virtual void BeginOfRunAction(const G4Run* run);
-    virtual void EndOfRunAction(const G4Run* run);
-    static RunAction* getInstance();
-
+ public:
+  RunAction();
+  virtual void BeginOfRunAction(const G4Run* run);
+  virtual void EndOfRunAction(const G4Run* run);
+  static RunAction* getInstance();
 };

@@ -53,13 +53,13 @@
 #include "MscHit.hh"
 #include "Event.hh"
 Event e;
-std::vector<PhotonHit*>p;
-std::vector<InteractionHit*>i;
-std::vector<lArTPCHit*>a;
-std::vector<CalorimeterHit*>c;
-std::vector<DRCalorimeterHit*>d;
-std::vector<TrackerHit*>t;
-std::vector<MscHit*>m;
-std::vector<G4VHit*>vh;
-std::map<G4String, std::vector<G4VHit*> > hm; // map of Hit Collections
+std::vector<PhotonHit*> p;
+std::vector<InteractionHit*> i;
+std::vector<lArTPCHit*> a;
+std::vector<CalorimeterHit*> c;
+std::vector<DRCalorimeterHit*> d;
+std::vector<TrackerHit*> t;
+std::vector<MscHit*> m;
+std::vector<G4VHit*> vh;
+std::map<G4String, std::vector<G4VHit*>> hm;  // map of Hit Collections
 #undef __G4String

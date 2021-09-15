@@ -52,46 +52,50 @@
 #include "G4SystemOfUnits.hh"
 #include "ConfigurationManager.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 TrackerSD::TrackerSD(G4String name)
-: G4VSensitiveDetector(name) {
-    G4String HCname = name + "_HC";
-    collectionName.insert(HCname);
-    G4cout << collectionName.size() << "   TrackerSD name:  " << name << " collection Name: "
-            << HCname << G4endl;
-    fHCID = -1;
-    verbose = ConfigurationManager::getInstance()->isEnable_verbose();
+  : G4VSensitiveDetector(name)
+{
+  G4String HCname = name + "_HC";
+  collectionName.insert(HCname);
+  G4cout << collectionName.size() << "   TrackerSD name:  " << name
+         << " collection Name: " << HCname << G4endl;
+  fHCID   = -1;
+  verbose = ConfigurationManager::getInstance()->isEnable_verbose();
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void TrackerSD::Initialize(G4HCofThisEvent* hce) {
-    fTrackerHitsCollection = new TrackerHitsCollection(SensitiveDetectorName, collectionName[0]);
-    if (fHCID < 0) {
-        if (verbose) G4cout << "TrackerSD::Initialize:  " << SensitiveDetectorName << "   "
-                << collectionName[0] << G4endl;
-        fHCID = G4SDManager::GetSDMpointer()->GetCollectionID(collectionName[0]);
-    }
-    hce->AddHitsCollection(fHCID, fTrackerHitsCollection);
+void TrackerSD::Initialize(G4HCofThisEvent* hce)
+{
+  fTrackerHitsCollection =
+    new TrackerHitsCollection(SensitiveDetectorName, collectionName[0]);
+  if(fHCID < 0)
+  {
+    if(verbose)
+      G4cout << "TrackerSD::Initialize:  " << SensitiveDetectorName << "   "
+             << collectionName[0] << G4endl;
+    fHCID = G4SDManager::GetSDMpointer()->GetCollectionID(collectionName[0]);
+  }
+  hce->AddHitsCollection(fHCID, fTrackerHitsCollection);
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TrackerSD::~TrackerSD() = default;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-G4bool TrackerSD::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
-    G4double edep = aStep->GetTotalEnergyDeposit();
-    if (edep == 0.) return false;
-    if (aStep->GetTrack()->GetDynamicParticle()->GetCharge() == 0) return false;
-    TrackerHit* newHit = new TrackerHit(
-            edep,
-            aStep->GetPostStepPoint()->GetPosition(),
-            aStep->GetPostStepPoint()->GetGlobalTime() / ns
-            );
-    fTrackerHitsCollection->insert(newHit);
-    return true;
+G4bool TrackerSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
+{
+  G4double edep = aStep->GetTotalEnergyDeposit();
+  if(edep == 0.)
+    return false;
+  if(aStep->GetTrack()->GetDynamicParticle()->GetCharge() == 0)
+    return false;
+  TrackerHit* newHit =
+    new TrackerHit(edep, aStep->GetPostStepPoint()->GetPosition(),
+                   aStep->GetPostStepPoint()->GetGlobalTime() / ns);
+  fTrackerHitsCollection->insert(newHit);
+  return true;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void TrackerSD::EndOfEvent(G4HCofThisEvent*) {
-    G4int NbHits = fTrackerHitsCollection->entries();
-    if (verbose) G4cout << " Number of TrackerHits:  " << NbHits << G4endl;
+void TrackerSD::EndOfEvent(G4HCofThisEvent*)
+{
+  G4int NbHits = fTrackerHitsCollection->entries();
+  if(verbose)
+    G4cout << " Number of TrackerHits:  " << NbHits << G4endl;
 }

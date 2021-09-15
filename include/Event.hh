@@ -48,32 +48,20 @@
 #pragma once
 #include <vector>
 #include <map>
-
 #include "G4Types.hh"
 #include "G4VHit.hh"
-
-class Event {
-private:
-    G4int fEvtNum{0};
-    // Hit Map:
-    std::map<G4String, std::vector<G4VHit*> > hcmap; // map of Hit Collections
-public:
-
-    Event() = default;
-
-    virtual ~Event() =default;
-
-    inline void SetEventNr(G4int i) {
-        fEvtNum = i;
-    }
-
-    inline G4int GetEventNumber() const {
-        return fEvtNum;
-    }
-
-    inline std::map<G4String, std::vector<G4VHit*> >* GetHCMap() {
-        return &hcmap;
-    }
-    void Reset();
+class Event
+{
+ private:
+  G4int fEvtNum{ 0 };
+  // Hit Map:
+  std::map<G4String, std::vector<G4VHit*>> hcmap;  // map of Hit Collections
+ public:
+  Event()          = default;
+  virtual ~Event() = default;
+  inline void SetEventNr(G4int i) { fEvtNum = i; }
+  inline G4int GetEventNumber() const { return fEvtNum; }
+  inline std::map<G4String, std::vector<G4VHit*>>* GetHCMap() { return &hcmap; }
+  void Reset();
 };
 #endif /* Event_HH */

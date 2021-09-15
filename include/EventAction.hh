@@ -46,11 +46,11 @@
 #pragma once
 #include "G4UserEventAction.hh"
 class Event;
-
-class EventAction : public G4UserEventAction {
-public:
-    EventAction();
-    ~EventAction();
-    virtual void BeginOfEventAction(const G4Event* anEvent);
-    virtual void EndOfEventAction(const G4Event* anEvent);
+class EventAction : public G4UserEventAction
+{
+ public:
+  EventAction();
+  ~EventAction();
+  virtual void BeginOfEventAction(const G4Event* anEvent);
+  virtual void EndOfEventAction(const G4Event* anEvent);
 };

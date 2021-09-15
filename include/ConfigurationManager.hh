@@ -47,122 +47,78 @@
 #define ConfigurationManager_h 1
 #include <mutex>
 #include "G4String.hh"
-
 class ConfigurationManagerMessenger;
-
-class ConfigurationManager {
-private:
-    static ConfigurationManager* instance;
-    static std::once_flag initInstanceFlag;
-#ifdef WITH_ROOT 
-    bool doAnalysis; // variable determines if we are doing analysis
-    G4String HistoFileName; // File name for histos and  ntuples
-    bool writeHits; // variable determines if hits are written out into Root File
-    G4String FileName; // File name for root io
-    G4String fname; // full File name for root io
-#endif
-#ifdef WITH_G4OPTICKS  
-    bool enable_opticks; // use opticks if available
-    unsigned int MaxPhotons;
-#endif
-    bool fenable_verbose{false}; // switch on/off diagnostic printouts
-    bool fdumpgdml{false}; // write out Detector to gdml file
-    G4String fGDMLFileName{"dump.gdml_G4"};
-    ConfigurationManagerMessenger* confMessenger;
-    ConfigurationManager();
-public:
-
-    ~ConfigurationManager();
-
-    static ConfigurationManager* getInstance() {
-        std::call_once(initInstanceFlag, ConfigurationManager::initConfigurationManager);
-    //    if (instance == 0) instance = new ConfigurationManager;
-        return instance;
-    }
-
-    static void initConfigurationManager() {
-        instance = new ConfigurationManager();
-    }
+class ConfigurationManager
+{
+ private:
+  static ConfigurationManager* instance;
+  static std::once_flag initInstanceFlag;
 #ifdef WITH_ROOT
+  bool doAnalysis;         // variable determines if we are doing analysis
+  G4String HistoFileName;  // File name for histos and  ntuples
+  bool writeHits;  // variable determines if hits are written out into Root File
+  G4String FileName;  // File name for root io
+  G4String fname;     // full File name for root io
+#endif
+#ifdef WITH_G4OPTICKS
+  bool enable_opticks;  // use opticks if available
+  unsigned int MaxPhotons;
+#endif
+  bool fenable_verbose{ false };  // switch on/off diagnostic printouts
+  bool fdumpgdml{ false };        // write out Detector to gdml file
+  G4String fGDMLFileName{ "dump.gdml_G4" };
+  ConfigurationManagerMessenger* confMessenger;
+  ConfigurationManager();
 
-    inline void setHistoFileName(G4String HistoFileName) {
-        this->HistoFileName = HistoFileName;
-    }
-
-    inline G4String getHistoFileName() const {
-        return HistoFileName;
-    }
-
-    inline void setWriteHits(bool writeHits) {
-        this->writeHits = writeHits;
-    }
-
-    inline bool isWriteHits() const {
-        return writeHits;
-    }
-
-    inline void setdoAnalysis(bool writeHits) {
-        this->doAnalysis = doAnalysis;
-    }
-
-    inline bool isdoAnalysis() const {
-        return doAnalysis;
-    }
-
-    inline void setFileName(G4String FileName) {
-        this->FileName = FileName;
-    }
-
-    inline G4String getFileName() const {
-        return FileName;
-    }
-
-    inline void setfname(G4String fname) {
-        this->fname = fname;
-    }
-
-    inline G4String getfname() const {
-        return fname;
-    }
-#endif  
-    void Print();
-
-    inline void setEnable_verbose(bool fenable_verbose) {
-        this->fenable_verbose = fenable_verbose;
-    };
-
-    inline bool isEnable_verbose() const {
-        return fenable_verbose;
-    };
-
-    inline void setGDMLFileName(G4String fGDMLFileName) {
-        this->fGDMLFileName = fGDMLFileName;
-    }
-
-    inline G4String getGDMLFileName() const {
-        return fGDMLFileName;
-    }
-
-    inline void setDumpgdml(bool fdumpgdml) {
-        this->fdumpgdml = fdumpgdml;
-    }
-
-    inline bool isDumpgdml() const {
-        return fdumpgdml;
-    }
-
-#ifdef WITH_G4OPTICKS 
-
-    inline void setEnable_opticks(bool enable_opticks) {
-        this->enable_opticks = enable_opticks;
-    };
-
-    inline bool isEnable_opticks() const {
-        return enable_opticks;
-    };
-    void setMaxPhotons(unsigned int MaxPhotons);
-    unsigned int getMaxPhotons() const;
-
+ public:
+  ~ConfigurationManager();
+  static ConfigurationManager* getInstance()
+  {
+    std::call_once(initInstanceFlag,
+                   ConfigurationManager::initConfigurationManager);
+    //    if (instance == 0) instance = new ConfigurationManager;
+    return instance;
+  }
+  static void initConfigurationManager()
+  {
+    instance = new ConfigurationManager();
+  }
+#ifdef WITH_ROOT
+  inline void setHistoFileName(G4String HistoFileName)
+  {
+    this->HistoFileName = HistoFileName;
+  }
+  inline G4String getHistoFileName() const { return HistoFileName; }
+  inline void setWriteHits(bool writeHits) { this->writeHits = writeHits; }
+  inline bool isWriteHits() const { return writeHits; }
+  inline void setdoAnalysis(bool writeHits) { this->doAnalysis = doAnalysis; }
+  inline bool isdoAnalysis() const { return doAnalysis; }
+  inline void setFileName(G4String FileName) { this->FileName = FileName; }
+  inline G4String getFileName() const { return FileName; }
+  inline void setfname(G4String fname) { this->fname = fname; }
+  inline G4String getfname() const { return fname; }
+#endif
+  void Print();
+  inline void setEnable_verbose(bool fenable_verbose)
+  {
+    this->fenable_verbose = fenable_verbose;
+  };
+  inline bool isEnable_verbose() const { return fenable_verbose; };
+  inline void setGDMLFileName(G4String fGDMLFileName)
+  {
+    this->fGDMLFileName = fGDMLFileName;
+  }
+  inline G4String getGDMLFileName() const { return fGDMLFileName; }
+  inline void setDumpgdml(bool fdumpgdml) { this->fdumpgdml = fdumpgdml; }
+  inline bool isDumpgdml() const { return fdumpgdml; }
+#ifdef WITH_G4OPTICKS
+  inline void setEnable_opticks(bool enable_opticks)
+  {
+    this->enable_opticks = enable_opticks;
+  };
+  inline bool isEnable_opticks() const { return enable_opticks; };
+  void setMaxPhotons(unsigned int MaxPhotons);
+  unsigned int getMaxPhotons() const;
 #endif
 };
 #endif /* /CONFIGURATIONMANAGER */

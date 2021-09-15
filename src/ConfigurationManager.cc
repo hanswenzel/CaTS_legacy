@@ -48,62 +48,53 @@
 // project headers
 #include "ConfigurationManager.hh"
 #include "ConfigurationManagerMessenger.hh"
-
-//using namespace std;
-
+// using namespace std;
 ConfigurationManager* ConfigurationManager::instance = nullptr;
 std::once_flag ConfigurationManager::initInstanceFlag;
-
-ConfigurationManager::ConfigurationManager() {
-    confMessenger = new ConfigurationManagerMessenger(this);
+ConfigurationManager::ConfigurationManager()
+{
+  confMessenger = new ConfigurationManagerMessenger(this);
 #ifdef WITH_ROOT
-    HistoFileName = "histograms.root";
-    doAnalysis = false; // by default don't do analysis
-    fname = "hits.root";
-    writeHits = false; // by default we don't write hits
+  HistoFileName = "histograms.root";
+  doAnalysis    = false;  // by default don't do analysis
+  fname         = "hits.root";
+  writeHits     = false;  // by default we don't write hits
 #endif
-#ifdef WITH_G4OPTICKS 
-    enable_opticks = true; // by default we use opticks
-    MaxPhotons = 1000000;
-#endif 
-    //enable_verbose = false; // by default we run quiet 
-    //dumpgdml = false; // by default we don't write out Detector to gdml file
-    //GDMLFileName = "dump.gdml_G4";
-}
-
-ConfigurationManager::~ConfigurationManager() {
-    delete confMessenger;
-}
-
-#ifdef WITH_G4OPTICKS 
-
-void ConfigurationManager::setMaxPhotons(unsigned int MaxPhotons) {
-    this->MaxPhotons = MaxPhotons;
-}
-
-unsigned int ConfigurationManager::getMaxPhotons() const {
-    return MaxPhotons;
-}
+#ifdef WITH_G4OPTICKS
+  enable_opticks = true;  // by default we use opticks
+  MaxPhotons     = 1000000;
 #endif
-
-void ConfigurationManager::Print() {
-    G4cout << "--------------------------------------------------" << G4endl;
-    G4cout << "CaTS configuration: " << G4endl;
-    G4cout << "====================" << G4endl;
-    G4cout << G4endl;
-    G4cout << "fenable_verbose:   " << fenable_verbose << G4endl;
-    G4cout << "fdumpgdml:         " << fdumpgdml << G4endl;
-    G4cout << "fGDMLFileName:     " << fGDMLFileName << G4endl;
-#ifdef WITH_ROOT 
-    G4cout << "doAnalysis:       " << doAnalysis << G4endl;
-    G4cout << "HistoFileName:    " << HistoFileName << G4endl;
-    G4cout << "writeHits:        " << writeHits << G4endl;
-    G4cout << "FileName:         " << FileName << G4endl;
-    G4cout << "fname:            " << fname << G4endl;
+  // enable_verbose = false; // by default we run quiet
+  // dumpgdml = false; // by default we don't write out Detector to gdml file
+  // GDMLFileName = "dump.gdml_G4";
+}
+ConfigurationManager::~ConfigurationManager() { delete confMessenger; }
+#ifdef WITH_G4OPTICKS
+void ConfigurationManager::setMaxPhotons(unsigned int MaxPhotons)
+{
+  this->MaxPhotons = MaxPhotons;
+}
+unsigned int ConfigurationManager::getMaxPhotons() const { return MaxPhotons; }
 #endif
-#ifdef WITH_G4OPTICKS  
-    G4cout << "enable_opticks:   " << enable_opticks << G4endl;
-    G4cout << "MaxPhotons:       " << MaxPhotons << G4endl;
+void ConfigurationManager::Print()
+{
+  G4cout << "--------------------------------------------------" << G4endl;
+  G4cout << "CaTS configuration: " << G4endl;
+  G4cout << "====================" << G4endl;
+  G4cout << G4endl;
+  G4cout << "fenable_verbose:   " << fenable_verbose << G4endl;
+  G4cout << "fdumpgdml:         " << fdumpgdml << G4endl;
+  G4cout << "fGDMLFileName:     " << fGDMLFileName << G4endl;
+#ifdef WITH_ROOT
+  G4cout << "doAnalysis:       " << doAnalysis << G4endl;
+  G4cout << "HistoFileName:    " << HistoFileName << G4endl;
+  G4cout << "writeHits:        " << writeHits << G4endl;
+  G4cout << "FileName:         " << FileName << G4endl;
+  G4cout << "fname:            " << fname << G4endl;
 #endif
-    G4cout << "--------------------------------------------------" << G4endl;
+#ifdef WITH_G4OPTICKS
+  G4cout << "enable_opticks:   " << enable_opticks << G4endl;
+  G4cout << "MaxPhotons:       " << MaxPhotons << G4endl;
+#endif
+  G4cout << "--------------------------------------------------" << G4endl;
 }

@@ -50,74 +50,56 @@
 #include "G4THitsCollection.hh"
 #include "G4Allocator.hh"
 #include "G4ThreeVector.hh"
+class TrackerHit : public G4VHit
+{
+  // Default constructor
+ public:
+  TrackerHit();
+  ~TrackerHit();
+  TrackerHit(const TrackerHit&);
+  const TrackerHit& operator=(const TrackerHit&);
+  G4bool operator==(const TrackerHit&) const;
+  inline void* operator new(size_t);
+  inline void operator delete(void*);
+  virtual void Draw();
+  //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+  inline virtual void Print()
+  {
+    G4cout << "TrackerHit  id:  " << id << " Edep: " << Edep
+           << " X: " << position.getX() << " Y: " << position.getY()
+           << " Z: " << position.getZ() << " time: " << time << G4endl;
+  }
+  //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+  TrackerHit(G4double edep, G4ThreeVector position, G4double time);
+  inline void SetEdep(G4double Edep) { this->Edep = Edep; }
+  inline G4double GetEdep() { return Edep; }
+  inline void SetTime(G4double time) { this->time = time; }
+  inline G4double GetTime() const { return time; }
+  inline void SetPosition(G4ThreeVector position) { this->position = position; }
+  inline G4ThreeVector GetPosition() const { return position; }
 
-class TrackerHit : public G4VHit {
-    // Default constructor
-public:
-    TrackerHit();
-    ~TrackerHit();
-    TrackerHit(const TrackerHit&);
-    const TrackerHit& operator=(const TrackerHit&);
-    G4bool operator==(const TrackerHit&) const;
-    inline void* operator new(size_t);
-    inline void operator delete(void*);
-    virtual void Draw();
-    //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-    inline virtual void Print() {
-        G4cout << "TrackerHit  id:  " << id << " Edep: " << Edep
-                << " X: " << position.getX() << " Y: " << position.getY() << " Z: " << position.getZ()
-                << " time: " << time << G4endl;
-    }
-    //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-    TrackerHit(G4double edep, G4ThreeVector position, G4double time);
-
-    inline void SetEdep(G4double Edep) {
-        this->Edep = Edep;
-    }
-
-    inline G4double GetEdep() {
-        return Edep;
-    }
-
-    inline void SetTime(G4double time) {
-        this->time = time;
-    }
-
-    inline G4double GetTime() const {
-        return time;
-    }
-
-    inline void SetPosition(G4ThreeVector position) {
-        this->position = position;
-    }
-
-    inline G4ThreeVector GetPosition() const {
-        return position;
-    }
-private:
-    G4int id{0};
-    G4double Edep{0};
-    G4ThreeVector position{0};
-    G4double time{0};
+ private:
+  G4int id{ 0 };
+  G4double Edep{ 0 };
+  G4ThreeVector position{ 0 };
+  G4double time{ 0 };
 };
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
 using TrackerHitsCollection = G4THitsCollection<TrackerHit>;
 extern G4ThreadLocal G4Allocator<TrackerHit>* TrackerHitAllocator;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-inline void* TrackerHit::operator new(size_t){
-    if (!TrackerHitAllocator) {
-        TrackerHitAllocator = new G4Allocator<TrackerHit>;
-    }
-    return (void *) TrackerHitAllocator->MallocSingle();
+inline void* TrackerHit::operator new(size_t)
+{
+  if(!TrackerHitAllocator)
+  {
+    TrackerHitAllocator = new G4Allocator<TrackerHit>;
+  }
+  return (void*) TrackerHitAllocator->MallocSingle();
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-inline void TrackerHit::operator delete(void *aHit) {
-    TrackerHitAllocator->FreeSingle((TrackerHit*) aHit);
+inline void TrackerHit::operator delete(void* aHit)
+{
+  TrackerHitAllocator->FreeSingle((TrackerHit*) aHit);
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 #endif

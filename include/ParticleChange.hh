@@ -44,25 +44,22 @@
 //---------------------------------------------------------------------
 //
 #ifndef PARTICLECHANGE_HH
-#define	PARTICLECHANGE_HH
+#define PARTICLECHANGE_HH
 #include "G4VParticleChange.hh"
-
 class ParticleChange : public G4VParticleChange
 {
+ public:
+  ParticleChange()
+    : fIsFirstInter(false)
+  {}
+  ParticleChange(bool isFirst)
+    : fIsFirstInter(isFirst)
+  {}
+  virtual ~ParticleChange() {}
 
-   public:
-   
-      ParticleChange() : fIsFirstInter(false) {}
-      ParticleChange( bool isFirst ) : fIsFirstInter( isFirst ) {}
-      virtual ~ParticleChange() {}
-      
-      bool IsFisrtInteraction() const { return fIsFirstInter; }
+  bool IsFisrtInteraction() const { return fIsFirstInter; }
 
-   private:
-   
-      bool fIsFirstInter;
-
+ private:
+  bool fIsFirstInter;
 };
-
-
-#endif	/* PARTICLECHANGE_HH */
+#endif /* PARTICLECHANGE_HH */

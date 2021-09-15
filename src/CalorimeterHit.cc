@@ -49,60 +49,64 @@
 #include "G4Circle.hh"
 #include "G4Colour.hh"
 #include "G4VisAttributes.hh"
-
 G4ThreadLocal G4Allocator<CalorimeterHit>* CalorimeterHitAllocator = nullptr;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-CalorimeterHit::CalorimeterHit() : G4VHit() {
-}
+CalorimeterHit::CalorimeterHit()
+  : G4VHit()
+{}
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-CalorimeterHit::CalorimeterHit(unsigned i,
-        G4double e,
-        G4double em,
-        G4double t,
-        G4ThreeVector p) : G4VHit() {
-    id = i;
-    Edep = e;
-    em_Edep = em;
-    time = t;
-    position = p;
+CalorimeterHit::CalorimeterHit(unsigned i, G4double e, G4double em, G4double t,
+                               G4ThreeVector p)
+  : G4VHit()
+{
+  id       = i;
+  Edep     = e;
+  em_Edep  = em;
+  time     = t;
+  position = p;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 CalorimeterHit::~CalorimeterHit() = default;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 CalorimeterHit::CalorimeterHit(const CalorimeterHit& right)
-: G4VHit() {
-    // No need to call class member functions via this->
-    id = right.id;
-    Edep = right.Edep;
-    em_Edep = right.em_Edep;
-    time = right.time;
-    position = right.position;
+  : G4VHit()
+{
+  // No need to call class member functions via this->
+  id       = right.id;
+  Edep     = right.Edep;
+  em_Edep  = right.em_Edep;
+  time     = right.time;
+  position = right.position;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-const CalorimeterHit& CalorimeterHit::operator=(const CalorimeterHit& right) {
-    // No need to call class member functions via this->
-    id = right.id;
-    Edep = right.Edep;
-    em_Edep = right.em_Edep;
-    time = right.time;
-    position = right.position;
-    return *this;
+const CalorimeterHit& CalorimeterHit::operator=(const CalorimeterHit& right)
+{
+  // No need to call class member functions via this->
+  id       = right.id;
+  Edep     = right.Edep;
+  em_Edep  = right.em_Edep;
+  time     = right.time;
+  position = right.position;
+  return *this;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-G4bool CalorimeterHit::operator==(const CalorimeterHit& right) const {
-    return (this == &right) ? true : false;
+G4bool CalorimeterHit::operator==(const CalorimeterHit& right) const
+{
+  return (this == &right) ? true : false;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void CalorimeterHit::Draw() {
-    G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();
-    if (pVVisManager) {
-        G4Circle circle(position);
-        circle.SetScreenSize(2.);
-        circle.SetFillStyle(G4Circle::filled);
-        G4Colour colour(1., 0., 0.);
-        G4VisAttributes attribs(colour);
-        circle.SetVisAttributes(attribs);
-        pVVisManager->Draw(circle);
-    }
+void CalorimeterHit::Draw()
+{
+  G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();
+  if(pVVisManager)
+  {
+    G4Circle circle(position);
+    circle.SetScreenSize(2.);
+    circle.SetFillStyle(G4Circle::filled);
+    G4Colour colour(1., 0., 0.);
+    G4VisAttributes attribs(colour);
+    circle.SetVisAttributes(attribs);
+    pVVisManager->Draw(circle);
+  }
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

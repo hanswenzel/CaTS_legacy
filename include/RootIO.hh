@@ -47,31 +47,30 @@
 #define ROOTIO_HH
 #ifdef WITH_ROOT
 // Include files
-#pragma once
-#include "TROOT.h"
-
+#  pragma once
+#  include "TROOT.h"
 class TFile;
 class TTree;
 class TBranch;
 class Event;
+class RootIO
+{
+ public:
+  virtual ~RootIO();
+  static RootIO* GetInstance();
+  void Write(Event*);
+  void Close();
 
-class RootIO {
-public:
-    virtual ~RootIO();
-    static RootIO* GetInstance();
-    void Write(Event*);
-    void Close();
+ protected:
+  RootIO();
 
-protected:
-    RootIO();
-
-private:
-    TFile* fFile;
-    int fNevents;
-    TTree* ftree;
-    TBranch* fevtbranch;
-    Long64_t fnb;
-    bool evtinitialized;
+ private:
+  TFile* fFile;
+  int fNevents;
+  TTree* ftree;
+  TBranch* fevtbranch;
+  Long64_t fnb;
+  bool evtinitialized;
 };
 #endif /* WITH_ROOT */
 #endif /* ROOTIO_HH */

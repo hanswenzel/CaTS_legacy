@@ -44,96 +44,61 @@
 //---------------------------------------------------------------------
 //
 #ifndef INTERACTIONHIT_HH
-#define	INTERACTIONHIT_HH
+#define INTERACTIONHIT_HH
 #include "G4VHit.hh"
 #include "G4THitsCollection.hh"
 #include "G4Allocator.hh"
 #include "G4ThreeVector.hh"
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-class InteractionHit : public G4VHit {
-private:
-    G4String pname{""}; // name of secondary particle
-    G4double pmom{0}; // momentum of secondary particle
-    G4double Ekin{0}; // kinetic energy of secondary particle
-    G4double theta{0}; // theta of secondary particle  
-
-public:
-    InteractionHit();
-    InteractionHit(G4String n, G4double m, G4double e, G4double t);
-    ~InteractionHit();
-    InteractionHit(const InteractionHit&);
-    const InteractionHit& operator=(const InteractionHit&);
-    G4int operator==(const InteractionHit&) const;
-
-    inline void* operator new(size_t);
-    inline void operator delete(void*);
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-inline void Print() {
-    G4cout << "InteractionHit pname : " << pname
-            << "  momentum [GeV]: " << pmom
-            << "  kinetic Energy [GeV]" << Ekin
-            << "  theta: " << theta
-            << G4endl;
-
-}
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-    void SetPname(G4String de) {
-        pname = de;
-    };
-
-    void SetPmom(G4double de) {
-        pmom = de;
-    };
-
-    void SetEkin(G4double de) {
-        Ekin = de;
-    };
-
-    void SetTheta(G4double de) {
-        theta = de;
-    };
-
-    G4String GetPname() {
-        return pname;
-    };
-
-    G4double GetPmom() {
-        return pmom;
-    };
-
-    G4double GetEkin() {
-        return Ekin;
-    };
-
-    G4double GetTheta() {
-        return theta;
-    };
+class InteractionHit : public G4VHit
+{
+ private:
+  G4String pname{ "" };  // name of secondary particle
+  G4double pmom{ 0 };    // momentum of secondary particle
+  G4double Ekin{ 0 };    // kinetic energy of secondary particle
+  G4double theta{ 0 };   // theta of secondary particle
+ public:
+  InteractionHit();
+  InteractionHit(G4String n, G4double m, G4double e, G4double t);
+  ~InteractionHit();
+  InteractionHit(const InteractionHit&);
+  const InteractionHit& operator=(const InteractionHit&);
+  G4int operator==(const InteractionHit&) const;
+  inline void* operator new(size_t);
+  inline void operator delete(void*);
+  //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+  inline void Print()
+  {
+    G4cout << "InteractionHit pname : " << pname << "  momentum [GeV]: " << pmom
+           << "  kinetic Energy [GeV]" << Ekin << "  theta: " << theta
+           << G4endl;
+  }
+  //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+  void SetPname(G4String de) { pname = de; };
+  void SetPmom(G4double de) { pmom = de; };
+  void SetEkin(G4double de) { Ekin = de; };
+  void SetTheta(G4double de) { theta = de; };
+  G4String GetPname() { return pname; };
+  G4double GetPmom() { return pmom; };
+  G4double GetEkin() { return Ekin; };
+  G4double GetTheta() { return theta; };
 };
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 using InteractionHitsCollection = G4THitsCollection<InteractionHit>;
 extern G4ThreadLocal G4Allocator<InteractionHit>* InteractionHitAllocator;
-
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-inline void* InteractionHit::operator new(size_t){
-    if (!InteractionHitAllocator) {
-        InteractionHitAllocator = new G4Allocator<InteractionHit>;
-    }
-    return (void *) InteractionHitAllocator->MallocSingle();
+inline void* InteractionHit::operator new(size_t)
+{
+  if(!InteractionHitAllocator)
+  {
+    InteractionHitAllocator = new G4Allocator<InteractionHit>;
+  }
+  return (void*) InteractionHitAllocator->MallocSingle();
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-inline void InteractionHit::operator delete(void *aHit) {
-    InteractionHitAllocator->FreeSingle((InteractionHit*) aHit);
+inline void InteractionHit::operator delete(void* aHit)
+{
+  InteractionHitAllocator->FreeSingle((InteractionHit*) aHit);
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-
-#endif	/* INTERACTIONHIT_HH */
+#endif /* INTERACTIONHIT_HH */

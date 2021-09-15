@@ -44,21 +44,19 @@
 //---------------------------------------------------------------------
 //
 #ifndef TrackInfo_h
-#define TrackInfon_h 1
-#pragma once
-#include "G4VUserTrackInformation.hh"
-
+#  define TrackInfon_h 1
+#  pragma once
+#  include "G4VUserTrackInformation.hh"
 /**
 TrackInfo
 ============
  **/
-
-class TrackInfo : public G4VUserTrackInformation {
-public:
-    TrackInfo(int photon_record_id_)
-    :
-    photon_record_id(photon_record_id_) {
-    }
-    int photon_record_id;
+class TrackInfo : public G4VUserTrackInformation
+{
+ public:
+  TrackInfo(int photon_record_id_)
+    : photon_record_id(photon_record_id_)
+  {}
+  int photon_record_id;
 };
 #endif
