@@ -38,13 +38,10 @@ to ( (           use opticks from within Geant4 for the creation and propagation
               (_(           (see https://bitbucket.org/simoncblyth/opticks.git).
 -------------------------------------------------------------------------*/
 // Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html
-#include "TROOT.h"
 #include "TFile.h"
 #include "TSystem.h"
-#include "TKey.h"
 #include "TTree.h"
 #include "TH1.h"
-#include "TH2.h"
 //
 #include "Event.hh"
 #include "DRCalorimeterHit.hh"
@@ -82,7 +79,7 @@ int main(int argc, char** argv)
   {
     fevtbranch->GetEntry(i);
     auto* hcmap = event->GetHCMap();
-    for(const auto ele : *hcmap)
+    for(const auto &ele : *hcmap)
     {
       if(ele.first.compare(CollectionName) == 0)
       {
@@ -113,7 +110,7 @@ int main(int argc, char** argv)
   {
     fevtbranch->GetEntry(i);
     auto* hcmap = event->GetHCMap();
-    for(const auto ele : *hcmap)
+    for(const auto &ele : *hcmap)
     {
       if(ele.first.compare(CollectionName) == 0)
       {

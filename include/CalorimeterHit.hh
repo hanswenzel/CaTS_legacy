@@ -63,17 +63,12 @@ class CalorimeterHit : public G4VHit
   virtual void Draw();
   inline virtual void Print()
   {
-    G4cout << "CalorimeterHit  id:  " << id << " Edep: " << Edep
-           << " em_Edep: " << em_Edep << " time: " << time
-           << " X: " << position.getX() << " Y: " << position.getY()
+    G4cout << "CalorimeterHit  id:  " << id << " Edep: " << Edep << " em_Edep: " << em_Edep
+           << " time: " << time << " X: " << position.getX() << " Y: " << position.getY()
            << " Z: " << position.getZ() << G4endl;
   }
-  CalorimeterHit(unsigned int i, double e, double em, double t,
-                 G4ThreeVector p);
-  inline void SetPosition(G4ThreeVector position)
-  {
-    this->position = position;
-  };
+  CalorimeterHit(unsigned int i, double e, double em, double t, G4ThreeVector p);
+  inline void SetPosition(G4ThreeVector position) { this->position = position; };
   inline G4ThreeVector GetPosition() const { return position; };
   inline void SetTime(double time) { this->time = time; };
   inline double GetTime() const { return time; };

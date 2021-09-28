@@ -49,8 +49,9 @@
 #include "G4VHit.hh"
 #include "G4THitsCollection.hh"
 #include "G4Allocator.hh"
+#include "G4Types.hh"  // for G4double, G4bool
+#include "G4ios.hh"    // for G4cout, G4endl
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-/// Hit implementation for the persistency example
 class lArTPCHit : public G4VHit
 {
  public:
@@ -66,9 +67,8 @@ class lArTPCHit : public G4VHit
   //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
   inline virtual void Print()
   {
-    G4cout << "lArTPCHit Nr. of electrons: " << fElectrons
-           << "  x position [mm]: " << fPosX << "  y position [mm]: " << fPosY
-           << "  z position [mm]: " << fPosZ << G4endl;
+    G4cout << "lArTPCHit Nr. of electrons: " << fElectrons << "  x position [mm]: " << fPosX
+           << "  y position [mm]: " << fPosY << "  z position [mm]: " << fPosZ << G4endl;
   }
   //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
   void SetElectrons(G4double de) { fElectrons = de; };

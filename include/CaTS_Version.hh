@@ -16,5 +16,5 @@
 // as variables
 #include <string>
 static const std::string CaTSVersion = "CaTS_1_0";
-static const std::string CaTSDate    = "(24-August-2021)";
+static const std::string CaTSDate    = "(28-September-2021)";
 #endif

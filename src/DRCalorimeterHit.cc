@@ -44,13 +44,12 @@
 //---------------------------------------------------------------------
 //
 #include "DRCalorimeterHit.hh"
-#include "G4UnitsTable.hh"
+//#include "G4UnitsTable.hh"
 #include "G4VVisManager.hh"
 #include "G4Circle.hh"
 #include "G4Colour.hh"
 #include "G4VisAttributes.hh"
-G4ThreadLocal G4Allocator<DRCalorimeterHit>* DRCalorimeterHitAllocator =
-  nullptr;
+G4ThreadLocal G4Allocator<DRCalorimeterHit>* DRCalorimeterHitAllocator = nullptr;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 DRCalorimeterHit::DRCalorimeterHit()
   : G4VHit()
@@ -64,8 +63,8 @@ void DRCalorimeterHit::SetEm_Edep(double em_Edep) { this->em_Edep = em_Edep; }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 double DRCalorimeterHit::GetEm_Edep() const { return em_Edep; }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-DRCalorimeterHit::DRCalorimeterHit(unsigned int i, G4double e, G4double em,
-                                   unsigned int nc, G4double t, G4ThreeVector p)
+DRCalorimeterHit::DRCalorimeterHit(unsigned int i, G4double e, G4double em, unsigned int nc,
+                                   G4double t, G4ThreeVector p)
   : G4VHit()
 {
   id       = i;
@@ -89,8 +88,7 @@ DRCalorimeterHit::DRCalorimeterHit(const DRCalorimeterHit& right)
   this->position = right.position;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-const DRCalorimeterHit& DRCalorimeterHit::operator=(
-  const DRCalorimeterHit& right)
+const DRCalorimeterHit& DRCalorimeterHit::operator=(const DRCalorimeterHit& right)
 {
   this->id       = right.id;
   this->Edep     = right.Edep;

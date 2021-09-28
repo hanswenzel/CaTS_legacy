@@ -47,8 +47,8 @@
 #include "G4HCofThisEvent.hh"
 #include "G4Step.hh"
 #include "G4SDManager.hh"
-#include "G4Event.hh"
-#include "G4UnitsTable.hh"
+//#include "G4Event.hh"
+//#include "G4UnitsTable.hh"
 #include "G4SystemOfUnits.hh"
 #include "ConfigurationManager.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -65,13 +65,12 @@ TrackerSD::TrackerSD(G4String name)
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void TrackerSD::Initialize(G4HCofThisEvent* hce)
 {
-  fTrackerHitsCollection =
-    new TrackerHitsCollection(SensitiveDetectorName, collectionName[0]);
+  fTrackerHitsCollection = new TrackerHitsCollection(SensitiveDetectorName, collectionName[0]);
   if(fHCID < 0)
   {
     if(verbose)
-      G4cout << "TrackerSD::Initialize:  " << SensitiveDetectorName << "   "
-             << collectionName[0] << G4endl;
+      G4cout << "TrackerSD::Initialize:  " << SensitiveDetectorName << "   " << collectionName[0]
+             << G4endl;
     fHCID = G4SDManager::GetSDMpointer()->GetCollectionID(collectionName[0]);
   }
   hce->AddHitsCollection(fHCID, fTrackerHitsCollection);
@@ -86,9 +85,8 @@ G4bool TrackerSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
     return false;
   if(aStep->GetTrack()->GetDynamicParticle()->GetCharge() == 0)
     return false;
-  TrackerHit* newHit =
-    new TrackerHit(edep, aStep->GetPostStepPoint()->GetPosition(),
-                   aStep->GetPostStepPoint()->GetGlobalTime() / ns);
+  TrackerHit* newHit = new TrackerHit(edep, aStep->GetPostStepPoint()->GetPosition(),
+                                      aStep->GetPostStepPoint()->GetGlobalTime() / ns);
   fTrackerHitsCollection->insert(newHit);
   return true;
 }

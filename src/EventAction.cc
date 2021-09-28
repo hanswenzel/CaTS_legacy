@@ -45,15 +45,22 @@
 //
 // Geant4 headers:
 //
-#include "G4Event.hh"
-#include "G4HCofThisEvent.hh"
+#include <G4UserEventAction.hh>  // for G4UserEventAction
+#include <G4ios.hh>              // for G4cout, G4endl
+#include "G4Event.hh"            // for G4Event
+#include "G4HCofThisEvent.hh"    // for G4HCofThisEvent
+#include <G4String.hh>           // for G4String
+#include <G4Types.hh>            // for G4int
+#include <G4VHit.hh>             // for G4VHit
+#include <G4VHitsCollection.hh>  // for G4VHitsCollection
+//#include "G4HCtable.hh"
 #include "G4SDManager.hh"
 //
 // Project headers:
 //
+
 #include "EventAction.hh"
-#include "ConfigurationManager.hh"
-#include "RunAction.hh"
+#include "ConfigurationManager.hh"  // for ConfigurationManager
 #include "Event.hh"
 #include "PhotonSD.hh"
 #include "PhotonHit.hh"
@@ -66,18 +73,19 @@
 #ifdef WITH_ROOT
 #  include "RootIO.hh"
 #endif
-//
-// stl headers:
-//
-#include <string>
-#include <vector>
+// stl headers
+#include <map>
+#include <utility>
+#include <algorithm>  // for max
+#include <istream>    // for basic_ostream::operator<<, operat...
+#include <string>     // for string, getline
+#include <vector>     // for vector
 #ifdef WITH_G4OPTICKS
 #  include "OpticksFlags.hh"
 #  include "G4Opticks.hh"
 #  include "G4OpticksHit.hh"
 #endif
-std::vector<std::string>& split(const std::string& s, char delim,
-                                std::vector<std::string>& elems)
+std::vector<std::string>& split(const std::string& s, char delim, std::vector<std::string>& elems)
 {
   std::stringstream ss(s);
   std::string item;
@@ -101,8 +109,7 @@ void EventAction::EndOfEventAction(const G4Event* event)
 {
   bool verbose = ConfigurationManager::getInstance()->isEnable_verbose();
   if(verbose)
-    G4cout << "EventAction::EndOfEventAction Event:   " << event->GetEventID()
-           << G4endl;
+    G4cout << "EventAction::EndOfEventAction Event:   " << event->GetEventID() << G4endl;
   G4HCofThisEvent* HCE = event->GetHCofThisEvent();
   if(HCE == nullptr)
     return;
@@ -128,9 +135,7 @@ void EventAction::EndOfEventAction(const G4Event* event)
         std::size_t found = sdn.find("Photondetector");
         if(found != std::string::npos)
         {
-          PhotonSD* aSD =
-            (PhotonSD*) G4SDManager::GetSDMpointer()->FindSensitiveDetector(
-              sdn);
+          PhotonSD* aSD = (PhotonSD*) G4SDManager::GetSDMpointer()->FindSensitiveDetector(sdn);
           aSD->AddOpticksHits();
         }
       }
@@ -143,8 +148,7 @@ void EventAction::EndOfEventAction(const G4Event* event)
       std::cout << " EndOfEventAction: numphotons:   " << g4ok->getNumPhotons()
                 << " Gensteps: " << g4ok->getNumGensteps()
                 << "  Maxgensteps:  " << g4ok->getMaxGensteps() << std::endl;
-      std::cout << " EndOfEventAction: num_hits: " << g4ok->getNumHit()
-                << std::endl;
+      std::cout << " EndOfEventAction: num_hits: " << g4ok->getNumHit() << std::endl;
       std::cout << g4ok->dbgdesc() << std::endl;
     }
     g4ok->reset();
@@ -154,8 +158,7 @@ void EventAction::EndOfEventAction(const G4Event* event)
       std::cout << " EndOfEventAction: numphotons:   " << g4ok->getNumPhotons()
                 << " Gensteps: " << g4ok->getNumGensteps()
                 << "  Maxgensteps:  " << g4ok->getMaxGensteps() << std::endl;
-      std::cout << "EndOfEventAction: num_hits: " << g4ok->getNumHit()
-                << std::endl;
+      std::cout << "EndOfEventAction: num_hits: " << g4ok->getNumHit() << std::endl;
       std::cout << g4ok->dbgdesc() << std::endl;
       std::cout << "***********************************************************"
                    "********************************************************"
@@ -167,8 +170,7 @@ void EventAction::EndOfEventAction(const G4Event* event)
   // Now we deal with the Geant4 Hit collections.
   //
   if(verbose)
-    G4cout << "Number of collections:  " << HCE->GetNumberOfCollections()
-           << G4endl;
+    G4cout << "Number of collections:  " << HCE->GetNumberOfCollections() << G4endl;
 #ifdef WITH_ROOT
   if(ConfigurationManager::getInstance()->isWriteHits())
   {

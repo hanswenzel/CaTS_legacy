@@ -46,11 +46,13 @@
 #ifndef StackingActionMessenger_h
 #define StackingActionMessenger_h 1
 #pragma once
+#include <G4String.hh>
 #include "G4UImessenger.hh"
-class StackingAction;
-class G4UIdirectory;
 class G4UIcmdWithABool;
 class G4UIcmdWithoutParameter;
+class G4UIcommand;
+class G4UIdirectory;
+class StackingAction;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 class StackingActionMessenger : public G4UImessenger
 {

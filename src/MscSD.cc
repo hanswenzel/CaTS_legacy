@@ -47,9 +47,6 @@
 #include "G4HCofThisEvent.hh"
 #include "G4Step.hh"
 #include "G4SDManager.hh"
-#include "G4Event.hh"
-#include "G4UnitsTable.hh"
-#include "G4SystemOfUnits.hh"
 #include "ConfigurationManager.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 MscSD::MscSD(G4String name)
@@ -57,21 +54,20 @@ MscSD::MscSD(G4String name)
 {
   G4String HCname = name + "_HC";
   collectionName.insert(HCname);
-  G4cout << collectionName.size() << "   MscSD name:  " << name
-         << " collection Name: " << HCname << G4endl;
+  G4cout << collectionName.size() << "   MscSD name:  " << name << " collection Name: " << HCname
+         << G4endl;
   fHCID   = -1;
   verbose = ConfigurationManager::getInstance()->isEnable_verbose();
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void MscSD::Initialize(G4HCofThisEvent* hce)
 {
-  fMscHitsCollection =
-    new MscHitsCollection(SensitiveDetectorName, collectionName[0]);
+  fMscHitsCollection = new MscHitsCollection(SensitiveDetectorName, collectionName[0]);
   if(fHCID < 0)
   {
     if(verbose)
-      G4cout << "MscSD::Initialize:  " << SensitiveDetectorName << "   "
-             << collectionName[0] << G4endl;
+      G4cout << "MscSD::Initialize:  " << SensitiveDetectorName << "   " << collectionName[0]
+             << G4endl;
     fHCID = G4SDManager::GetSDMpointer()->GetCollectionID(collectionName[0]);
   }
   hce->AddHitsCollection(fHCID, fMscHitsCollection);
@@ -84,14 +80,12 @@ G4bool MscSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
 {
   if(!done)
   {
-    if(aStep->GetTrack()->GetParentID() ==
-       0)  // only care about the primary particle
+    if(aStep->GetTrack()->GetParentID() == 0)  // only care about the primary particle
     {
       const G4StepPoint* postStep = aStep->GetPostStepPoint();
       if(postStep->GetStepStatus() == fGeomBoundary)
       {
-        MscHit* newHit =
-          new MscHit(postStep->GetKineticEnergy(), postStep->GetMomentum());
+        MscHit* newHit = new MscHit(postStep->GetKineticEnergy(), postStep->GetMomentum());
         fMscHitsCollection->insert(newHit);
         done = true;
       }

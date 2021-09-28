@@ -65,9 +65,8 @@ class TrackerHit : public G4VHit
   //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
   inline virtual void Print()
   {
-    G4cout << "TrackerHit  id:  " << id << " Edep: " << Edep
-           << " X: " << position.getX() << " Y: " << position.getY()
-           << " Z: " << position.getZ() << " time: " << time << G4endl;
+    G4cout << "TrackerHit  id:  " << id << " Edep: " << Edep << " X: " << position.getX()
+           << " Y: " << position.getY() << " Z: " << position.getZ() << " time: " << time << G4endl;
   }
   //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
   TrackerHit(G4double edep, G4ThreeVector position, G4double time);

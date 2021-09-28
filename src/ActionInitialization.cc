@@ -44,10 +44,11 @@
 //---------------------------------------------------------------------
 //
 #include "ActionInitialization.hh"
-#include "PrimaryGeneratorAction.hh"
-#include "RunAction.hh"
-#include "StackingAction.hh"
-#include "EventAction.hh"
+#include <G4VUserActionInitialization.hh>  // for G4VUserActionInitialization
+#include "EventAction.hh"                  // for EventAction
+#include "PrimaryGeneratorAction.hh"       // for PrimaryGeneratorAction
+#include "RunAction.hh"                    // for RunAction
+#include "StackingAction.hh"               // for StackingAction
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 ActionInitialization::ActionInitialization()
   : G4VUserActionInitialization()
@@ -55,10 +56,7 @@ ActionInitialization::ActionInitialization()
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 ActionInitialization::~ActionInitialization() = default;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void ActionInitialization::BuildForMaster() const
-{
-  SetUserAction(new RunAction);
-}
+void ActionInitialization::BuildForMaster() const { SetUserAction(new RunAction); }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void ActionInitialization::Build() const
 {

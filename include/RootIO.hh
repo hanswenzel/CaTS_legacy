@@ -48,7 +48,8 @@
 #ifdef WITH_ROOT
 // Include files
 #  pragma once
-#  include "TROOT.h"
+//#  include "TROOT.h"
+#  include "RtypesCore.h"  // for Long64_t
 class TFile;
 class TTree;
 class TBranch;
@@ -66,11 +67,11 @@ class RootIO
 
  private:
   TFile* fFile;
-  int fNevents;
+  int fNevents{ 0 };
   TTree* ftree;
   TBranch* fevtbranch;
   Long64_t fnb;
-  bool evtinitialized;
+  bool fevtinitialized{ false };
 };
 #endif /* WITH_ROOT */
 #endif /* ROOTIO_HH */

@@ -45,6 +45,13 @@
 //
 #ifndef PrimaryGeneratorActionMessenger_h
 #define PrimaryGeneratorActionMessenger_h 1
+#include <G4String.hh>       // for G4String
+#include "G4UImessenger.hh"  // for G4UImessenger
+class G4UIcmdWithAString;    // lines 54-54
+class G4UIcommand;
+class PrimaryGeneratorAction;  // lines 50-50
+
+/*
 #include "G4UImessenger.hh"
 #include "globals.hh"
 class PrimaryGeneratorAction;
@@ -52,6 +59,7 @@ class G4UIdirectory;
 class G4UIcmdWithADoubleAndUnit;
 class G4UIcmdWithAnInteger;
 class G4UIcmdWithAString;
+*/
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 class PrimaryGeneratorActionMessenger : public G4UImessenger
 {

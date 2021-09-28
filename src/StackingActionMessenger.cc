@@ -44,6 +44,7 @@
 //---------------------------------------------------------------------
 //
 #include "StackingActionMessenger.hh"
+#include <G4ApplicationState.hh>
 #include "StackingAction.hh"
 #include "G4UIdirectory.hh"
 #include "G4UIcmdWithABool.hh"
@@ -68,15 +69,13 @@ StackingActionMessenger::StackingActionMessenger(StackingAction* CaTSAction)
   killetaCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
   killGammafromnCaptureCmd =
     new G4UIcmdWithABool("/CaTS/StackingAction/killGammafromnCapture", this);
-  killGammafromnCaptureCmd->SetGuidance(
-    "true for killing gammas from nCapture at creation");
+  killGammafromnCaptureCmd->SetGuidance("true for killing gammas from nCapture at creation");
   killGammafromnCaptureCmd->SetGuidance("Default is false");
   killGammafromnCaptureCmd->SetParameterName("killGammafromnCapture", false);
   killGammafromnCaptureCmd->SetDefaultValue(false);
   killGammafromnCaptureCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
   listCmd = new G4UIcmdWithoutParameter("/CaTS/StackingAction/List", this);
-  listCmd->SetGuidance(
-    "List the status of control flags of the StackingAction.");
+  listCmd->SetGuidance("List the status of control flags of the StackingAction.");
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 StackingActionMessenger::~StackingActionMessenger()
@@ -87,8 +86,7 @@ StackingActionMessenger::~StackingActionMessenger()
   delete StackingActionDir;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void StackingActionMessenger::SetNewValue(G4UIcommand* command,
-                                          G4String newValues)
+void StackingActionMessenger::SetNewValue(G4UIcommand* command, G4String newValues)
 {
   if(command == killPi0Cmd)
   {
@@ -100,8 +98,7 @@ void StackingActionMessenger::SetNewValue(G4UIcommand* command,
   }
   else if(command == killGammafromnCaptureCmd)
   {
-    CaTSAction->SetkillGammafromnCapture(
-      killGammafromnCaptureCmd->GetNewBoolValue(newValues));
+    CaTSAction->SetkillGammafromnCapture(killGammafromnCaptureCmd->GetNewBoolValue(newValues));
   }
   else if(command == listCmd)
   {

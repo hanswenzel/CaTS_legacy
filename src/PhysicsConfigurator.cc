@@ -71,20 +71,17 @@ G4VModularPhysicsList* PhysicsConfigurator::Construct(G4String physName)
   //
   // Access to registries and factories
   //
-  G4PhysicsConstructorRegistry* g4pcr =
-    G4PhysicsConstructorRegistry::Instance();
-  G4PhysListRegistry* g4plr = G4PhysListRegistry::Instance();
-  bool verbose = ConfigurationManager::getInstance()->isEnable_verbose();
+  G4PhysicsConstructorRegistry* g4pcr = G4PhysicsConstructorRegistry::Instance();
+  G4PhysListRegistry* g4plr           = G4PhysListRegistry::Instance();
+  bool verbose                        = ConfigurationManager::getInstance()->isEnable_verbose();
   if(verbose)
   {
-    G4cout << "Available Physics Constructors:  "
-           << g4pcr->AvailablePhysicsConstructors().size() << G4endl;
-    G4cout << "Available Physics Lists:         "
-           << g4plr->AvailablePhysLists().size() << G4endl;
-    G4cout << "Available Physics Extensions:    "
-           << g4plr->AvailablePhysicsExtensions().size() << G4endl;
-    G4cout << "Available Physics Lists Em:      "
-           << g4plr->AvailablePhysListsEM().size() << G4endl;
+    G4cout << "Available Physics Constructors:  " << g4pcr->AvailablePhysicsConstructors().size()
+           << G4endl;
+    G4cout << "Available Physics Lists:         " << g4plr->AvailablePhysLists().size() << G4endl;
+    G4cout << "Available Physics Extensions:    " << g4plr->AvailablePhysicsExtensions().size()
+           << G4endl;
+    G4cout << "Available Physics Lists Em:      " << g4plr->AvailablePhysListsEM().size() << G4endl;
     g4plr->SetVerbose(1);
   }
   else

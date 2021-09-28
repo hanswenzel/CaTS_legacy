@@ -46,7 +46,7 @@
 // Geant4 headers
 #include "G4SystemOfUnits.hh"
 #include "G4ParticleTable.hh"
-#include "G4ParticleDefinition.hh"
+//#include "G4ParticleDefinition.hh"
 #include "G4ParticleGun.hh"
 #include "G4GeneralParticleSource.hh"
 #include "G4HEPEvtInterface.hh"
@@ -68,8 +68,7 @@ PrimaryGeneratorAction::PrimaryGeneratorAction()
   G4ParticleGun* fParticleGun    = new G4ParticleGun(n_particle);
   G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
   G4String particleName;
-  G4ParticleDefinition* particle =
-    particleTable->FindParticle(particleName = "mu+");
+  G4ParticleDefinition* particle = particleTable->FindParticle(particleName = "mu+");
   fParticleGun->SetParticleDefinition(particle);
   fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0., 0., 1.));
   fParticleGun->SetParticleEnergy(10. * CLHEP::GeV);
@@ -88,8 +87,7 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction()
 {
   delete gunMessenger;
   // for c++ std 14:
-  for(std::map<G4String, G4VPrimaryGenerator*>::iterator ii =
-        gentypeMap.begin();
+  for(std::map<G4String, G4VPrimaryGenerator*>::iterator ii = gentypeMap.begin();
       ii != gentypeMap.end(); ++ii)
   {
     delete(*ii).second;

@@ -48,7 +48,6 @@
 #include "G4VHit.hh"
 #include "G4THitsCollection.hh"
 #include "G4Allocator.hh"
-#include "G4ThreeVector.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 class InteractionHit : public G4VHit
 {
@@ -70,8 +69,7 @@ class InteractionHit : public G4VHit
   inline void Print()
   {
     G4cout << "InteractionHit pname : " << pname << "  momentum [GeV]: " << pmom
-           << "  kinetic Energy [GeV]" << Ekin << "  theta: " << theta
-           << G4endl;
+           << "  kinetic Energy [GeV]" << Ekin << "  theta: " << theta << G4endl;
   }
   //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
   void SetPname(G4String de) { pname = de; };

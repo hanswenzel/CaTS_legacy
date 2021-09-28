@@ -44,20 +44,23 @@
 //---------------------------------------------------------------------
 //
 #include "PhotonHit.hh"
-#include "G4UnitsTable.hh"
 #include "G4VVisManager.hh"
 #include "G4Circle.hh"
 #include "G4Colour.hh"
 #include "G4VisAttributes.hh"
+#include <G4Point3D.hh>      // for G4Point3D
+#include <G4ThreeVector.hh>  // for G4ThreeVector
+#include <G4VHit.hh>         // for G4VHit
+template <class Type>
+class G4Allocator;
 G4ThreadLocal G4Allocator<PhotonHit>* PhotonHitAllocator = nullptr;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 PhotonHit::PhotonHit()
   : G4VHit()
 {}
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-PhotonHit::PhotonHit(unsigned iid, unsigned ipid, G4double iwavelength,
-                     G4double itime, G4ThreeVector iposition,
-                     G4ThreeVector idirection, G4ThreeVector ipolarization)
+PhotonHit::PhotonHit(unsigned iid, unsigned ipid, G4double iwavelength, G4double itime,
+                     G4ThreeVector iposition, G4ThreeVector idirection, G4ThreeVector ipolarization)
   : G4VHit()
 {
   id           = iid;

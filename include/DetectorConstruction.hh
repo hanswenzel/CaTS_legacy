@@ -46,7 +46,9 @@
 #ifndef DetectorConstruction_h
 #define DetectorConstruction_h 1
 #include "G4VUserDetectorConstruction.hh"
-#include "Event.hh"
+//#include "Event.hh
+#include <G4String.hh>  // for G4String
+class G4VPhysicalVolume;
 class ColorReader;
 class G4GDMLParser;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

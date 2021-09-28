@@ -43,12 +43,9 @@
 //* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
 //---------------------------------------------------------------------
 //
-#include <cassert>
+//#include <cassert>
 // Geant4 headers
-#include "G4Run.hh"
-#include "G4SDManager.hh"
-#include "g4analysis.hh"
-#include "StackingAction.hh"
+#include <G4UserRunAction.hh>  // for G4UserRunAction
 #ifdef WITH_G4OPTICKS
 #  include "G4TransportationManager.hh"
 #  include "G4Opticks.hh"
@@ -57,17 +54,16 @@
 // Project headers:
 //
 #ifdef WITH_ROOT
+#  include "G4Run.hh"
+#  include "g4analysis.hh"
 #  include "RootIO.hh"
+#  include "ConfigurationManager.hh"
 #endif
 // project headers
-#include "RadiatorSD.hh"
-#include "PhotonSD.hh"
 #include "RunAction.hh"
-#include "ConfigurationManager.hh"
-// C++ headers
-#include <vector>
-#include <string>
+
 RunAction* RunAction::instance = 0;
+
 RunAction::RunAction()
   : G4UserRunAction()
 {}
@@ -77,7 +73,7 @@ void RunAction::BeginOfRunAction(const G4Run* aRun)
   if(ConfigurationManager::getInstance()->isWriteHits())
   {
     G4String fname = ConfigurationManager::getInstance()->getFileName();
-    fname = fname + "_Run" + std::to_string(aRun->GetRunID()) + ".root";
+    fname          = fname + "_Run" + std::to_string(aRun->GetRunID()) + ".root";
     ConfigurationManager::getInstance()->setfname(fname);
     RootIO::GetInstance();
   }
@@ -86,8 +82,7 @@ void RunAction::BeginOfRunAction(const G4Run* aRun)
     auto analysisManager = G4Analysis::ManagerInstance("root");
     G4cout << "Using " << analysisManager->GetType() << G4endl;
     analysisManager->SetVerboseLevel(1);
-    G4String HistoFileName =
-      ConfigurationManager::getInstance()->getHistoFileName();
+    G4String HistoFileName = ConfigurationManager::getInstance()->getHistoFileName();
     G4cout << "Opening Analysis output File: " << HistoFileName << G4endl;
     analysisManager->SetFileName(HistoFileName);
     analysisManager->OpenFile();
@@ -95,10 +90,8 @@ void RunAction::BeginOfRunAction(const G4Run* aRun)
     // Book histograms, ntuple
     //
     // Creating 1D histograms
-    analysisManager->CreateH1("ENeutron", "Energy of created Neutrons", 200, 0,
-                              100);
-    analysisManager->CreateH1("EProton", "Energy of created Protons", 200, 0,
-                              100);
+    analysisManager->CreateH1("ENeutron", "Energy of created Neutrons", 200, 0, 100);
+    analysisManager->CreateH1("EProton", "Energy of created Protons", 200, 0, 100);
   }
 #endif
 #ifdef WITH_G4OPTICKS
@@ -106,33 +99,26 @@ void RunAction::BeginOfRunAction(const G4Run* aRun)
   {
     if(!geo_initialized)
     {
-      G4cout << "\n\n###[ RunAction::BeginOfRunAction G4Opticks.setGeometry\n\n"
-             << G4endl;
-      G4VPhysicalVolume* world =
-        G4TransportationManager::GetTransportationManager()
-          ->GetNavigatorForTracking()
-          ->GetWorldVolume();
+      G4cout << "\n\n###[ RunAction::BeginOfRunAction G4Opticks.setGeometry\n\n" << G4endl;
+      G4VPhysicalVolume* world = G4TransportationManager::GetTransportationManager()
+                                   ->GetNavigatorForTracking()
+                                   ->GetWorldVolume();
       assert(world);
       bool standardize_geant4_materials = false;  // required for alignment
       G4Opticks* g4ok                   = G4Opticks::Get();
       g4ok->setGeometry(world, standardize_geant4_materials);
-      const std::vector<G4PVPlacement*>& sensor_placements =
-        g4ok->getSensorPlacements();
-      G4cout << "sensor_placements.size():  " << sensor_placements.size()
-             << G4endl;
+      const std::vector<G4PVPlacement*>& sensor_placements = g4ok->getSensorPlacements();
+      G4cout << "sensor_placements.size():  " << sensor_placements.size() << G4endl;
       for(unsigned i = 0; i < sensor_placements.size(); i++)
       {
-        float efficiency_1 = 0.5f;
-        float efficiency_2 = 1.0f;
-        int sensor_cat     = -1;  // -1:means no angular info
-        int sensor_identifier =
-          0xc0ffee + i;                // mockup a detector specific identifier
-        unsigned sensorIndex = 1 + i;  // 1-based
-        g4ok->setSensorData(sensorIndex, efficiency_1, efficiency_2, sensor_cat,
-                            sensor_identifier);
+        float efficiency_1    = 0.5f;
+        float efficiency_2    = 1.0f;
+        int sensor_cat        = -1;            // -1:means no angular info
+        int sensor_identifier = 0xc0ffee + i;  // mockup a detector specific identifier
+        unsigned sensorIndex  = 1 + i;         // 1-based
+        g4ok->setSensorData(sensorIndex, efficiency_1, efficiency_2, sensor_cat, sensor_identifier);
       }
-      G4cout << "\n\n###] RunAction::BeginOfRunAction G4Opticks.setGeometry\n\n"
-             << G4endl;
+      G4cout << "\n\n###] RunAction::BeginOfRunAction G4Opticks.setGeometry\n\n" << G4endl;
       geo_initialized = true;
     }
   }
@@ -143,11 +129,9 @@ void RunAction::EndOfRunAction(const G4Run*)
 #ifdef WITH_G4OPTICKS
   if(ConfigurationManager::getInstance()->isEnable_opticks())
   {
-    G4cout << "\n\n###[ RunAction::EndOfRunAction G4Opticks.Finalize\n\n"
-           << G4endl;
+    G4cout << "\n\n###[ RunAction::EndOfRunAction G4Opticks.Finalize\n\n" << G4endl;
     G4Opticks::Finalize();
-    G4cout << "\n\n###] RunAction::EndOfRunAction G4Opticks.Finalize\n\n"
-           << G4endl;
+    G4cout << "\n\n###] RunAction::EndOfRunAction G4Opticks.Finalize\n\n" << G4endl;
   }
 #endif
 #ifdef WITH_ROOT

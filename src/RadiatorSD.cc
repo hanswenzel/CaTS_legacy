@@ -43,35 +43,35 @@
 //---------------------------------------------------------------------
 //
 // Geant4 headers
-#include "G4HCofThisEvent.hh"
 #include "G4Step.hh"
-#include "G4VProcess.hh"
-#include "G4ThreeVector.hh"
-#include "G4SDManager.hh"
-#include "G4ios.hh"
-#include "G4EventManager.hh"
-#include "G4Event.hh"
-#include "G4Cerenkov.hh"
-#include "G4SteppingManager.hh"
 #include "G4Track.hh"
-#include "G4UnitsTable.hh"
-#include "G4SystemOfUnits.hh"
-#include "G4VRestDiscreteProcess.hh"
-#include "G4RunManager.hh"
-#include "G4Version.hh"
 #ifdef WITH_G4OPTICKS
+#  include "G4ThreeVector.hh"
+#  include "G4ios.hh"
+#  include "G4UnitsTable.hh"
+#  include "G4SystemOfUnits.hh"
+#  include "G4VProcess.hh"
+#  include "G4VRestDiscreteProcess.hh"
+#  include "G4SDManager.hh"
+#  include "G4HCofThisEvent.hh"
 #  include "G4Opticks.hh"
 #  include "TrackInfo.hh"
 #  include "OpticksGenstep.h"
 #  include "OpticksFlags.hh"
 #  include "G4OpticksHit.hh"
 #  include "CaTS_Version.hh"
+#  include "G4EventManager.hh"
+#  include "G4Event.hh"
+#  include "G4RunManager.hh"
+#  include "G4Version.hh"
+#  include "PhotonSD.hh"
+#  include "G4Cerenkov.hh"
+#  include "G4Scintillation.hh"
+#  include <string>
 #endif
 // project headers
 #include "RadiatorSD.hh"
-#include "PhotonSD.hh"
 #include "ConfigurationManager.hh"
-#include <string>
 using namespace std;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 RadiatorSD::RadiatorSD(G4String name)
@@ -97,6 +97,7 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
 #ifdef WITH_G4OPTICKS
   if(ConfigurationManager::getInstance()->isEnable_opticks())
   {
+    G4int materialIndex = 0;
     if(first)
     {
       aMaterial     = aTrack->GetMaterial();
@@ -104,13 +105,10 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
       if(verbose)
       {
         G4cout << "*******************************" << G4endl;
-        G4cout << "RadiatorSD::ProcessHits initializing Material:  "
-               << aMaterial->GetName() << " " << G4endl;
+        G4cout << "RadiatorSD::ProcessHits initializing Material:  " << aMaterial->GetName() << " "
+               << G4endl;
         G4cout << "RadiatorSD::ProcessHits: Name "
-               << aStep->GetPreStepPoint()
-                    ->GetPhysicalVolume()
-                    ->GetLogicalVolume()
-                    ->GetName()
+               << aStep->GetPreStepPoint()->GetPhysicalVolume()->GetLogicalVolume()->GetName()
                << G4endl;
       }
       aMaterialPropertiesTable = aMaterial->GetMaterialPropertiesTable();
@@ -124,10 +122,9 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
 #  if(G4VERSION_NUMBER > 1072)
       YieldRatio =
         aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD1) /
-        aMaterialPropertiesTable->GetConstProperty(
-          kSCINTILLATIONYIELD2);  // slowerRatio,
-      FastTimeConstant = aMaterialPropertiesTable->GetConstProperty(
-        kSCINTILLATIONTIMECONSTANT1);  // TimeConstant,
+        aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD2);  // slowerRatio,
+      FastTimeConstant =
+        aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONTIMECONSTANT1);  // TimeConstant,
       SlowTimeConstant = aMaterialPropertiesTable->GetConstProperty(
         kSCINTILLATIONTIMECONSTANT2);  // slowerTimeConstant,
 #  else
@@ -146,8 +143,8 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
       nMax   = Rindex->GetMaxValue();
       if(verbose)
       {
-        G4cout << "nMax: " << nMax << "  Pmin: " << Pmin << "  Pmax: " << Pmax
-               << "  dp: " << dp << G4endl;
+        G4cout << "nMax: " << nMax << "  Pmin: " << Pmin << "  Pmax: " << Pmax << "  dp: " << dp
+               << G4endl;
         Rindex->DumpValues();
       }
       //
@@ -158,17 +155,16 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
     //
     // info needed for generating Cerenkov photons on the GPU;
     //
-    G4double maxCos                      = 0.0;
-    G4double maxSin2                     = 0.0;
-    G4double beta                        = 0.0;
-    G4double beta1                       = 0.0;
-    G4double beta2                       = 0.0;
-    G4double BetaInverse                 = 0.0;
-    G4double MeanNumberOfPhotons1        = 0.0;
-    G4double MeanNumberOfPhotons2        = 0.0;
-    G4SteppingManager* fpSteppingManager = G4EventManager::GetEventManager()
-                                             ->GetTrackingManager()
-                                             ->GetSteppingManager();
+    G4double maxCos               = 0.0;
+    G4double maxSin2              = 0.0;
+    G4double beta                 = 0.0;
+    G4double beta1                = 0.0;
+    G4double beta2                = 0.0;
+    G4double BetaInverse          = 0.0;
+    G4double MeanNumberOfPhotons1 = 0.0;
+    G4double MeanNumberOfPhotons2 = 0.0;
+    G4SteppingManager* fpSteppingManager =
+      G4EventManager::GetEventManager()->GetTrackingManager()->GetSteppingManager();
     G4StepStatus stepStatus = fpSteppingManager->GetfStepStatus();
     if(stepStatus != fAtRestDoItProc)
     {
@@ -267,8 +263,7 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
         */
       G4double ScintillationRiseTime = 0.0;
       G4Opticks::Get()->collectGenstep_G4Scintillation_1042(
-        aTrack, aStep, Sphotons, scntId, ScintillationTime,
-        ScintillationRiseTime);
+        aTrack, aStep, Sphotons, scntId, ScintillationTime, ScintillationRiseTime);
     }
     //
     // harvest the Cerenkov photon gensteps:
@@ -282,9 +277,9 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
       //        opticks_photon_offset << G4endl; G4cout <<
       //        "RadiatorSD::ProcessHits:  Cerenkov photons " << Cphotons <<
       //        G4endl;
-      G4Opticks::Get()->collectGenstep_G4Cerenkov_1042(
-        aTrack, aStep, Cphotons, BetaInverse, Pmin, Pmax, maxCos, maxSin2,
-        MeanNumberOfPhotons1, MeanNumberOfPhotons2);
+      G4Opticks::Get()->collectGenstep_G4Cerenkov_1042(aTrack, aStep, Cphotons, BetaInverse, Pmin,
+                                                       Pmax, maxCos, maxSin2, MeanNumberOfPhotons1,
+                                                       MeanNumberOfPhotons2);
     }
     G4Opticks* g4ok      = G4Opticks::Get();
     G4RunManager* rm     = G4RunManager::GetRunManager();
@@ -302,9 +297,7 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
         std::size_t found = sdn.find("Photondetector");
         if(found != std::string::npos)
         {
-          PhotonSD* aSD =
-            (PhotonSD*) G4SDManager::GetSDMpointer()->FindSensitiveDetector(
-              sdn);
+          PhotonSD* aSD = (PhotonSD*) G4SDManager::GetSDMpointer()->FindSensitiveDetector(sdn);
           aSD->AddOpticksHits();
         }
       }

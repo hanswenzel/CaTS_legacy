@@ -47,8 +47,11 @@
 #define DRCalorimeterSD_h 1
 #include "G4VSensitiveDetector.hh"
 #include "DRCalorimeterHit.hh"
+#include <G4String.hh>  // for G4String
+#include <G4Types.hh>   // for G4bool, G4int
 class G4Step;
 class G4HCofThisEvent;
+class G4TouchableHistory;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 class DRCalorimeterSD : public G4VSensitiveDetector
 {

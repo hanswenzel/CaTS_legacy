@@ -45,7 +45,7 @@
 //
 #pragma once
 #include "G4UserEventAction.hh"
-class Event;
+class G4Event;
 class EventAction : public G4UserEventAction
 {
  public:

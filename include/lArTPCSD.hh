@@ -48,8 +48,14 @@
 #pragma once
 #include "lArTPCHit.hh"
 #include "G4VSensitiveDetector.hh"
-#include "G4Scintillation.hh"
+//#include "G4Scintillation.hh"
 #include "G4ScintillationTrackInformation.hh"
+#include <G4MaterialPropertyVector.hh>  // for G4MaterialPropertyVector
+#include <G4String.hh>                  // for G4String
+#include <G4Types.hh>                   // for G4double, G4int, G4bool
+class G4Material;
+class G4PhysicsTable;
+class G4TouchableHistory;
 class G4Step;
 class G4HCofThisEvent;
 class G4MaterialPropertiesTable;

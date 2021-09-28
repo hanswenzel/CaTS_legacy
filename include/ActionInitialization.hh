@@ -39,7 +39,7 @@
 //* CaTS also serves as an example that demonstrates how to use       *
 //* opticks from within Geant4 for the creation and propagation of    *
 //* optical photons.                                                  *
-//* see https://bitbucket.org/simoncblyth/opticks.git).               *
+//* see https://bitbucket.org/simoncblyth/obgpticks.git).               *
 //* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
 //---------------------------------------------------------------------
 //

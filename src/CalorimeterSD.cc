@@ -46,7 +46,6 @@
 #include "CalorimeterSD.hh"
 #include "G4HCofThisEvent.hh"
 #include "G4Step.hh"
-#include "G4ThreeVector.hh"
 #include "G4SDManager.hh"
 #include "G4ios.hh"
 #include "ConfigurationManager.hh"
@@ -99,10 +98,8 @@ G4bool CalorimeterSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
     CalorimeterHit* aPreviousHit = (*fCalorimeterHitsCollection)[j];
     if(ID == aPreviousHit->GetId())
     {
-      aPreviousHit->SetEdep(aStep->GetTotalEnergyDeposit() +
-                            aPreviousHit->GetEdep());
-      if((particleType == "e+") || (particleType == "gamma") ||
-         (particleType == "e-"))
+      aPreviousHit->SetEdep(aStep->GetTotalEnergyDeposit() + aPreviousHit->GetEdep());
+      if((particleType == "e+") || (particleType == "gamma") || (particleType == "e-"))
       {
         aPreviousHit->Setem_Edep(edep + aPreviousHit->Getem_Edep());
       }
@@ -113,8 +110,7 @@ G4bool CalorimeterSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
   // otherwise create a new hit:
   //
   CalorimeterHit* newHit;
-  if((particleType == "e+") || (particleType == "gamma") ||
-     (particleType == "e-"))
+  if((particleType == "e+") || (particleType == "gamma") || (particleType == "e-"))
   {
     newHit = new CalorimeterHit(ID, edep, edep, time, cellpos);
   }

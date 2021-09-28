@@ -46,10 +46,12 @@
 #ifndef Event_HH
 #define Event_HH
 #pragma once
+#include <G4String.hh>  // for G4String
 #include <vector>
 #include <map>
 #include "G4Types.hh"
-#include "G4VHit.hh"
+//#include "G4VHit.hh"
+class G4VHit;
 class Event
 {
  private:

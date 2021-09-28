@@ -50,6 +50,11 @@
 #include "G4THitsCollection.hh"
 #include "G4Allocator.hh"
 #include "G4ThreeVector.hh"
+#include <G4Types.hh>  // for G4bool
+#include <G4ios.hh>    // for G4cout, G4endl
+#include <ostream>     // for operator<<, basic_ostream
+#include <tls.hh>      // for G4ThreadLocal
+
 class MscHit : public G4VHit
 {
   // Default constructor
@@ -65,9 +70,8 @@ class MscHit : public G4VHit
   //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
   inline virtual void Print()
   {
-    G4cout << "MscHit KinE: " << kinE << " Px: " << momentum.getX()
-           << " Py: " << momentum.getY() << " Pz: " << momentum.getZ()
-           << G4endl;
+    G4cout << "MscHit KinE: " << kinE << " Px: " << momentum.getX() << " Py: " << momentum.getY()
+           << " Pz: " << momentum.getZ() << G4endl;
   }
   MscHit(double kinE, G4ThreeVector momentum);
   void SetKinE(double kinE);
@@ -92,9 +96,6 @@ inline void* MscHit::operator new(size_t)
   return (void*) MscHitAllocator->MallocSingle();
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-inline void MscHit::operator delete(void* aHit)
-{
-  MscHitAllocator->FreeSingle((MscHit*) aHit);
-}
+inline void MscHit::operator delete(void* aHit) { MscHitAllocator->FreeSingle((MscHit*) aHit); }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 #endif

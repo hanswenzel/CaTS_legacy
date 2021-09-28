@@ -46,11 +46,15 @@
 #ifndef ConfigurationManagerMessenger_h
 #define ConfigurationManagerMessenger_h 1
 #include "G4UImessenger.hh"
+#include <G4String.hh>  // for G4String
+class G4UIcommand;
 class ConfigurationManager;
 class G4UIdirectory;
 class G4UIcmdWithABool;
 class G4UIcmdWithAString;
+#ifdef WITH_G4OPTICKS
 class G4UIcmdWithAnInteger;
+#endif
 class G4UIcmdWithoutParameter;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 class ConfigurationManagerMessenger : public G4UImessenger

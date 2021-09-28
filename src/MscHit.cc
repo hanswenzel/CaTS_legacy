@@ -44,7 +44,10 @@
 //---------------------------------------------------------------------
 //
 #include "MscHit.hh"
-//#include "G4UnitsTable.hh"
+#include <G4ThreeVector.hh>  // for G4ThreeVector
+#include <G4VHit.hh>         // for G4VHit
+template <class Type>
+class G4Allocator;
 G4ThreadLocal G4Allocator<MscHit>* MscHitAllocator = nullptr;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 MscHit::MscHit()
@@ -77,10 +80,7 @@ const MscHit& MscHit::operator=(const MscHit& right)
   return *this;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-G4bool MscHit::operator==(const MscHit& right) const
-{
-  return (this == &right) ? true : false;
-}
+G4bool MscHit::operator==(const MscHit& right) const { return (this == &right) ? true : false; }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void MscHit::Draw()
 {

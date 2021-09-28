@@ -63,18 +63,13 @@ class DRCalorimeterHit : public G4VHit
   virtual void Draw();
   inline virtual void Print()
   {
-    G4cout << "DRCalorimeterHit  id:  " << id << " Edep: " << Edep
-           << " em_Edep: " << em_Edep << " NCeren: " << Nceren
-           << " X: " << position.getX() << " Y: " << position.getY()
+    G4cout << "DRCalorimeterHit  id:  " << id << " Edep: " << Edep << " em_Edep: " << em_Edep
+           << " NCeren: " << Nceren << " X: " << position.getX() << " Y: " << position.getY()
            << " Z: " << position.getZ() << G4endl;
   }
   //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-  DRCalorimeterHit(unsigned int i, double e, double em, unsigned int nc,
-                   double t, G4ThreeVector p);
-  inline void SetPosition(G4ThreeVector position)
-  {
-    this->position = position;
-  };
+  DRCalorimeterHit(unsigned int i, double e, double em, unsigned int nc, double t, G4ThreeVector p);
+  inline void SetPosition(G4ThreeVector position) { this->position = position; };
   inline G4ThreeVector GetPosition() const { return position; };
   inline void SetTime(double time) { this->time = time; };
   inline double GetTime() const { return time; };

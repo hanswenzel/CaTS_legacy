@@ -44,6 +44,7 @@
 //---------------------------------------------------------------------
 //
 #include "Event.hh"
+#include <utility>  // for pair
 void Event::Reset()
 {
   std::map<G4String, std::vector<G4VHit*>>::iterator it;

@@ -65,33 +65,21 @@ class PhotonHit : public G4VHit
   //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
   inline virtual void Print()
   {
-    G4cout << "PhotonHit id: " << id << " pid: " << pid
-           << " wavelength: " << wavelength << " time: " << time
-           << " position X: " << position.getX() << " Y: " << position.getY()
+    G4cout << "PhotonHit id: " << id << " pid: " << pid << " wavelength: " << wavelength
+           << " time: " << time << " position X: " << position.getX() << " Y: " << position.getY()
            << " Z: " << position.getZ() << " direction X: " << direction.getX()
            << " Y: " << direction.getY() << " Z: " << direction.getZ()
-           << " polarization: X:" << polarization.getX()
-           << " Y: " << polarization.getY() << " Z: " << polarization.getZ()
-           << G4endl;
+           << " polarization: X:" << polarization.getX() << " Y: " << polarization.getY()
+           << " Z: " << polarization.getZ() << G4endl;
   }
   //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-  PhotonHit(unsigned id, unsigned pid, G4double wavelength, G4double time,
-            G4ThreeVector position, G4ThreeVector direction,
-            G4ThreeVector polarization);
-  inline void SetWavelength(G4double wavelength)
-  {
-    this->wavelength = wavelength;
-  }
+  PhotonHit(unsigned id, unsigned pid, G4double wavelength, G4double time, G4ThreeVector position,
+            G4ThreeVector direction, G4ThreeVector polarization);
+  inline void SetWavelength(G4double wavelength) { this->wavelength = wavelength; }
   inline G4double GetWavelength() { return wavelength; }
-  inline void SetPolarization(G4ThreeVector polarization)
-  {
-    this->polarization = polarization;
-  }
+  inline void SetPolarization(G4ThreeVector polarization) { this->polarization = polarization; }
   inline G4ThreeVector GetPolarization() const { return polarization; }
-  inline void SetDirection(G4ThreeVector direction)
-  {
-    this->direction = direction;
-  }
+  inline void SetDirection(G4ThreeVector direction) { this->direction = direction; }
   inline G4ThreeVector GetDirection() const { return direction; }
   inline void SetPosition(G4ThreeVector position) { this->position = position; }
   inline G4ThreeVector GetPosition() const { return position; }

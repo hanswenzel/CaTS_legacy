@@ -49,11 +49,12 @@
 #include "G4ThreeVector.hh"
 #include "G4SDManager.hh"
 #include "G4ios.hh"
-#include "G4ParticleGun.hh"
+//#include "G4ParticleGun.hh"
 #include "InteractionSD.hh"
 #include "G4SystemOfUnits.hh"
+#include "ParticleChange.hh"
 // c++ includes:
-#include <typeinfo>
+//#include <typeinfo>
 InteractionSD::InteractionSD(G4String name)
   : G4VSensitiveDetector(name)
 {
@@ -77,8 +78,8 @@ void InteractionSD::Initialize(G4HCofThisEvent* HCE)
     new InteractionHitsCollection(SensitiveDetectorName, collectionName[0]);
   if(HCID < 0)
   {
-    G4cout << "InteractionSD::Initialize:  " << SensitiveDetectorName << "   "
-           << collectionName[0] << G4endl;
+    G4cout << "InteractionSD::Initialize:  " << SensitiveDetectorName << "   " << collectionName[0]
+           << G4endl;
     HCID = G4SDManager::GetSDMpointer()->GetCollectionID(collectionName[0]);
   }
   HCE->AddHitsCollection(HCID, fInteractionHitsCollection);
@@ -138,8 +139,8 @@ G4bool InteractionSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
   G4int NSec = fFirstInter->GetNumberOfSecondaries();
   if(NSec > 0)
   {
-    G4cout << " 0000000000000000000  Nr of secs. :  "
-           << fFirstInter->GetNumberOfSecondaries() << G4endl;
+    G4cout << " 0000000000000000000  Nr of secs. :  " << fFirstInter->GetNumberOfSecondaries()
+           << G4endl;
     //  G4cout << "Edep: " << aStep->GetTotalEnergyDeposit()
     //          << " Name:  " <<
     //          aStep->GetTrack()->GetParticleDefinition()->GetParticleName()

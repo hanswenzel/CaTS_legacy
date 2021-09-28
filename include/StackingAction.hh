@@ -46,8 +46,11 @@
 #ifndef StackingAction_H
 #define StackingAction_H 1
 #pragma once
+#include <G4ClassificationOfNewTrack.hh>
+#include <G4Types.hh>
 #include "G4UserStackingAction.hh"
-#include "StackingActionMessenger.hh"
+class G4Track;
+class StackingActionMessenger;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 class StackingAction : public G4UserStackingAction
 {
@@ -59,10 +62,7 @@ class StackingAction : public G4UserStackingAction
   void PrepareNewEvent();
   void SetkillPi0(G4bool kPi0) { killPi0 = kPi0; };
   void Setkilleta(G4bool keta) { killeta = keta; };
-  void SetkillGammafromnCapture(G4bool kGamma)
-  {
-    killGammafromnCapture = kGamma;
-  };
+  void SetkillGammafromnCapture(G4bool kGamma) { killGammafromnCapture = kGamma; };
   void Print();
   void BeginRun();
   void BeginofEvent();
@@ -75,7 +75,7 @@ class StackingAction : public G4UserStackingAction
   G4bool killGammafromnCapture{ false };
   StackingActionMessenger* pMessenger{ nullptr };
   static StackingAction* instance;
-  void FillHistos(const G4Track* aTrack);
+  //  void FillHistos(const G4Track* aTrack);
 };
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 #endif

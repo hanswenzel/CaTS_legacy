@@ -44,13 +44,9 @@
 //---------------------------------------------------------------------
 //
 #include "InteractionHit.hh"
-#include "G4ios.hh"
-#include "G4UnitsTable.hh"
-#include "G4VVisManager.hh"
-#include "G4Circle.hh"
-#include "G4Colour.hh"
-#include "G4VisAttributes.hh"
-// G4Allocator<InteractionHit> InteractionHitAllocator;
+#include <G4VHit.hh>  // for G4VHit
+template <class Type>
+class G4Allocator;
 G4ThreadLocal G4Allocator<InteractionHit>* InteractionHitAllocator = nullptr;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 InteractionHit::InteractionHit()

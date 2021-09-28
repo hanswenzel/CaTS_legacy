@@ -45,7 +45,6 @@
 //
 #include "DRCalorimeterSD.hh"
 #include "ConfigurationManager.hh"
-//
 #include "G4HCofThisEvent.hh"
 #include "G4Step.hh"
 #include "G4ThreeVector.hh"
@@ -54,7 +53,6 @@
 #include "G4SteppingManager.hh"
 #include "G4EventManager.hh"
 #include "G4Cerenkov.hh"
-#include <iomanip>
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 DRCalorimeterSD::DRCalorimeterSD(G4String name)
   : G4VSensitiveDetector(name)
@@ -78,8 +76,8 @@ void DRCalorimeterSD::Initialize(G4HCofThisEvent* hce)
   if(fHCID < 0)
   {
     if(verbose)
-      G4cout << "DRCalorimeterSD::Initialize:  " << SensitiveDetectorName
-             << "   " << collectionName[0] << G4endl;
+      G4cout << "DRCalorimeterSD::Initialize:  " << SensitiveDetectorName << "   "
+             << collectionName[0] << G4endl;
     fHCID = G4SDManager::GetSDMpointer()->GetCollectionID(collectionName[0]);
   }
   hce->AddHitsCollection(fHCID, fDRCalorimeterHitsCollection);
@@ -90,16 +88,15 @@ G4bool DRCalorimeterSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
   double edep = aStep->GetTotalEnergyDeposit() / CLHEP::MeV;
   if(edep == 0.)
     return false;
-  double time = aStep->GetPreStepPoint()->GetGlobalTime() / CLHEP::ns;
-  const G4VTouchable* touch = aStep->GetPreStepPoint()->GetTouchable();
-  G4ThreeVector cellpos     = touch->GetTranslation();
-  unsigned int ID = aStep->GetPreStepPoint()->GetPhysicalVolume()->GetCopyNo();
+  double time                = aStep->GetPreStepPoint()->GetGlobalTime() / CLHEP::ns;
+  const G4VTouchable* touch  = aStep->GetPreStepPoint()->GetTouchable();
+  G4ThreeVector cellpos      = touch->GetTranslation();
+  unsigned int ID            = aStep->GetPreStepPoint()->GetPhysicalVolume()->GetCopyNo();
   G4Track* theTrack          = aStep->GetTrack();
   G4String particleType      = theTrack->GetDefinition()->GetParticleName();
   unsigned int NCerenPhotons = 0;
-  G4SteppingManager* fpSteppingManager = G4EventManager::GetEventManager()
-                                           ->GetTrackingManager()
-                                           ->GetSteppingManager();
+  G4SteppingManager* fpSteppingManager =
+    G4EventManager::GetEventManager()->GetTrackingManager()->GetSteppingManager();
   G4StepStatus stepStatus = fpSteppingManager->GetfStepStatus();
   if(stepStatus != fAtRestDoItProc)
   {
@@ -123,11 +120,9 @@ G4bool DRCalorimeterSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
     DRCalorimeterHit* aPreviousHit = (*fDRCalorimeterHitsCollection)[j];
     if(ID == aPreviousHit->GetId())
     {
-      aPreviousHit->SetEdep(aStep->GetTotalEnergyDeposit() +
-                            aPreviousHit->GetEdep());
+      aPreviousHit->SetEdep(aStep->GetTotalEnergyDeposit() + aPreviousHit->GetEdep());
       aPreviousHit->SetNceren(aPreviousHit->GetNceren() + NCerenPhotons);
-      if((particleType == "e+") || (particleType == "gamma") ||
-         (particleType == "e-"))
+      if((particleType == "e+") || (particleType == "gamma") || (particleType == "e-"))
       {
         aPreviousHit->SetEm_Edep(edep + aPreviousHit->GetEm_Edep());
       }
@@ -138,8 +133,7 @@ G4bool DRCalorimeterSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
   // otherwise create a new hit:
   //
   DRCalorimeterHit* newHit;
-  if((particleType == "e+") || (particleType == "gamma") ||
-     (particleType == "e-"))
+  if((particleType == "e+") || (particleType == "gamma") || (particleType == "e-"))
   {
     newHit = new DRCalorimeterHit(ID, edep, edep, NCerenPhotons, time, cellpos);
   }

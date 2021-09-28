@@ -46,11 +46,13 @@
 #ifndef TrackerSD_h
 #define TrackerSD_h 1
 #pragma once
-#include "G4VSensitiveDetector.hh"
-#include "TrackerHit.hh"
-class G4Step;
+#include <G4String.hh>              // for G4String
+#include <G4Types.hh>               // for G4bool, G4int
+#include "G4VSensitiveDetector.hh"  // for G4VSensitiveDetector
+#include "TrackerHit.hh"            // for TrackerHitsCollection
 class G4HCofThisEvent;
-class TrackerHitCollection;
+class G4Step;
+class G4TouchableHistory;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 class TrackerSD : public G4VSensitiveDetector
 {

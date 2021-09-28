@@ -46,11 +46,13 @@
 #ifndef MscSD_h
 #define MscSD_h 1
 #pragma once
-#include "G4VSensitiveDetector.hh"
-#include "MscHit.hh"
-class G4Step;
+#include <G4String.hh>              // for G4String
+#include <G4Types.hh>               // for G4bool, G4int
+#include "G4VSensitiveDetector.hh"  // for G4VSensitiveDetector
+#include "MscHit.hh"                // for MscHitsCollection
 class G4HCofThisEvent;
-class MscHitCollection;
+class G4Step;
+class G4TouchableHistory;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 class MscSD : public G4VSensitiveDetector
 {

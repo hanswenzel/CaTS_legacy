@@ -45,11 +45,13 @@
 //
 #include "PrimaryGeneratorActionMessenger.hh"
 #include "PrimaryGeneratorAction.hh"
-#include "G4UIdirectory.hh"
 #include "G4UIcmdWithAString.hh"
+#include "G4String.hh"  // for G4String::G4String
+#include <G4ios.hh>     // for G4cout, G4endl
+#include <ostream>      // for operator<<, basic_ostream
+#include <string>       // for operator<<
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-PrimaryGeneratorActionMessenger::PrimaryGeneratorActionMessenger(
-  PrimaryGeneratorAction* CaTSGun)
+PrimaryGeneratorActionMessenger::PrimaryGeneratorActionMessenger(PrimaryGeneratorAction* CaTSGun)
   : CaTSAction(CaTSGun)
 {
   genCmd = new G4UIcmdWithAString("/CaTS/generator", this);
@@ -60,13 +62,9 @@ PrimaryGeneratorActionMessenger::PrimaryGeneratorActionMessenger(
   genCmd->SetCandidates("particleGun GPS HEPEvt");
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-PrimaryGeneratorActionMessenger::~PrimaryGeneratorActionMessenger()
-{
-  delete genCmd;
-}
+PrimaryGeneratorActionMessenger::~PrimaryGeneratorActionMessenger() { delete genCmd; }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void PrimaryGeneratorActionMessenger::SetNewValue(G4UIcommand* command,
-                                                  G4String newValue)
+void PrimaryGeneratorActionMessenger::SetNewValue(G4UIcommand* command, G4String newValue)
 {
   if(command == genCmd)
   {

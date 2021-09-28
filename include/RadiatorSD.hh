@@ -46,13 +46,18 @@
 #ifndef RadiatorSD_h
 #define RadiatorSD_h 1
 #pragma once
-#include "G4Scintillation.hh"
 #include "G4VSensitiveDetector.hh"
 #include "G4ScintillationTrackInformation.hh"
+#include <G4MaterialPropertyVector.hh>  // for G4MaterialPropertyVector
+#include <G4String.hh>                  // for G4String
+#include <G4Types.hh>                   // for G4double, G4bool, G4int
 class G4Step;
+class G4Material;
 class G4HCofThisEvent;
 class G4MaterialPropertiesTable;
 class G4PhysicsOrderedFreeVector;
+class G4PhysicsTable;
+class G4TouchableHistory;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 class RadiatorSD : public G4VSensitiveDetector
 {
@@ -65,12 +70,6 @@ class RadiatorSD : public G4VSensitiveDetector
   virtual void EndOfEvent(G4HCofThisEvent* hitCollection);
 
  private:
-  // Clang warning
-  // /Users/ivana/work/packages/geant4/geant4-dev/examples/extended/CaTS/include/RadiatorSD.hh:70:11:
-  // warning: private field 'materialIndex' is not used [-Wunused-private-field]
-  //     G4int materialIndex;
-  //           ^
-  G4int materialIndex;
   const G4Material* aMaterial;
   G4MaterialPropertiesTable* aMaterialPropertiesTable;
   //

@@ -81,9 +81,8 @@ void ColorReader::ExtensionRead(const xercesc::DOMElement* const extElement)
     {
       continue;
     }
-    const xercesc::DOMElement* const child =
-      dynamic_cast<xercesc::DOMElement*>(iter);
-    const G4String tag = Transcode(child->getTagName());
+    const xercesc::DOMElement* const child = dynamic_cast<xercesc::DOMElement*>(iter);
+    const G4String tag                     = Transcode(child->getTagName());
 #ifdef VERBOSE
     G4cout << "G4GDML:" << tag << G4endl;
 #endif
@@ -94,8 +93,7 @@ void ColorReader::ExtensionRead(const xercesc::DOMElement* const extElement)
     else
     {
       G4String error_msg = "Unknown tag in structure: " + tag;
-      G4Exception("ColorReader::ExtensionRead()", "ReadError", FatalException,
-                  error_msg);
+      G4Exception("ColorReader::ExtensionRead()", "ReadError", FatalException, error_msg);
     }
   }
 }
@@ -119,9 +117,8 @@ void ColorReader::VolumeRead(const xercesc::DOMElement* const volumeElement)
     {
       continue;
     }
-    const xercesc::DOMElement* const child =
-      dynamic_cast<xercesc::DOMElement*>(iter);
-    const G4String tag = Transcode(child->getTagName());
+    const xercesc::DOMElement* const child = dynamic_cast<xercesc::DOMElement*>(iter);
+    const G4String tag                     = Transcode(child->getTagName());
     if(tag == "auxiliary")
     {
       auxList.push_back(AuxiliaryRead(child));
@@ -142,8 +139,7 @@ void ColorReader::VolumeRead(const xercesc::DOMElement* const volumeElement)
       attrPtr = GetVisAttribute(GenerateName(RefRead(child)));
     }
   }
-  pMotherLogical =
-    new G4LogicalVolume(solidPtr, materialPtr, GenerateName(name), 0, 0, 0);
+  pMotherLogical = new G4LogicalVolume(solidPtr, materialPtr, GenerateName(name), 0, 0, 0);
 #ifdef VERBOSE
   G4cout << "G4GDML: attaching visual attribute ..." << G4endl;
 #endif
@@ -163,21 +159,18 @@ void ColorReader::ColorRead(const xercesc::DOMElement* const colorElement)
   G4String name;
   G4VisAttributes* color = 0;
   G4double r = 0., g = 0., b = 0., a = 0.;
-  const xercesc::DOMNamedNodeMap* const attributes =
-    colorElement->getAttributes();
-  XMLSize_t attributeCount = attributes->getLength();
-  for(XMLSize_t attribute_index = 0; attribute_index < attributeCount;
-      attribute_index++)
+  const xercesc::DOMNamedNodeMap* const attributes = colorElement->getAttributes();
+  XMLSize_t attributeCount                         = attributes->getLength();
+  for(XMLSize_t attribute_index = 0; attribute_index < attributeCount; attribute_index++)
   {
     xercesc::DOMNode* attribute_node = attributes->item(attribute_index);
     if(attribute_node->getNodeType() != xercesc::DOMNode::ATTRIBUTE_NODE)
     {
       continue;
     }
-    const xercesc::DOMAttr* const attribute =
-      dynamic_cast<xercesc::DOMAttr*>(attribute_node);
-    const G4String attName  = Transcode(attribute->getName());
-    const G4String attValue = Transcode(attribute->getValue());
+    const xercesc::DOMAttr* const attribute = dynamic_cast<xercesc::DOMAttr*>(attribute_node);
+    const G4String attName                  = Transcode(attribute->getName());
+    const G4String attValue                 = Transcode(attribute->getValue());
     if(attName == "name")
     {
       name = GenerateName(attValue);
@@ -200,8 +193,8 @@ void ColorReader::ColorRead(const xercesc::DOMElement* const colorElement)
     }
   }
 #ifdef VERBOSE
-  G4cout << "Color attribute (R,G,B,A) is: " << r << ", " << g << ", " << b
-         << ", " << a << " !" << G4endl;
+  G4cout << "Color attribute (R,G,B,A) is: " << r << ", " << g << ", " << b << ", " << a << " !"
+         << G4endl;
 #endif
   color = new G4VisAttributes(G4Color(r, g, b, a));
   fAttribs.insert(std::make_pair(name, color));
@@ -221,8 +214,7 @@ G4VisAttributes* ColorReader::GetVisAttribute(const G4String& ref)
   else
   {
     G4String err_mess = "Attribute: " + ref + " NOT found !";
-    G4Exception("ColorReader::GetVisAttribute()", "ReadError", FatalException,
-                err_mess);
+    G4Exception("ColorReader::GetVisAttribute()", "ReadError", FatalException, err_mess);
   }
   return col;
 }

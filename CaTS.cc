@@ -56,7 +56,7 @@
 #include "G4UIExecutive.hh"
 #include "G4UImanager.hh"
 #include "G4VModularPhysicsList.hh"
-#include "G4Version.hh"
+//#include "G4Version.hh"
 #include "G4VisExecutive.hh"
 #ifdef WITH_G4OPTICKS
 #  include "OPTICKS_LOG.hh"

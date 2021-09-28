@@ -47,6 +47,11 @@
 #define ColorReader_H 1
 #include <map>
 #include "G4GDMLReadStructure.hh"
+#include <G4String.hh>  // for G4String
+namespace xercesc_3_2
+{
+  class DOMElement;
+}
 class G4VisAttributes;
 /// GDML reader for the color attributes
 class ColorReader : public G4GDMLReadStructure

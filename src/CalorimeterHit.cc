@@ -44,7 +44,7 @@
 //---------------------------------------------------------------------
 //
 #include "CalorimeterHit.hh"
-#include "G4UnitsTable.hh"
+//#include "G4UnitsTable.hh"
 #include "G4VVisManager.hh"
 #include "G4Circle.hh"
 #include "G4Colour.hh"
@@ -55,8 +55,7 @@ CalorimeterHit::CalorimeterHit()
   : G4VHit()
 {}
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-CalorimeterHit::CalorimeterHit(unsigned i, G4double e, G4double em, G4double t,
-                               G4ThreeVector p)
+CalorimeterHit::CalorimeterHit(unsigned i, G4double e, G4double em, G4double t, G4ThreeVector p)
   : G4VHit()
 {
   id       = i;

@@ -48,7 +48,6 @@
 #include "G4OpticalPhoton.hh"
 #include "G4HCofThisEvent.hh"
 #include "G4Step.hh"
-#include "G4ThreeVector.hh"
 #include "G4SDManager.hh"
 #include "ConfigurationManager.hh"
 #ifdef WITH_G4OPTICKS
@@ -64,21 +63,20 @@ PhotonSD::PhotonSD(G4String name)
 {
   G4String HCname = name + "_HC";
   collectionName.insert(HCname);
-  G4cout << collectionName.size() << "   PhotonSD name:  " << name
-         << " collection Name: " << HCname << G4endl;
+  G4cout << collectionName.size() << "   PhotonSD name:  " << name << " collection Name: " << HCname
+         << G4endl;
   fHCID   = -1;
   verbose = ConfigurationManager::getInstance()->isEnable_verbose();
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void PhotonSD::Initialize(G4HCofThisEvent* hce)
 {
-  fPhotonHitsCollection =
-    new PhotonHitsCollection(SensitiveDetectorName, collectionName[0]);
+  fPhotonHitsCollection = new PhotonHitsCollection(SensitiveDetectorName, collectionName[0]);
   if(fHCID < 0)
   {
     if(verbose)
-      G4cout << "PhotonSD::Initialize:  " << SensitiveDetectorName << "   "
-             << collectionName[0] << G4endl;
+      G4cout << "PhotonSD::Initialize:  " << SensitiveDetectorName << "   " << collectionName[0]
+             << G4endl;
     fHCID = G4SDManager::GetSDMpointer()->GetCollectionID(collectionName[0]);
   }
   hce->AddHitsCollection(fHCID, fPhotonHitsCollection);
@@ -116,8 +114,7 @@ G4bool PhotonSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
   }
   PhotonHit* newHit = new PhotonHit(
     0, theCreationProcessid, etolambda(theEdep), theTrack->GetGlobalTime(),
-    aStep->GetPostStepPoint()->GetPosition(),
-    aStep->GetPostStepPoint()->GetMomentumDirection(),
+    aStep->GetPostStepPoint()->GetPosition(), aStep->GetPostStepPoint()->GetMomentumDirection(),
     aStep->GetPostStepPoint()->GetPolarization());
   fPhotonHitsCollection->insert(newHit);
   theTrack->SetTrackStatus(fStopAndKill);
@@ -129,8 +126,7 @@ void PhotonSD::EndOfEvent(G4HCofThisEvent*)
   if(verbose)
   {
     G4int NbHits = fPhotonHitsCollection->entries();
-    G4cout << " PhotonSD::EndOfEvent Number of PhotonHits:  " << NbHits
-           << G4endl;
+    G4cout << " PhotonSD::EndOfEvent Number of PhotonHits:  " << NbHits << G4endl;
   }
 }
 #ifdef WITH_G4OPTICKS
@@ -147,13 +143,11 @@ void PhotonSD::AddOpticksHits()
   for(unsigned i = 0; i < num_hits; i++)
   {
     g4ok->getHit(i, &hit, hit_extra_ptr);
-    PhotonHit* newHit =
-      new PhotonHit(i, 0, hit.wavelength, hit.time, hit.global_position,
-                    hit.global_direction, hit.global_polarization);
+    PhotonHit* newHit = new PhotonHit(i, 0, hit.wavelength, hit.time, hit.global_position,
+                                      hit.global_direction, hit.global_polarization);
     fPhotonHitsCollection->insert(newHit);
   }
   if(verbose)
-    G4cout << "AddOpticksHits size:  " << fPhotonHitsCollection->entries()
-           << G4endl;
+    G4cout << "AddOpticksHits size:  " << fPhotonHitsCollection->entries() << G4endl;
 }
 #endif

@@ -44,8 +44,21 @@
 //---------------------------------------------------------------------
 //
 #ifdef WITH_ROOT
+#  include "RootIO.hh"
+#  include <G4String.hh>              // for G4String
+#  include <iostream>                 // for operator<<, basic_ostream::operat...
+#  include <string>                   // for operator<<
+#  include "ConfigurationManager.hh"  // for ConfigurationManager
+#  include "Event.hh"                 // for Event
+#  include "TBranch.h"                // for TBranch
+#  include "TFile.h"                  // for TFile
+#  include "TObject.h"                // for TObject, TObject::kOverwrite
+#  include "TSystem.h"                // for TSystem, gSystem
+#  include "TTree.h"                  // for TTree
+/*
 #  include <sstream>
 #  include <cstring>
+#  include <iostream>
 #  include "RootIO.hh"
 #  include "ConfigurationManager.hh"
 #  include "TROOT.h"
@@ -53,17 +66,16 @@
 #  include "TTree.h"
 #  include "TSystem.h"
 #  include "Event.hh"
+*/
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 static RootIO* instance = 0;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 RootIO::RootIO()
-  : fNevents(0)
 {
-  evtinitialized = false;
   TSystem ts;
   gSystem->Load("libCaTSClassesDict");
   G4String FileName = ConfigurationManager::getInstance()->getfname();
-  G4cout << "Opening File: " << FileName << G4endl;
+  std::cout << "Opening File: " << FileName << std::endl;
   fFile = new TFile(FileName.c_str(), "RECREATE");
   TTree::SetMaxTreeSize(1000 * Long64_t(2000000000));
   // Create a ROOT Tree and one superbranch
@@ -87,15 +99,15 @@ RootIO* RootIO::GetInstance()
 void RootIO::Write(Event* fevent)
 {
   if(ConfigurationManager::getInstance()->isEnable_verbose())
-    G4cout << "writing Event: " << fevent->GetEventNumber() << G4endl;
+    std::cout << "writing Event: " << fevent->GetEventNumber() << std::endl;
   if((fevent->GetEventNumber()) % 1000 == 0)
-    G4cout << "writing Event: " << fevent->GetEventNumber() << G4endl;
-  if(!evtinitialized)
+    std::cout << "writing Event: " << fevent->GetEventNumber() << std::endl;
+  if(!fevtinitialized)
   {
     Int_t bufsize = 64000;
     fevtbranch    = ftree->Branch("event.", &fevent, bufsize, 0);
     fevtbranch->SetAutoDelete(kFALSE);
-    evtinitialized = true;
+    fevtinitialized = true;
   }
   fFile = ftree->GetCurrentFile();  // just in case we switched to a new file
   fnb += ftree->Fill();

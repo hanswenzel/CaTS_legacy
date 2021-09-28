@@ -43,10 +43,8 @@
 //* Ascii Art by Joan Stark: https://www.asciiworld.com/-Cats-2-.html *
 //---------------------------------------------------------------------
 //
-#include "TROOT.h"
 #include "TFile.h"
 #include "TSystem.h"
-#include "TKey.h"
 #include "TTree.h"
 #include "TH1.h"
 #include "TH2.h"
@@ -54,9 +52,6 @@
 #include "Event.hh"
 #include "lArTPCHit.hh"
 #include "PhotonHit.hh"
-#include "CalorimeterHit.hh"
-#include "DRCalorimeterHit.hh"
-#include "InteractionHit.hh"
 using namespace std;
 
 int main(int argc, char** argv)
@@ -95,7 +90,7 @@ int main(int argc, char** argv)
   {
     fevtbranch->GetEntry(i);
     auto* hcmap = event->GetHCMap();
-    for(const auto ele : *hcmap)
+    for(const auto &ele : *hcmap)
     {
       auto hits = ele.second;
       if(ele.first.compare(CollectionName) == 0)
