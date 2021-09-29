@@ -18,7 +18,17 @@ to build it from scratch using cmake (used cmake version 3.20.5)
     make -j 8
     make install
 
-**Note** the default install directory is /usr/local but one needs root privileges to install it there
+**Note** the default install directory is /usr/local but one needs root privileges to install it there:
+
+    cd to the directory where you want to build clhep
+    wget https://proj-clhep.web.cern.ch/proj-clhep/dist1/clhep-2.4.4.0.tgz
+    tar xzvf clhep-2.4.4.0.tgz
+    cd 2.4.4.0/
+    mkdir CLHEP-build
+    cd  CLHEP-build
+    cmake -DCLHEP_BUILD_CXXSTD=-std=c++11 ../CLHEP
+    make -j 8
+    sudo make install
 
 # Building Geant4
 
