@@ -136,7 +136,7 @@ Here we are using a tagged snapshot of Opticks which can be found in github:
 
     git clone https://github.com/simoncblyth/opticks.git
     cd opticks
-    git checkout tags/v0.1.2 -b v0.1.2-branch
+    git checkout tags/v0.1.6 -b v0.1.6-branch
     git status
     
 The development version (a. k. a. the latest and greatest) can be found in the following repository 
