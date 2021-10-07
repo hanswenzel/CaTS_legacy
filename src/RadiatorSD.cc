@@ -137,8 +137,8 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
       // properties related to Cerenkov
       //
       Rindex = aMaterialPropertiesTable->GetProperty("RINDEX");
-      Pmin   = Rindex->GetMinLowEdgeEnergy();
-      Pmax   = Rindex->GetMaxLowEdgeEnergy();
+      Pmin   = Rindex->GetMinEnergy();
+      Pmax   = Rindex->GetMaxEnergy();
       dp     = Pmax - Pmin;
       nMax   = Rindex->GetMaxValue();
       if(verbose)
