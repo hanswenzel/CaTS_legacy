@@ -59,6 +59,7 @@ mkdir CaTS-build
 cd CaTS-build
 
 cmake -DCMAKE_BUILD_TYPE=Debug \
+  -DWITH_G4OPTICKS=ON \
   -DCMAKE_PREFIX_PATH="${LOCAL_BASE}/opticks/externals;${LOCAL_BASE}/opticks" \
   -DOPTICKS_PREFIX=${LOCAL_BASE}/opticks \
   -DCMAKE_MODULE_PATH=${OPTICKS_HOME}/cmake/Modules \
