@@ -56,44 +56,27 @@ MscHit::MscHit()
 MscHit::MscHit(double E, G4ThreeVector mom)
   : G4VHit()
 {
-  this->kinE     = E;
-  this->momentum = mom;
+  this->fkinE     = E;
+  this->fmomentum = mom;
 }
-void MscHit::SetKinE(double kinE) { this->kinE = kinE; }
-double MscHit::GetKinE() const { return kinE; }
-void MscHit::SetMomentum(G4ThreeVector momentum) { this->momentum = momentum; }
-G4ThreeVector MscHit::GetMomentum() const { return momentum; }
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 MscHit::~MscHit() {}
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 MscHit::MscHit(const MscHit& right)
   : G4VHit()
 {
-  kinE     = right.kinE;
-  momentum = right.momentum;
+  fkinE     = right.fkinE;
+  fmomentum = right.fmomentum;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 const MscHit& MscHit::operator=(const MscHit& right)
 {
-  kinE     = right.kinE;
-  momentum = right.momentum;
+  fkinE     = right.fkinE;
+  fmomentum = right.fmomentum;
   return *this;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 G4bool MscHit::operator==(const MscHit& right) const { return (this == &right) ? true : false; }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void MscHit::Draw()
-{
-  /*
-      G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();
-      if (pVVisManager) {
-          G4Circle circle(position);
-          circle.SetScreenSize(2.);
-          circle.SetFillStyle(G4Circle::filled);
-          G4Colour colour(1., 0., 0.);
-          G4VisAttributes attribs(colour);
-          circle.SetVisAttributes(attribs);
-          pVVisManager->Draw(circle);
-      }
-   */
-}
+void MscHit::Draw(){}

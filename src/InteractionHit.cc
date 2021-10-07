@@ -56,10 +56,10 @@ InteractionHit::InteractionHit()
 InteractionHit::InteractionHit(G4String pn, G4double p, G4double e, G4double t)
   : G4VHit()
 {
-  pname = pn;  // name of secondary particle
-  pmom  = p;   // momentum of secondary particle
-  Ekin  = e;   // kinetic energy of secondary particle
-  theta = t;   // theta of secondary particle
+  fpname = pn;  // name of secondary particle
+  fpmom  = p;   // momentum of secondary particle
+  fEkin  = e;   // kinetic energy of secondary particle
+  ftheta = t;   // theta of secondary particle
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 InteractionHit::~InteractionHit() {}
@@ -67,18 +67,18 @@ InteractionHit::~InteractionHit() {}
 InteractionHit::InteractionHit(const InteractionHit& right)
   : G4VHit()
 {
-  pname = right.pname;
-  pmom  = right.pmom;
-  Ekin  = right.Ekin;
-  theta = right.theta;
+  fpname = right.fpname;
+  fpmom  = right.fpmom;
+  fEkin  = right.fEkin;
+  ftheta = right.ftheta;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 const InteractionHit& InteractionHit::operator=(const InteractionHit& right)
 {
-  pname = right.pname;
-  pmom  = right.pmom;
-  Ekin  = right.Ekin;
-  theta = right.theta;
+  fpname = right.fpname;
+  fpmom  = right.fpmom;
+  fEkin  = right.fEkin;
+  ftheta = right.ftheta;
   return *this;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -63,28 +63,28 @@ class CalorimeterHit : public G4VHit
   virtual void Draw();
   inline virtual void Print()
   {
-    G4cout << "CalorimeterHit  id:  " << id << " Edep: " << Edep << " em_Edep: " << em_Edep
-           << " time: " << time << " X: " << position.getX() << " Y: " << position.getY()
-           << " Z: " << position.getZ() << G4endl;
+    G4cout << "CalorimeterHit  id:  " << fid << " Edep: " << fEdep << " em_Edep: " << fem_Edep
+           << " time: " << ftime << " X: " << fposition.getX() << " Y: " << fposition.getY()
+           << " Z: " << fposition.getZ() << G4endl;
   }
   CalorimeterHit(unsigned int i, double e, double em, double t, G4ThreeVector p);
-  inline void SetPosition(G4ThreeVector position) { this->position = position; };
-  inline G4ThreeVector GetPosition() const { return position; };
-  inline void SetTime(double time) { this->time = time; };
-  inline double GetTime() const { return time; };
-  inline void SetId(unsigned int id) { this->id = id; };
-  inline unsigned int GetId() const { return id; };
-  inline void SetEdep(double Edep) { this->Edep = Edep; };
-  inline double GetEdep() const { return Edep; };
-  inline void Setem_Edep(double em_Edep) { this->em_Edep = em_Edep; };
-  inline double Getem_Edep() const { return em_Edep; };
+  inline void SetPosition(G4ThreeVector position) { this->fposition = position; };
+  inline G4ThreeVector GetPosition() const { return fposition; };
+  inline void SetTime(double time) { this->ftime = time; };
+  inline double GetTime() const { return ftime; };
+  inline void SetId(unsigned int id) { this->fid = id; };
+  inline unsigned int GetId() const { return fid; };
+  inline void SetEdep(double Edep) { this->fEdep = Edep; };
+  inline double GetEdep() const { return fEdep; };
+  inline void Setem_Edep(double em_Edep) { this->fem_Edep = em_Edep; };
+  inline double Getem_Edep() const { return fem_Edep; };
 
  private:
-  unsigned int id{ 0 };
-  double Edep{ 0 };
-  double em_Edep{ 0 };
-  double time{ 0 };
-  G4ThreeVector position{ 0 };
+  unsigned int fid{ 0 };
+  double fEdep{ 0 };
+  double fem_Edep{ 0 };
+  double ftime{ 0 };
+  G4ThreeVector fposition{ 0 };
 };
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 using CalorimeterHitsCollection = G4THitsCollection<CalorimeterHit>;

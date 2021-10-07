@@ -1,7 +1,15 @@
 cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
+option(WITH_ROOT "Build example with ROOT" ON)
+option(WITH_G4OPTICKS "Build example with OPTICKS" ON)
 set(name CaTS)
 project(${name} VERSION 0.1.0)
-
+# just if you want to use  include-what-you-use to check for unused header files:
+# find_program(iwyu_path NAMES include-what-you-use iwyu REQUIRED)
+# to run cmake using clang use the following command
+#CC="clang" CXX="clang++" cmake   -DCMAKE_CXX_INCLUDE_WHAT_YOU_USE="/usr/bin/iwyu;-Xiwyu;any;-Xiwyu;iwyu;-Xiwyu;args"\
+#                                 -DCMAKE_BUILD_TYPE=Debug   -DWITH_G4OPTICKS=OFF \
+#                                 -DCMAKE_MODULE_PATH="../CaTS/cmake/Modules"
+#                                 -DCMAKE_INSTALL_PREFIX=../CaTS-install   ../CaTS
 #----------------------------------------------------------------------------
 # Find Geant4 package, activating all available UI and Vis drivers by default
 # You can set WITH_GEANT4_UIVIS to OFF via the command line or ccmake/cmake-gui
@@ -23,8 +31,8 @@ include(${Geant4_USE_FILE})
 if(NOT Geant4_shared_FOUND)
   message(FATAL_ERROR "CaTS must use shared libraries")
 endif()
-option(WITH_ROOT "Build example with ROOT" ON)
-option(WITH_G4OPTICKS "Build example with OPTICKS" ON)
+#option(WITH_ROOT "Build example with ROOT" ON)
+#option(WITH_G4OPTICKS "Build example with OPTICKS" ON)
 option(G4ANALYSIS_USE "Build example with Analysis" ON)
 if(G4ANALYSIS_USE)
  message(STATUS "G4ANALYSIS_USE is set")
@@ -89,7 +97,6 @@ file(GLOB grid ${PROJECT_SOURCE_DIR}/grid/*)
 file(GLOB evtdata ${PROJECT_SOURCE_DIR}/data/*)
 file(GLOB runscripts ${PROJECT_SOURCE_DIR}/scripts/run.sh  ${PROJECT_SOURCE_DIR}/scripts/check.sh)
 
-#add_executable(${name} ${name}.cc ${sources} ${headers})
 if(WITH_G4OPTICKS)
 add_executable(${name} ${name}.cc ${sources} ${headers}) 
 target_compile_definitions( ${name} PRIVATE WITH_G4OPTICKS WITH_ROOT)
@@ -98,6 +105,8 @@ else()
 add_executable(${name} ${name}.cc ${sources} ${headers})  
 target_compile_definitions( ${name} PRIVATE  WITH_ROOT)
 target_link_libraries(${name}  CaTSClassesDict ${Geant4_LIBRARIES} ${ROOT_LIBRARIES} )
+
+#set_property(TARGET ${name}  PROPERTY CXX_INCLUDE_WHAT_YOU_USE ${iwyu_path} )
 endif()
 if(WITH_ROOT)
 add_executable(readPhotonHits readPhotonHits.cc  ${sources} ${headers})

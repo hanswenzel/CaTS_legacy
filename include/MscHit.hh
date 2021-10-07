@@ -70,18 +70,18 @@ class MscHit : public G4VHit
   //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
   inline virtual void Print()
   {
-    G4cout << "MscHit KinE: " << kinE << " Px: " << momentum.getX() << " Py: " << momentum.getY()
-           << " Pz: " << momentum.getZ() << G4endl;
+    G4cout << "MscHit KinE: " << fkinE << " Px: " << fmomentum.getX() << " Py: " << fmomentum.getY()
+           << " Pz: " << fmomentum.getZ() << G4endl;
   }
   MscHit(double kinE, G4ThreeVector momentum);
-  void SetKinE(double kinE);
-  double GetKinE() const;
-  void SetMomentum(G4ThreeVector momentum);
-  G4ThreeVector GetMomentum() const;
+  inline void SetKinE(double kinE) { this->fkinE = kinE; };
+  inline double GetKinE() const  { return fkinE; };
+  inline void SetMomentum(G4ThreeVector momentum) { this->fmomentum = momentum; };
+  inline G4ThreeVector GetMomentum() const  { return fmomentum; };
 
- private:
-  double kinE{ 0 };
-  G4ThreeVector momentum{ 0 };
+private:
+  double fkinE{ 0 };
+  G4ThreeVector fmomentum{ 0 };
 };
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 using MscHitsCollection = G4THitsCollection<MscHit>;

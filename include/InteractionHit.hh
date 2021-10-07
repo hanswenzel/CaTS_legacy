@@ -52,10 +52,10 @@
 class InteractionHit : public G4VHit
 {
  private:
-  G4String pname{ "" };  // name of secondary particle
-  G4double pmom{ 0 };    // momentum of secondary particle
-  G4double Ekin{ 0 };    // kinetic energy of secondary particle
-  G4double theta{ 0 };   // theta of secondary particle
+  G4String fpname{ "" };  // name of secondary particle
+  G4double fpmom{ 0 };    // momentum of secondary particle
+  G4double fEkin{ 0 };    // kinetic energy of secondary particle
+  G4double ftheta{ 0 };   // theta of secondary particle
  public:
   InteractionHit();
   InteractionHit(G4String n, G4double m, G4double e, G4double t);
@@ -68,18 +68,18 @@ class InteractionHit : public G4VHit
   //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
   inline void Print()
   {
-    G4cout << "InteractionHit pname : " << pname << "  momentum [GeV]: " << pmom
-           << "  kinetic Energy [GeV]" << Ekin << "  theta: " << theta << G4endl;
+    G4cout << "InteractionHit pname : " << fpname << "  momentum [GeV]: " << fpmom
+           << "  kinetic Energy [GeV]" << fEkin << "  theta: " << ftheta << G4endl;
   }
   //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-  void SetPname(G4String de) { pname = de; };
-  void SetPmom(G4double de) { pmom = de; };
-  void SetEkin(G4double de) { Ekin = de; };
-  void SetTheta(G4double de) { theta = de; };
-  G4String GetPname() { return pname; };
-  G4double GetPmom() { return pmom; };
-  G4double GetEkin() { return Ekin; };
-  G4double GetTheta() { return theta; };
+  inline void SetPname(G4String de) { fpname = de; };
+  inline void SetPmom(G4double de) { fpmom = de; };
+  inline void SetEkin(G4double de) { fEkin = de; };
+  inline void SetTheta(G4double de) { ftheta = de; };
+  inline G4String GetPname() { return fpname; };
+  inline G4double GetPmom() { return fpmom; };
+  inline G4double GetEkin() { return fEkin; };
+  inline G4double GetTheta() { return ftheta; };
 };
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 using InteractionHitsCollection = G4THitsCollection<InteractionHit>;

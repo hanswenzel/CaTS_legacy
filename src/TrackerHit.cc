@@ -57,9 +57,9 @@ TrackerHit::TrackerHit()
 TrackerHit::TrackerHit(G4double iedep, G4ThreeVector iposition, G4double itime)
   : G4VHit()
 {
-  Edep     = iedep;
-  position = iposition;
-  time     = itime;
+  fEdep     = iedep;
+  fposition = iposition;
+  ftime     = itime;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TrackerHit::~TrackerHit() {}
@@ -67,16 +67,16 @@ TrackerHit::~TrackerHit() {}
 TrackerHit::TrackerHit(const TrackerHit& right)
   : G4VHit()
 {
-  Edep     = right.Edep;
-  position = right.position;
-  time     = right.time;
+  fEdep     = right.fEdep;
+  fposition = right.fposition;
+  ftime     = right.ftime;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 const TrackerHit& TrackerHit::operator=(const TrackerHit& right)
 {
-  Edep     = right.Edep;
-  position = right.position;
-  time     = right.time;
+  fEdep     = right.fEdep;
+  fposition = right.fposition;
+  ftime     = right.ftime;
   return *this;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -90,7 +90,7 @@ void TrackerHit::Draw()
   G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();
   if(pVVisManager)
   {
-    G4Circle circle(position);
+    G4Circle circle(fposition);
     circle.SetScreenSize(2.);
     circle.SetFillStyle(G4Circle::filled);
     G4Colour colour(1., 0., 0.);

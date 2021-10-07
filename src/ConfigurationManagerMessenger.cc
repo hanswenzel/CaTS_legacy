@@ -49,9 +49,9 @@
 #include "G4UIdirectory.hh"
 #include "G4UIcmdWithABool.hh"
 #include "G4UIcmdWithAString.hh"
-#ifdef WITH_G4OPTICKS
+//#ifdef WITH_G4OPTICKS
 #  include "G4UIcmdWithAnInteger.hh"
-#endif
+//#endif
 #include "G4UIcmdWithoutParameter.hh"
 // project headers
 #include "ConfigurationManagerMessenger.hh"
@@ -91,7 +91,7 @@ ConfigurationManagerMessenger::ConfigurationManagerMessenger(ConfigurationManage
   doAnalysisCmd->SetDefaultValue(false);
   doAnalysisCmd->AvailableForStates(G4State_PreInit, G4State_Init, G4State_Idle);
 #endif
-#ifdef WITH_G4OPTICKS
+  //#ifdef WITH_G4OPTICKS
   //
   enable_opticksCmd = new G4UIcmdWithABool("/CaTS/enable_opticks", this);
   enable_opticksCmd->SetGuidance("Set flag for enabling opticks");
@@ -104,7 +104,7 @@ ConfigurationManagerMessenger::ConfigurationManagerMessenger(ConfigurationManage
   MaxPhotonsCmd->SetParameterName("MaxPhotons", 1000000);
   MaxPhotonsCmd->SetDefaultValue(1000000);
   MaxPhotonsCmd->AvailableForStates(G4State_PreInit);
-#endif
+  //#endif
   //
   listCmd = new G4UIcmdWithoutParameter("/CaTS/list", this);
   listCmd->SetGuidance("List all configuration parameters");

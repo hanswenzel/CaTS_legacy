@@ -65,39 +65,39 @@ class PhotonHit : public G4VHit
   //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
   inline virtual void Print()
   {
-    G4cout << "PhotonHit id: " << id << " pid: " << pid << " wavelength: " << wavelength
-           << " time: " << time << " position X: " << position.getX() << " Y: " << position.getY()
-           << " Z: " << position.getZ() << " direction X: " << direction.getX()
-           << " Y: " << direction.getY() << " Z: " << direction.getZ()
-           << " polarization: X:" << polarization.getX() << " Y: " << polarization.getY()
-           << " Z: " << polarization.getZ() << G4endl;
+    G4cout << "PhotonHit id: " << fid << " pid: " << fpid << " wavelength: " << fwavelength
+           << " time: " << ftime << " position X: " << fposition.getX() << " Y: " << fposition.getY()
+           << " Z: " << fposition.getZ() << " direction X: " << fdirection.getX()
+           << " Y: " << fdirection.getY() << " Z: " << fdirection.getZ()
+           << " polarization: X:" << fpolarization.getX() << " Y: " << fpolarization.getY()
+           << " Z: " << fpolarization.getZ() << G4endl;
   }
   //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
   PhotonHit(unsigned id, unsigned pid, G4double wavelength, G4double time, G4ThreeVector position,
             G4ThreeVector direction, G4ThreeVector polarization);
-  inline void SetWavelength(G4double wavelength) { this->wavelength = wavelength; }
-  inline G4double GetWavelength() { return wavelength; }
-  inline void SetPolarization(G4ThreeVector polarization) { this->polarization = polarization; }
-  inline G4ThreeVector GetPolarization() const { return polarization; }
-  inline void SetDirection(G4ThreeVector direction) { this->direction = direction; }
-  inline G4ThreeVector GetDirection() const { return direction; }
-  inline void SetPosition(G4ThreeVector position) { this->position = position; }
-  inline G4ThreeVector GetPosition() const { return position; }
-  inline void SetTime(G4double time) { this->time = time; }
-  inline G4double GetTime() const { return time; }
-  inline void SetPid(unsigned pid) { this->pid = pid; }
-  inline unsigned GetPid() const { return pid; }
-  inline void SetId(unsigned id) { this->id = id; }
-  inline unsigned GetId() const { return id; }
+  inline void SetWavelength(G4double wavelength) { this->fwavelength = wavelength; }
+  inline G4double GetWavelength() { return fwavelength; }
+  inline void SetPolarization(G4ThreeVector polarization) { this->fpolarization = polarization; }
+  inline G4ThreeVector GetPolarization() const { return fpolarization; }
+  inline void SetDirection(G4ThreeVector direction) { this->fdirection = direction; }
+  inline G4ThreeVector GetDirection() const { return fdirection; }
+  inline void SetPosition(G4ThreeVector position) { this->fposition = position; }
+  inline G4ThreeVector GetPosition() const { return fposition; }
+  inline void SetTime(G4double time) { this->ftime = time; }
+  inline G4double GetTime() const { return ftime; }
+  inline void SetPid(unsigned pid) { this->fpid = pid; }
+  inline unsigned GetPid() const { return fpid; }
+  inline void SetId(unsigned id) { this->fid = id; }
+  inline unsigned GetId() const { return fid; }
 
  private:
-  unsigned id{ 0 };
-  unsigned pid{ 0 };
-  G4double wavelength{ 0 };
-  G4double time{ 0 };
-  G4ThreeVector position{ 0 };
-  G4ThreeVector direction{ 0 };
-  G4ThreeVector polarization{ 0 };
+  unsigned fid{ 0 };
+  unsigned fpid{ 0 };
+  G4double fwavelength{ 0 };
+  G4double ftime{ 0 };
+  G4ThreeVector fposition{ 0 };
+  G4ThreeVector fdirection{ 0 };
+  G4ThreeVector fpolarization{ 0 };
 };
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 using PhotonHitsCollection = G4THitsCollection<PhotonHit>;

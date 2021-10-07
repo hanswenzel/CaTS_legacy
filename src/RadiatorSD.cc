@@ -202,65 +202,17 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
     }
     tSphotons += Sphotons;
     tCphotons += Cphotons;
-    // G4cout << "tSphotons:  " << tSphotons <<
-    //        "   tCphotons:  " << tCphotons << G4endl;
-    //   unsigned opticks_photon_offset = 0;
-    //        const G4DynamicParticle* aParticle = aTrack->GetDynamicParticle();
-    //        const G4ParticleDefinition* definition =
-    //        aParticle->GetDefinition();
     G4ThreeVector deltaPosition = aStep->GetDeltaPosition();
     G4double ScintillationTime  = 0. * ns;
-    //    G4double ScintillationRiseTime = 0. * ns;
     G4int scntId = 1;
-    // total number of photons for all gensteps collected before this one
-    // within this OpticksEvent (potentially crossing multiple G4Event)
     G4StepPoint* pPreStepPoint = aStep->GetPreStepPoint();
-    //   G4StepPoint* pPostStepPoint = aStep->GetPostStepPoint();
     G4ThreeVector x0 = pPreStepPoint->GetPosition();
     G4ThreeVector p0 = aStep->GetDeltaPosition().unit();
-    //        G4double t0 = pPreStepPoint->GetGlobalTime();
     //
     // harvest the Scintillation photon gensteps:
     //
     if(Sphotons > 0)
     {
-      // total number of photons for all gensteps collected before this one
-      // within this OpticksEvent (potentially crossing multiple G4Event)
-      //           int opticks_photon_offset =
-      //           G4Opticks::Get()->getNumPhotons();
-      //            G4cout << "RadiatorSD::ProcessHits: offset " <<
-      //            opticks_photon_offset << G4endl; G4cout <<
-      //            "RadiatorSD::ProcessHits:  Scint. photons " << Sphotons <<
-      //            G4endl;
-      /*
-              G4Opticks::Get()->collectScintillationStep(
-                      //1, // 0    id:zero means use scintillation step count
-                      OpticksGenstep_G4Scintillation_1042,
-                      aTrack->GetTrackID(),
-                      materialIndex,
-                      Sphotons,
-                      x0.x(), // 1
-                      x0.y(),
-                      x0.z(),
-                      t0,
-                      deltaPosition.x(), // 2
-                      deltaPosition.y(),
-                      deltaPosition.z(),
-                      aStep->GetStepLength(),
-                      definition->GetPDGEncoding(), // 3
-                      definition->GetPDGCharge(),
-                      aTrack->GetWeight(),
-                      pPreStepPoint->GetVelocity(),
-                      scntId,
-                      YieldRatio, // slowerRatio,
-                      FastTimeConstant, // TimeConstant,
-                      SlowTimeConstant, //slowerTimeConstant,
-                      ScintillationTime, //scintillationTime,
-                      0.0, //not used scintillationIntegrationMax,
-                      0, //spare1
-                      0 // spare2
-                      );
-        */
       G4double ScintillationRiseTime = 0.0;
       G4Opticks::Get()->collectGenstep_G4Scintillation_1042(
         aTrack, aStep, Sphotons, scntId, ScintillationTime, ScintillationRiseTime);
@@ -270,13 +222,6 @@ G4bool RadiatorSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
     //
     if(Cphotons > 0)
     {
-      // total number of photons for all gensteps collected before this one
-      // within this OpticksEvent (potentially crossing multiple G4Event)
-      //        opticks_photon_offset = G4Opticks::Get()->getNumPhotons();
-      //        G4cout << "RadiatorSD::ProcessHits: offset " <<
-      //        opticks_photon_offset << G4endl; G4cout <<
-      //        "RadiatorSD::ProcessHits:  Cerenkov photons " << Cphotons <<
-      //        G4endl;
       G4Opticks::Get()->collectGenstep_G4Cerenkov_1042(aTrack, aStep, Cphotons, BetaInverse, Pmin,
                                                        Pmax, maxCos, maxSin2, MeanNumberOfPhotons1,
                                                        MeanNumberOfPhotons2);

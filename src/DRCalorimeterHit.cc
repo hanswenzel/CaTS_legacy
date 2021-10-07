@@ -55,24 +55,16 @@ DRCalorimeterHit::DRCalorimeterHit()
   : G4VHit()
 {}
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void DRCalorimeterHit::SetNceren(unsigned int Nceren) { this->Nceren = Nceren; }
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-unsigned int DRCalorimeterHit::GetNceren() const { return Nceren; }
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void DRCalorimeterHit::SetEm_Edep(double em_Edep) { this->em_Edep = em_Edep; }
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-double DRCalorimeterHit::GetEm_Edep() const { return em_Edep; }
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 DRCalorimeterHit::DRCalorimeterHit(unsigned int i, G4double e, G4double em, unsigned int nc,
                                    G4double t, G4ThreeVector p)
   : G4VHit()
 {
-  id       = i;
-  Edep     = e;
-  em_Edep  = em;
-  Nceren   = nc;
-  time     = t;
-  position = p;
+  fid       = i;
+  fEdep     = e;
+  fem_Edep  = em;
+  fNceren   = nc;
+  ftime     = t;
+  fposition = p;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 DRCalorimeterHit::~DRCalorimeterHit() = default;
@@ -80,22 +72,22 @@ DRCalorimeterHit::~DRCalorimeterHit() = default;
 DRCalorimeterHit::DRCalorimeterHit(const DRCalorimeterHit& right)
   : G4VHit()
 {
-  this->id       = right.id;
-  this->Edep     = right.Edep;
-  this->em_Edep  = right.em_Edep;
-  this->Nceren   = right.Nceren;
-  this->time     = right.time;
-  this->position = right.position;
+  this->fid       = right.fid;
+  this->fEdep     = right.fEdep;
+  this->fem_Edep  = right.fem_Edep;
+  this->fNceren   = right.fNceren;
+  this->ftime     = right.ftime;
+  this->fposition = right.fposition;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 const DRCalorimeterHit& DRCalorimeterHit::operator=(const DRCalorimeterHit& right)
 {
-  this->id       = right.id;
-  this->Edep     = right.Edep;
-  this->em_Edep  = right.em_Edep;
-  this->Nceren   = right.Nceren;
-  this->time     = right.time;
-  this->position = right.position;
+  this->fid       = right.fid;
+  this->fEdep     = right.fEdep;
+  this->fem_Edep  = right.fem_Edep;
+  this->fNceren   = right.fNceren;
+  this->ftime     = right.ftime;
+  this->fposition = right.fposition;
   return *this;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -109,7 +101,7 @@ void DRCalorimeterHit::Draw()
   G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();
   if(pVVisManager)
   {
-    G4Circle circle(position);
+    G4Circle circle(fposition);
     circle.SetScreenSize(2.);
     circle.SetFillStyle(G4Circle::filled);
     G4Colour colour(1., 0., 0.);

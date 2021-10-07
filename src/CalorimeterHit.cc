@@ -58,11 +58,11 @@ CalorimeterHit::CalorimeterHit()
 CalorimeterHit::CalorimeterHit(unsigned i, G4double e, G4double em, G4double t, G4ThreeVector p)
   : G4VHit()
 {
-  id       = i;
-  Edep     = e;
-  em_Edep  = em;
-  time     = t;
-  position = p;
+  fid       = i;
+  fEdep     = e;
+  fem_Edep  = em;
+  ftime     = t;
+  fposition = p;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 CalorimeterHit::~CalorimeterHit() = default;
@@ -71,21 +71,21 @@ CalorimeterHit::CalorimeterHit(const CalorimeterHit& right)
   : G4VHit()
 {
   // No need to call class member functions via this->
-  id       = right.id;
-  Edep     = right.Edep;
-  em_Edep  = right.em_Edep;
-  time     = right.time;
-  position = right.position;
+  fid       = right.fid;
+  fEdep     = right.fEdep;
+  fem_Edep  = right.fem_Edep;
+  ftime     = right.ftime;
+  fposition = right.fposition;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 const CalorimeterHit& CalorimeterHit::operator=(const CalorimeterHit& right)
 {
   // No need to call class member functions via this->
-  id       = right.id;
-  Edep     = right.Edep;
-  em_Edep  = right.em_Edep;
-  time     = right.time;
-  position = right.position;
+  fid       = right.fid;
+  fEdep     = right.fEdep;
+  fem_Edep  = right.fem_Edep;
+  ftime     = right.ftime;
+  fposition = right.fposition;
   return *this;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -99,7 +99,7 @@ void CalorimeterHit::Draw()
   G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();
   if(pVVisManager)
   {
-    G4Circle circle(position);
+    G4Circle circle(fposition);
     circle.SetScreenSize(2.);
     circle.SetFillStyle(G4Circle::filled);
     G4Colour colour(1., 0., 0.);

@@ -52,9 +52,9 @@ class ConfigurationManager;
 class G4UIdirectory;
 class G4UIcmdWithABool;
 class G4UIcmdWithAString;
-#ifdef WITH_G4OPTICKS
+//#ifdef WITH_G4OPTICKS
 class G4UIcmdWithAnInteger;
-#endif
+//#endif
 class G4UIcmdWithoutParameter;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 class ConfigurationManagerMessenger : public G4UImessenger
@@ -73,10 +73,10 @@ class ConfigurationManagerMessenger : public G4UImessenger
   G4UIcmdWithAString* FileNameCmd;
   G4UIcmdWithAString* HistoFileNameCmd;
 #endif
-#ifdef WITH_G4OPTICKS
+  //#ifdef WITH_G4OPTICKS
   G4UIcmdWithABool* enable_opticksCmd;
   G4UIcmdWithAnInteger* MaxPhotonsCmd;
-#endif
+  //#endif
   G4UIcmdWithABool* enable_verboseCmd;
   G4UIcmdWithABool* dumpgdmlCmd;
   G4UIcmdWithAString* GDMLFileNameCmd;

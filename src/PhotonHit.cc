@@ -63,13 +63,13 @@ PhotonHit::PhotonHit(unsigned iid, unsigned ipid, G4double iwavelength, G4double
                      G4ThreeVector iposition, G4ThreeVector idirection, G4ThreeVector ipolarization)
   : G4VHit()
 {
-  id           = iid;
-  pid          = ipid;
-  wavelength   = iwavelength;
-  time         = itime;
-  position     = iposition;
-  direction    = idirection;
-  polarization = ipolarization;
+  fid           = iid;
+  fpid          = ipid;
+  fwavelength   = iwavelength;
+  ftime         = itime;
+  fposition     = iposition;
+  fdirection    = idirection;
+  fpolarization = ipolarization;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 PhotonHit::~PhotonHit() = default;
@@ -77,24 +77,24 @@ PhotonHit::~PhotonHit() = default;
 PhotonHit::PhotonHit(const PhotonHit& right)
   : G4VHit()
 {
-  id           = right.id;
-  pid          = right.pid;
-  wavelength   = right.wavelength;
-  time         = right.time;
-  position     = right.position;
-  direction    = right.direction;
-  polarization = right.polarization;
+  fid           = right.fid;
+  fpid          = right.fpid;
+  fwavelength   = right.fwavelength;
+  ftime         = right.ftime;
+  fposition     = right.fposition;
+  fdirection    = right.fdirection;
+  fpolarization = right.fpolarization;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 const PhotonHit& PhotonHit::operator=(const PhotonHit& right)
 {
-  id           = right.id;
-  pid          = right.pid;
-  wavelength   = right.wavelength;
-  time         = right.time;
-  position     = right.position;
-  direction    = right.direction;
-  polarization = right.polarization;
+  fid           = right.fid;
+  fpid          = right.fpid;
+  fwavelength   = right.fwavelength;
+  ftime         = right.ftime;
+  fposition     = right.fposition;
+  fdirection    = right.fdirection;
+  fpolarization = right.fpolarization;
   return *this;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -108,7 +108,7 @@ void PhotonHit::Draw()
   G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();
   if(pVVisManager)
   {
-    G4Circle circle(position);
+    G4Circle circle(fposition);
     circle.SetScreenSize(2.);
     circle.SetFillStyle(G4Circle::filled);
     G4Colour colour(1., 0., 0.);

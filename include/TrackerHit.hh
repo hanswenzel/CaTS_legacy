@@ -65,23 +65,23 @@ class TrackerHit : public G4VHit
   //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
   inline virtual void Print()
   {
-    G4cout << "TrackerHit  id:  " << id << " Edep: " << Edep << " X: " << position.getX()
-           << " Y: " << position.getY() << " Z: " << position.getZ() << " time: " << time << G4endl;
+    G4cout << "TrackerHit  id:  " << fid << " Edep: " << fEdep << " X: " << fposition.getX()
+           << " Y: " << fposition.getY() << " Z: " << fposition.getZ() << " time: " << ftime << G4endl;
   }
   //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
   TrackerHit(G4double edep, G4ThreeVector position, G4double time);
-  inline void SetEdep(G4double Edep) { this->Edep = Edep; }
-  inline G4double GetEdep() { return Edep; }
-  inline void SetTime(G4double time) { this->time = time; }
-  inline G4double GetTime() const { return time; }
-  inline void SetPosition(G4ThreeVector position) { this->position = position; }
-  inline G4ThreeVector GetPosition() const { return position; }
+  inline void SetEdep(G4double Edep) { this->fEdep = Edep; }
+  inline G4double GetEdep() { return fEdep; }
+  inline void SetTime(G4double time) { this->ftime = time; }
+  inline G4double GetTime() const { return ftime; }
+  inline void SetPosition(G4ThreeVector position) { this->fposition = position; }
+  inline G4ThreeVector GetPosition() const { return fposition; }
 
  private:
-  G4int id{ 0 };
-  G4double Edep{ 0 };
-  G4ThreeVector position{ 0 };
-  G4double time{ 0 };
+  G4int fid{ 0 };
+  G4double fEdep{ 0 };
+  G4ThreeVector fposition{ 0 };
+  G4double ftime{ 0 };
 };
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 using TrackerHitsCollection = G4THitsCollection<TrackerHit>;
