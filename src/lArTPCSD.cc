@@ -51,24 +51,25 @@
 #include "G4ios.hh"
 #include "G4Track.hh"
 #ifdef WITH_G4OPTICKS
-#  include "G4Opticks.hh"
-#  include "TrackInfo.hh"
-#  include "OpticksGenstep.h"
-#  include "OpticksFlags.hh"
-#  include "G4OpticksHit.hh"
-#  include "G4Cerenkov.hh"
-#  include "G4Event.hh"
-#  include "G4MaterialPropertiesTable.hh"
-#  include "G4PhysicalConstants.hh"
-#  include "G4RunManager.hh"
-#  include "G4SteppingManager.hh"
-#  include "G4SystemOfUnits.hh"
-#  include "G4UnitsTable.hh"
-#  include "G4VProcess.hh"
-#  include "G4VRestDiscreteProcess.hh"
-#  include "PhotonSD.hh"
-#  include "G4Cerenkov.hh"
-#  include "G4Scintillation.hh"
+#include "G4Opticks.hh"
+#include "TrackInfo.hh"
+#include "OpticksGenstep.h"
+#include "OpticksFlags.hh"
+#include "G4OpticksHit.hh"
+#include "G4Cerenkov.hh"
+#include "G4Event.hh"
+#include "G4MaterialPropertiesTable.hh"
+#include "G4PhysicalConstants.hh"
+#include "G4RunManager.hh"
+#include "G4SteppingManager.hh"
+#include "G4SystemOfUnits.hh"
+#include "G4UnitsTable.hh"
+#include "G4VProcess.hh"
+#include "G4VRestDiscreteProcess.hh"
+#include "PhotonSD.hh"
+#include "G4Cerenkov.hh"
+#include "G4Scintillation.hh"
+#include "G4Version.hh"
 #endif
 // project headers
 #include "lArTPCSD.hh"
@@ -146,7 +147,7 @@ G4bool lArTPCSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
       //
       // properties related to Scintillation
       //
-#  if(G4VERSION_NUMBER >= 1072)
+#if(G4VERSION_NUMBER>1072)
       YieldRatio =
         aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD1) /
         aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONYIELD2);  // slowerRatio,
@@ -154,18 +155,23 @@ G4bool lArTPCSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
         aMaterialPropertiesTable->GetConstProperty(kSCINTILLATIONTIMECONSTANT1);  // TimeConstant,
       SlowTimeConstant = aMaterialPropertiesTable->GetConstProperty(
         kSCINTILLATIONTIMECONSTANT2);  // slowerTimeConstant,
-#  else
+#else
       Fast_Intensity = aMaterialPropertiesTable->GetProperty(kFASTCOMPONENT);
       Slow_Intensity = aMaterialPropertiesTable->GetProperty(kSLOWCOMPONENT);
       YieldRatio     = aMaterialPropertiesTable->GetConstProperty(kYIELDRATIO);
-#  endif
+#endif
       ScintillationType = Slow;
       //
       // properties related to Cerenkov
       //
       Rindex = aMaterialPropertiesTable->GetProperty("RINDEX");
+#if(G4VERSION_NUMBER>1072)
       Pmin   = Rindex->GetMinEnergy();
       Pmax   = Rindex->GetMaxEnergy();
+#else
+      Pmin   = Rindex->GetMinLowEdgeEnergy();                                                
+      Pmax   = Rindex->GetMaxLowEdgeEnergy();    
+#endif
       dp     = Pmax - Pmin;
       if(verbose)
       {
